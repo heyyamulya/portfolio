@@ -1,752 +1,1061 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amulya Chidurala — CS @ GSU</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amulya Chidurala · CS @ Georgia State</title>
+<meta name="description" content="Amulya Chidurala: CS student at Georgia State building AI, web and hardware projects. HackHERS 2026 winner.">
+<meta property="og:title" content="amulya.os">
+<meta property="og:description" content="CS @ Georgia State · AI/ML, data analytics & web · HackHERS '26 winner">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.8 6.2 20.3l1.6-6.6L2.6 9.3l6.8-.5z' fill='%23D5D9E2' stroke='%231F1A26' stroke-width='1.3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface&amp;family=Bodoni+Moda:ital,wght@1,600&amp;family=Bungee&amp;family=Cedarville+Cursive&amp;family=Familjen+Grotesk:wght@400;600;700&amp;family=Gloock&amp;family=Homemade+Apple&amp;family=Kalam:wght@400&amp;family=Metamorphous&amp;family=Syne:wght@400;600;700&amp;family=Ramaraja&amp;family=Reenie+Beanie&amp;family=Rubik+Mono+One&amp;family=Shrikhand&amp;family=Space+Mono:wght@400;700&amp;family=Special+Elite&amp;family=Uncial+Antiqua&amp;family=Zen+Dots&amp;display=swap">
 <style>
 
-/* ============================================================
-   EDIT ME: search for "EDIT:" comments to find every place
-   you should personalize this file. Everything else is
-   scaffolding you probably don't need to touch.
-   ============================================================ */
+body{margin:0}
+a{color:inherit}a:hover{opacity:.8}
+h1,h2,h3,p,pre{margin:0}
+button,input{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid #FFB24B;outline-offset:3px}
+.bg-morning,.bg-afternoon,.bg-evening,.bg-night{background-size:cover;background-repeat:no-repeat}
+.bg-afternoon{background-image:url(assets/meadow.jpg);background-position:center 30%}
+.bg-night{background-image:url(assets/gotham.jpg);background-position:center 45%}
+.bg-night .nb{outline:1.5px solid rgba(255,196,107,0.7);box-shadow:0 0 0 4px rgba(255,179,71,0.08),0 0 22px rgba(255,160,70,0.3),0 12px 28px rgba(0,0,0,0.65) !important}
+.bg-night .nb input{border-color:rgba(255,196,107,0.65) !important}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes eq{0%,100%{height:5px}50%{height:18px}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes lidopen{from{transform:perspective(900px) rotateX(-75deg);opacity:.2}to{transform:perspective(900px) rotateX(0);opacity:1}}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes swing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes fly{from{transform:translateX(-520px)}to{transform:translateX(calc(100vw + 40px))}}
+@keyframes flap{0%,100%{transform:skewY(0)}50%{transform:skewY(-2deg)}}
 
-:root{
-  --bg: #0F1419;
-  --surface: #151C24;
-  --surface-2: #1B2430;
-  --border: #263140;
-  --text: #E8EAED;
-  --text-muted: #8B96A5;
-  --text-dim: #56616F;
-  --amber: #E8A33D;
-  --amber-dim: #7A5A25;
-  --mint: #4FD1AE;
-  --mint-dim: #285E4E;
-  --red: #E2685A;
-
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-body: 'IBM Plex Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  --max: 980px;
-}
-
-*{ box-sizing:border-box; margin:0; padding:0; }
-
-html{ scroll-behavior:smooth; }
-
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior:auto; }
-  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--font-body);
-  line-height:1.6;
-  background-image:
-    radial-gradient(circle at 15% 8%, rgba(232,163,61,0.07), transparent 45%),
-    radial-gradient(circle at 85% 0%, rgba(79,209,174,0.06), transparent 40%);
-}
-
-a{ color:inherit; text-decoration:none; }
-ul{ list-style:none; }
-
-.wrap{ max-width:var(--max); margin:0 auto; padding:0 24px; }
-
-::selection{ background:var(--amber); color:#0F1419; }
-
-/* focus states */
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-  outline:2px solid var(--mint);
-  outline-offset:3px;
-  border-radius:2px;
-}
-
-/* ---------- nav ---------- */
-
-header.site-nav{
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  background:rgba(15,20,25,0.82);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
-}
-.nav-inner{
-  max-width:var(--max); margin:0 auto; padding:16px 24px;
-  display:flex; align-items:center; justify-content:space-between;
-}
-.nav-logo{
-  font-family:var(--font-mono); font-weight:700; font-size:15px;
-  color:var(--text);
-}
-.nav-logo .dot{ color:var(--amber); }
-.nav-links{ display:flex; gap:28px; }
-.nav-links a{
-  font-family:var(--font-mono); font-size:13px; color:var(--text-muted);
-  transition:color .15s ease;
-  position:relative;
-}
-.nav-links a:hover{ color:var(--mint); }
-.nav-links a::before{ content:'./'; color:var(--text-dim); }
-
-.nav-toggle{
-  display:none; flex-direction:column; gap:4px; background:none; border:none; cursor:pointer; padding:6px;
-}
-.nav-toggle span{ width:20px; height:2px; background:var(--text); display:block; }
-
-@media (max-width:720px){
-  .nav-links{
-    position:absolute; top:100%; left:0; right:0;
-    background:var(--surface); border-bottom:1px solid var(--border);
-    flex-direction:column; gap:0; padding:8px 0;
-    display:none;
-  }
-  .nav-links.open{ display:flex; }
-  .nav-links a{ padding:12px 24px; }
-  .nav-toggle{ display:flex; }
-}
-
-/* ---------- hero ---------- */
-
-.hero{
-  min-height:100svh;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:120px 24px 60px;
-  text-align:center;
-}
-
-.hero-eyebrow{
-  font-family:var(--font-mono); font-size:13px; color:var(--mint);
-  letter-spacing:0.08em; margin-bottom:18px;
-}
-.hero-eyebrow::before{ content:'// '; color:var(--text-dim); }
-
-.terminal{
-  width:100%; max-width:640px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:10px;
-  box-shadow:0 30px 80px -20px rgba(0,0,0,0.6);
-  overflow:hidden;
-  text-align:left;
-  margin-bottom:34px;
-}
-.terminal-bar{
-  display:flex; align-items:center; gap:8px;
-  padding:11px 14px;
-  background:var(--surface-2);
-  border-bottom:1px solid var(--border);
-}
-.terminal-bar span{ width:11px; height:11px; border-radius:50%; display:block; }
-.terminal-bar span:nth-child(1){ background:#E2685A; }
-.terminal-bar span:nth-child(2){ background:#E8A33D; }
-.terminal-bar span:nth-child(3){ background:#4FD1AE; }
-.terminal-title{
-  margin-left:8px; font-family:var(--font-mono); font-size:12px; color:var(--text-dim);
-}
-.terminal-body{
-  padding:22px 22px 26px;
-  font-family:var(--font-mono);
-  font-size:14.5px;
-  min-height:190px;
-}
-.terminal-body .line{ margin-bottom:8px; white-space:pre-wrap; }
-.terminal-body .prompt{ color:var(--mint); }
-.terminal-body .out{ color:var(--text-muted); padding-left:0; }
-.terminal-body .highlight{ color:var(--amber); }
-.cursor{
-  display:inline-block; width:8px; height:16px; background:var(--amber);
-  vertical-align:middle; animation:blink 1s step-end infinite;
-}
-@keyframes blink{ 50%{ opacity:0; } }
-
-.hero-links{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
-.btn{
-  font-family:var(--font-mono); font-size:13.5px;
-  padding:11px 20px; border-radius:6px;
-  border:1px solid var(--border);
-  transition:all .15s ease;
-  display:inline-flex; align-items:center; gap:8px;
-}
-.btn-primary{ background:var(--amber); color:#181206; border-color:var(--amber); font-weight:600; }
-.btn-primary:hover{ background:#f3b658; }
-.btn-ghost{ color:var(--text); }
-.btn-ghost:hover{ border-color:var(--mint); color:var(--mint); }
-
-/* ---------- section scaffolding ---------- */
-
-section{ padding:90px 0; }
-.section-head{ margin-bottom:44px; }
-.section-tag{
-  font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
-  margin-bottom:10px; display:block;
-}
-.section-title{
-  font-family:var(--font-display); font-size:32px; font-weight:600;
-  letter-spacing:-0.01em;
-}
-.section-title .accent{ color:var(--amber); }
-
-/* ---------- about ---------- */
-
-.about-grid{
-  display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px;
-}
-@media (max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
-
-.about-text p{ color:var(--text-muted); margin-bottom:16px; font-size:15.5px; }
-.about-text strong{ color:var(--text); font-weight:600; }
-
-.photo-placeholder{
-  border:1px dashed var(--border);
-  border-radius:8px;
-  background:var(--surface);
-  color:var(--text-dim);
-  font-family:var(--font-mono);
-  font-size:12px;
-  display:flex; align-items:center; justify-content:center;
-  text-align:center; gap:6px;
-}
-.photo-placeholder.profile{ width:96px; height:96px; border-radius:50%; margin-bottom:18px; }
-.photo-placeholder.project{ width:100%; height:140px; margin-bottom:2px; }
-
-.edu-card{
-  background:var(--surface); border:1px solid var(--border); border-radius:10px;
-  padding:26px;
-}
-.edu-card .school{ font-family:var(--font-display); font-size:19px; font-weight:600; margin-bottom:4px; }
-.edu-card .degree{ color:var(--text-muted); font-size:14px; margin-bottom:18px; }
-.edu-stats{ display:flex; gap:24px; margin-bottom:20px; }
-.edu-stat .num{ font-family:var(--font-mono); font-size:22px; color:var(--mint); font-weight:700; }
-.edu-stat .label{ font-size:12px; color:var(--text-dim); font-family:var(--font-mono); }
-.edu-card .coursework-label{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); margin-bottom:8px; }
-.course-tags{ display:flex; flex-wrap:wrap; gap:8px; }
-.course-tags span{
-  font-family:var(--font-mono); font-size:12px; color:var(--text-muted);
-  border:1px solid var(--border); padding:5px 10px; border-radius:5px;
-}
-
-/* ---------- skills ---------- */
-
-.skills-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-@media (max-width:760px){ .skills-grid{ grid-template-columns:1fr; } }
-
-.skill-col h3{
-  font-family:var(--font-mono); font-size:13px; color:var(--text-dim);
-  margin-bottom:16px; text-transform:uppercase; letter-spacing:.05em;
-}
-.skill-col.learning h3{ color:var(--amber); }
-.skill-list{ display:flex; flex-direction:column; gap:10px; }
-.skill-pill{
-  background:var(--surface); border:1px solid var(--border); border-radius:7px;
-  padding:12px 14px; font-family:var(--font-mono); font-size:13.5px;
-  display:flex; align-items:center; justify-content:space-between;
-  transition:border-color .15s ease;
-}
-.skill-pill:hover{ border-color:var(--mint-dim); }
-.skill-col.learning .skill-pill{ border-left:2px solid var(--amber); }
-.skill-status{ font-size:11px; color:var(--text-dim); }
-
-/* ---------- projects ---------- */
-
-.projects-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-@media (max-width:900px){ .projects-grid{ grid-template-columns:1fr; } }
-
-.project-card{
-  background:var(--surface); border:1px solid var(--border); border-radius:10px;
-  padding:24px; display:flex; flex-direction:column; gap:14px;
-  transition:transform .18s ease, border-color .18s ease;
-}
-.project-card:hover{ transform:translateY(-4px); border-color:var(--mint-dim); }
-.project-status{
-  align-self:flex-start;
-  font-family:var(--font-mono); font-size:11px; padding:4px 9px; border-radius:20px;
-  border:1px solid var(--amber-dim); color:var(--amber);
-}
-/* To add a real project photo later, put an <img src="..." alt="..."> at the top of a .project-card, styled full-width with border-radius:7px */
-.project-card h3{ font-family:var(--font-display); font-size:19px; font-weight:600; }
-.project-card p{ color:var(--text-muted); font-size:14px; flex-grow:1; }
-.project-tags{ display:flex; flex-wrap:wrap; gap:6px; }
-.project-tags span{
-  font-family:var(--font-mono); font-size:11px; color:var(--text-dim);
-  border:1px solid var(--border); padding:3px 8px; border-radius:4px;
-}
-.project-links{ display:flex; gap:16px; margin-top:4px; }
-.project-links a{
-  font-family:var(--font-mono); font-size:12.5px; color:var(--text-muted);
-  border-bottom:1px solid var(--border); padding-bottom:2px;
-}
-.project-links a:hover{ color:var(--mint); border-color:var(--mint); }
-
-/* ---------- experience (commit log) ---------- */
-
-.log-category{ margin-bottom:40px; }
-.log-category:last-child{ margin-bottom:0; }
-.log-cat-title{
-  font-family:var(--font-mono); font-size:13px; color:var(--mint);
-  letter-spacing:.04em; margin-bottom:18px;
-  padding-bottom:8px; border-bottom:1px solid var(--border);
-}
-.log{ position:relative; padding-left:28px; }
-.log::before{
-  content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
-  background:linear-gradient(var(--border), var(--border) 90%, transparent);
-}
-.commit{ position:relative; padding-bottom:30px; }
-.commit:last-child{ padding-bottom:0; }
-.commit::before{
-  content:''; position:absolute; left:-28px; top:5px; width:11px; height:11px;
-  border-radius:50%; background:var(--bg); border:2px solid var(--mint);
-}
-.commit-meta{
-  display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;
-  font-family:var(--font-mono); font-size:12px; color:var(--text-dim); margin-bottom:6px;
-}
-.commit-hash{ color:var(--amber); }
-.commit-msg{ font-family:var(--font-display); font-size:17px; font-weight:600; margin-bottom:6px; }
-.commit-desc{ color:var(--text-muted); font-size:14px; }
-.cert-link{
-  display:inline-block; margin-top:8px; font-family:var(--font-mono); font-size:12.5px;
-  color:var(--mint); border-bottom:1px solid var(--mint-dim);
-}
-.cert-link:hover{ border-color:var(--mint); }
-
-/* ---------- contact ---------- */
-
-.contact-card{
-  background:var(--surface); border:1px solid var(--border); border-radius:12px;
-  padding:44px; text-align:center;
-}
-.contact-card p{ color:var(--text-muted); max-width:460px; margin:12px auto 28px; }
-.contact-links{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-
-footer{
-  border-top:1px solid var(--border); padding:28px 0; text-align:center;
-}
-footer p{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); }
-
-.reveal{ opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease; }
-.reveal.in{ opacity:1; transform:none; }
-
-.toast{
-  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
-  background:var(--mint); color:#0b1e18; font-family:var(--font-mono); font-size:13px;
-  padding:10px 18px; border-radius:6px; opacity:0; pointer-events:none;
-  transition:opacity .2s ease, transform .2s ease; z-index:200;
-}
-.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
+html,body{background:#13121c}
+noscript{display:block;padding:24px;font-family:system-ui,sans-serif;color:#fff}
 </style>
 </head>
 <body>
+<div id="app"></div>
+<noscript>This site needs JavaScript. Quick version: Amulya Chidurala, CS @ Georgia State · github.com/heyyamulya · linkedin.com/in/amulya-chidurala-145a233b6</noscript>
+<script type="module">
+import { html, Component, render } from './assets/vendor/htm-preact-3.1.1.js';
 
-<header class="site-nav">
-  <div class="nav-inner">
-    <a href="#top" class="nav-logo">amulya<span class="dot">.</span>dev</a>
-    <nav class="nav-links" id="navLinks">
-      <a href="#about">about</a>
-      <a href="#skills">skills</a>
-      <a href="#projects">projects</a>
-      <a href="#experience">experience</a>
-      <a href="#contact">contact</a>
-    </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+/* ---------- shared guestbook + visit counter (Supabase) ----------
+   Paste your project's URL and anon key below (Supabase → Project Settings → API).
+   Leave them empty and the site falls back to counting in the visitor's own browser. */
+const SUPABASE_URL = '';
+const SUPABASE_ANON_KEY = '';
+const SUPA_ON = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
+async function supa(path, opts = {}) {
+  const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, Object.assign({}, opts, {
+    headers: Object.assign({apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json'}, opts.headers || {})
+  }));
+  if (!res.ok) throw new Error('supabase ' + res.status);
+  return res;
+}
+const fmtWhen = (d) => { try { return new Date(d).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZone:'America/New_York'}).toLowerCase(); } catch(_) { return ''; } };
+const fmtDay = (d) => { try { return new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}).toLowerCase(); } catch(_) { return ''; } };
+
+const PRE_0 = " __\n \\ \\_____\n###[==_____>\n /_/";
+const PRE_1 = "\n                         _\n  __ _  _ __ ___  _   _ | | _   _   __ _\n / _` || '_ ` _ \\| | | || || | | | / _` |\n| (_| || | | | | | |_| || || |_| || (_| |\n \\__,_||_| |_| |_|\\__,_||_| \\__, | \\__,_|\n                            |___/        ";
+const PRE_2 = "\n     ____________             ___\n   .'            '.         _|   |_\n  /    .-''''-.    \\       (       )\n |    (  ~~~~  )    |       '-----'\n  \\    '-....-'    /          | |\n   '.____________.'          _|_|_\n     ((( kick )))           |_____|";
+const PRE_3_FN = (t) => `<span style="color: #AEB9CC">// skills.json</span>
+{
+  <span style="color: ${t.screen}">"languages"</span>:  ["python", "java", "javascript", "typescript", "sql", "c++", "r"],
+  <span style="color: ${t.screen}">"into"</span>:       ["ai/ml", "data analytics", "web dev"],
+  <span style="color: ${t.screen}">"frameworks"</span>: ["react", "flask"],
+  <span style="color: ${t.screen}">"tools"</span>:      ["git", "figma", "pandas", "numpy"],
+  <span style="color: ${t.screen}">"speaks"</span>:     ["english", "telugu", "hindi"]
+}`;
+const PRE_4 = "\n .-----------.__\n | RESUME    |  |\n | ========  '--|\n | ======       |\n | =========    |\n | =====        |\n '--------------'";
+const PRE_5 = "\u2591\u2591\u2592\u2591\u2593\u2592\u2591\u2591\u2592\u2593\u2593\u2591\u2591\u2592\u2591\u2591\u2593\u2591\u2592\u2592\u2591\u2591\u2593\u2593\u2592\u2591\u2591\u2592\u2591\u2593\u2591\u2591\u2592\u2592\u2591\u2591\n\u2592\u2591\u2591\u2593\u2592\u2591\u2591\u2592\u2591\u2591\u2592\u2593\u2591\u2593\u2591\u2591\u2592\u2592\u2591\u2591\u2593\u2591\u2591\u2592\u2593\u2591\u2591\u2592\u2592\u2591\u2591\u2593\u2592\u2591\u2591\u2592\n\u2591\u2593\u2591\u2591\u2592\u2592\u2591\u2593\u2593\u2591\u2591\u2592\u2591\u2591\u2592\u2593\u2591\u2591\u2592\u2591\u2593\u2593\u2591\u2591\u2592\u2591\u2591\u2593\u2592\u2591\u2592\u2591\u2591\u2593\u2591\u2591\n\u2591\u2591\u2592\u2593\u2591\u2591\u2592\u2591\u2591\u2593\u2592\u2591\u2592\u2591\u2591\u2593\u2592\u2591\u2591\u2592\u2591\u2591\u2593\u2593\u2591\u2591\u2592\u2592\u2591\u2591\u2591\u2592\u2593\u2591\u2592\u2591\n\u2593\u2591\u2591\u2592\u2591\u2593\u2591\u2591\u2592\u2592\u2591\u2591\u2593\u2591\u2592\u2591\u2591\u2592\u2593\u2591\u2591\u2592\u2591\u2591\u2592\u2593\u2591\u2591\u2593\u2591\u2592\u2591\u2591\u2592\u2593\u2591";
+const PRE_6 = "\n  .---------------------.\n  | \\                 / |\n  |   \\             /   |\n  |     '-._____.-'     |\n  '---------------------'";
+const PRE_7 = "\n                         _\n  __ _  _ __ ___  _   _ | | _   _   __ _\n / _` || '_ ` _ \\| | | || || | | | / _` |\n| (_| || | | | | | |_| || || |_| || (_| |\n \\__,_||_| |_| |_|\\__,_||_| \\__, | \\__,_|  .os\n                            |___/        ";
+
+
+const THEMES = {
+  morning: {fallback:'#C9774E', veil:'linear-gradient(180deg,rgba(40,20,40,0.15) 0%,rgba(40,20,40,0.05) 50%,rgba(30,20,50,0.35) 100%)',
+    paper:'#FFF8EC', ink:'#2A2233', muted:'#5E5568', rule:'#B9AFC0', tape:'rgba(255,214,190,0.95)', accent:'#D63A8E', accentInk:'#FFFFFF', field:'#FFFFFF',
+    lid:'#F3C8C0', lidInk:'#2A2233', screen:'#FFB59E', boardBg:'#F2DED2', cellEmpty:'rgba(255,255,255,0.65)', asciiGray:'#A7A2AE', asciiDark:'#4F4A58',
+    ghost:'rgba(255,248,236,0.55)', tagInk:'#FFF8EC', tagShadow:'rgba(0,0,0,0.6)', planeInk:'#FFF8EC',
+    tiles:['#FFF4E0','#FFE7A8','#FFD9C2','#FFB59E','#FF7F6B','#F25C78','#D63A8E','#E8B32F','#C3C6EC','#7FA7E8','#2A2233']},
+  afternoon: {fallback:'#8DB8DA', veil:'linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.05) 60%,rgba(40,60,30,0.2) 100%)',
+    paper:'#FFFDF4', ink:'#1E2A3A', muted:'#4F5A66', rule:'#C2C7B8', tape:'rgba(255,224,138,0.95)', accent:'#B35A35', accentInk:'#FFFFFF', field:'#FFFFFF',
+    lid:'#CFE6F5', lidInk:'#1E2A3A', screen:'#FFE08A', boardBg:'#EADBB8', cellEmpty:'rgba(255,255,255,0.65)', asciiGray:'#A9ADB2', asciiDark:'#4E555E',
+    ghost:'rgba(30,42,58,0.4)', tagInk:'#1E2A3A', tagShadow:'rgba(255,255,255,0.8)', planeInk:'#1E2A3A',
+    tiles:['#FFFDF4','#FFF1C9','#FFE08A','#FFC72C','#E9D3A8','#D9A866','#D2754F','#C8862B','#7EC6E8','#2F8FD8','#1E4E8C']},
+  evening: {fallback:'#C25A1E', veil:'linear-gradient(180deg,rgba(60,20,10,0.1) 0%,rgba(60,20,10,0.05) 50%,rgba(40,10,10,0.35) 100%)',
+    paper:'#FFF3E6', ink:'#2B1B1B', muted:'#5E4B4B', rule:'#C7AFA0', tape:'rgba(255,200,140,0.95)', accent:'#E1241B', accentInk:'#FFFFFF', field:'#FFFFFF',
+    lid:'#F8B4B8', lidInk:'#2B1B1B', screen:'#FFB24B', boardBg:'#F3D3C8', cellEmpty:'rgba(255,255,255,0.6)', asciiGray:'#AFA5A0', asciiDark:'#55494A',
+    ghost:'rgba(255,243,230,0.55)', tagInk:'#FFF3E6', tagShadow:'rgba(0,0,0,0.65)', planeInk:'#FFF3E6',
+    tiles:['#FFF1E2','#FFD6C2','#F8B4B8','#E99BB0','#FFB24B','#FF8A4C','#FF6F61','#E1241B','#B15A8E','#6E3C8F','#3E2A6B']},
+  night: {fallback:'#13254A', veil:'linear-gradient(180deg,rgba(5,7,15,0) 0%,rgba(5,7,15,0.05) 50%,rgba(5,7,15,0.3) 100%)',
+    paper:'#22263A', ink:'#F4EFE6', muted:'#CFC8BC', rule:'#6B6A86', tape:'rgba(255,196,107,0.92)', accent:'#FFB347', accentInk:'#1A1218', field:'#181B2B',
+    lid:'#3A4060', lidInk:'#EAF0FA', screen:'#A9D6F5', boardBg:'#2C2A3E', cellEmpty:'rgba(255,255,255,0.12)', asciiGray:'#5D6788', asciiDark:'#C9D1DC',
+    ghost:'rgba(234,240,250,0.45)', tagInk:'#EAF0FA', tagShadow:'rgba(0,0,0,0.8)', planeInk:'#EAF0FA',
+    tiles:['#3A4570','#4E5A85','#6B7AA6','#2A9D8F','#A9D6F5','#C9D1DC','#6B3F69','#8E5FA8','#4B2C7A','#E8EEF6','#FFFFFF']}
+};
+const MODES = [['afternoon','day · meadow','Daytime spring meadow'],['night','night · gotham','Gotham-style city at night']];
+const LABELS = {archive:'archive',player:'record player',guest:'guestbook',laptop:'laptop',game:'2048',todo:'to-do',name:'name',file:'case file'};
+const HANDLE = {player:true,guest:true,game:true};
+const PROJECTS = [
+  {id:'pp',num:'01',name:'PreggoPillow',file:'preggopillow.md',what:'AI pillow that tracks fetal movement',tag:'1st place',desc:"An AI pillow that learns a baby's movement pattern overnight and flags the night it changes. Three accelerometers cancel out the mother's own motion, and if movement drops below her baseline two nights in a row, it calls her emergency contact and prints a report for her midwife. HackHERS 2026: 1st place overall + MLH Best Use of Presage (team of 4).",stack:'Raspberry Pi · Arduino · Next.js · Go · Gemini · Presage SmartSpectra · TimescaleDB',links:[{label:'Devpost ↗',href:'https://devpost.com/software/xyz-g9satd'},{label:'GitHub ↗',href:'https://github.com/kbhatnagar1506/preggo-pillow'}]},
+  {id:'ol',num:'02',name:'Outlens',file:'outlens.md',what:'a color-blindness helper you point at things',tag:'solo',desc:'Point your camera at any object: Outlens outlines it, estimates its color, names it and says it out loud, then recolors it so people with color blindness can tell colors apart. Includes voice commands and a pinch-to-select prototype for future smart glasses. Built solo at Hacklanta 2.',stack:'Next.js · React · TypeScript · Tailwind · Gemini · ElevenLabs · MediaPipe · WebGL',links:[{label:'live ↗',href:'https://lookslikeitworks.us/'},{label:'Devpost ↗',href:'https://devpost.com/software/outlens'},{label:'GitHub ↗',href:'https://github.com/heyyamulya/Outlens'}]},
+  {id:'ca',num:'03',name:'Cation',file:'cation.md',what:'research feed that learns what doctors want',tag:'HackGT 13',desc:"An intelligence layer for Impiricus ION: doctors get one relevant, compliance-checked research card at a time, every tap becomes engagement data, and AI picks related topics as they go. Built for the Impiricus track at HackGT 13 (team of 4).",stack:'Python · FastAPI · React · Gemini + Groq · Redis · PubMed',links:[{label:'Devpost ↗',href:'https://devpost.com/software/cation-ti32jy'},{label:'GitHub ↗',href:'https://github.com/ManjunathAnde/Cation-HackGT13'}]},
+  {id:'ph',num:'04',name:'Prompt Her',file:'prompt-her.md',what:'event site, women in AI',tag:'live',desc:'An event registration site built during CodePath, for a workshop introducing women to prompt engineering and emerging AI tools. Custom animations and a dark mode I spent a lot of time getting right.',stack:'HTML · CSS · JavaScript',links:[{label:'live site ↗',href:'https://cheerful-advising-software-798.vscodeedu.app/#resources'}]},
+  {id:'nx',num:'05',name:'Nexus',file:'nexus.md',what:'mentorship platform',tag:'hackathon',desc:'A mentorship platform connecting Hispanic users to events and mentors. Built solo at a SHPE hackathon, handling backend logic and data flow.',stack:'Python · Flask',links:[]},
+  {id:'df',num:'06',name:'Dealer of Fate',file:'dealer-of-fate.md',what:'card fortune-telling app',tag:'hackathon',desc:'A card-based fortune-telling app with input-driven traversal flow, built as a solo prototype at Hacklanta.',stack:'Python',links:[{label:'GitHub ↗',href:'https://github.com/heyyamulya/dealer-of-fate'}]},
+  {id:'nxo',num:'07',name:'Nexos',file:'nexos.fig',what:'mentorship app, designed in Figma',tag:'figma',desc:'A Figma prototype for a mentorship app, designed at VibraATL. A design-first take on the same idea as Nexus: connecting students with mentors and events.',stack:'Figma',links:[]},
+  {id:'pw',num:'08',name:"President's Wheel",file:'presidents-wheel.md',what:'a childhood game, rebuilt',tag:'complete',desc:'An interactive game with dynamic outcomes, using conditional logic and randomized decision flows. A digital take on a game I grew up playing.',stack:'HTML · JavaScript',links:[]}
+];
+const SKILLS = [
+  ['languages', [['Python','proficient'],['HTML / CSS','comfortable'],['JavaScript','comfortable'],['Java','familiar'],['SQL','familiar'],['C++','familiar'],['TypeScript','comfortable'],['R','familiar']]],
+  ['frameworks & tools', [['Flask','comfortable'],['Git / GitHub','comfortable'],['VS Code','comfortable'],['React','comfortable'],['Figma','comfortable'],['Next.js','familiar']]],
+  ['data', [['Pandas / NumPy','familiar'],['Tableau','familiar']]],
+  ['learning now', [['React (deeper)','learning'],['Data structures & algorithms','learning'],['AI/ML & data analytics','learning'],['Prompt engineering / AI tools','learning']]]
+];
+const DOTS = {proficient:'●●●', comfortable:'●●○', familiar:'●○○', learning:'◌'};
+const ARCHIVE = [
+  {title:'CLI Calculator', when:'2025', stack:'Python', note:'A command-line calculator with modular arithmetic functions and error handling. One of my first real programs.', stamp:'retired'},
+  {title:'amulyachidurala.me v1', when:'2026', stack:'HTML · CSS · JavaScript', note:'My first portfolio: a terminal-themed site with a zsh prompt, commit-history experience log and a skills meter.', stamp:'replaced by this one'},
+  {title:'Hindu YUVA designs', when:'2026', stack:'posters · reels · event slides', note:'Promo graphics for Garba, Durga Puja and campus events. [ADD: 2–4 images]', stamp:'design'},
+  {title:'[class project]', when:'—', stack:'[language]', note:'[One line: what it was and which course]', stamp:'add me'},
+  {title:'[older site version]', when:'—', stack:'', note:'[One line: what it looked like, and a screenshot]', stamp:'add me'}
+];
+const BUILD = {version:'BUILD_v3.1.0', date:'10.28.2026'};
+const FILE_TABS = [['education','education','#F3DDB0'],['projects','projects','#EBCB92'],['experience','experience','#F0D6A4'],['skills','skills','#E6C489'],['awards','awards & more','#EFD39C']];
+const TABS = [['home','~/home'],['projects','projects/'],['pillow','pillow.md'],['skills','skills.json'],['resume','resume.pdf'],['github','github'],['hi','say_hi.txt']];
+const RECORDS = [
+  {t:'[fave song 1]',a:'[artist]',c:'#F25C78'},{t:'[fave song 2]',a:'[artist]',c:'#A9D6F5'},{t:'[fave song 3]',a:'[artist]',c:'#FFE08A'},
+  {t:'[fave song 4]',a:'[artist]',c:'#C3C6EC'},{t:'[fave song 5]',a:'[artist]',c:'#FF8A4C'},{t:'[fave song 6]',a:'[artist]',c:'#9CC9A0'}
+];
+/* scrapbook cut-outs: paper textures + hand-cut (jagged) edges */
+const PAPER = {
+  newsprint:'radial-gradient(rgba(0,0,0,0.16) 1px, transparent 1.4px) 0 0 / 4px 4px, linear-gradient(180deg,#F1EBDD,#E6DECB)',
+  magazineRed:'linear-gradient(140deg,#B30E28 0%,#E3424F 45%,#C8102E 70%,#7E0A1E 100%)',
+  photoSky:'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), transparent 40%), linear-gradient(165deg,#8FB8E3 0%,#E9B3C6 55%,#F6D79E 100%)',
+  glossyBlack:'linear-gradient(170deg,#3B3B45 0%,#16161B 55%,#2A2A33 100%)',
+  kraft:'repeating-linear-gradient(95deg, rgba(60,30,0,0.06) 0 2px, transparent 2px 7px), linear-gradient(180deg,#C9A06E,#B98C58)',
+  pinkHalftone:'radial-gradient(#E0607F 1.3px, transparent 1.7px) 0 0 / 6px 6px, linear-gradient(180deg,#FAD7DF,#F4C2CE)',
+  ledger:'repeating-linear-gradient(180deg, transparent 0 13px, rgba(80,120,200,0.35) 13px 14px), linear-gradient(90deg, transparent 10px, rgba(220,60,60,0.45) 10px 11px, transparent 11px), #FFFDF4'
+};
+function jag(seed, n){
+  let s = seed * 9301 + 49297; const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+  const pts = [];
+  for (let i = 0; i <= n; i++) pts.push((i*100/n).toFixed(1) + '% ' + (rnd()*5).toFixed(1) + '%');
+  for (let i = 1; i <= n; i++) pts.push((100 - rnd()*5).toFixed(1) + '% ' + (i*100/n).toFixed(1) + '%');
+  for (let i = n-1; i >= 0; i--) pts.push((i*100/n).toFixed(1) + '% ' + (100 - rnd()*5).toFixed(1) + '%');
+  for (let i = n-1; i >= 1; i--) pts.push((rnd()*5).toFixed(1) + '% ' + (i*100/n).toFixed(1) + '%');
+  return pts.join(', ');
+}
+const WHITE_EDGE = 'inset 0 0 0 5px #FFFDF6';
+const RANSOM = [
+  {ch:'a',font:"'Abril Fatface', serif",size:'60px',style:'normal',bg:PAPER.newsprint,fg:'#1B1B1F',ts:'none',inset:'none',w:'60px',h:'80px',pad:'0 10px 6px',rot:-7,dy:'4px',tape:false,tapeRot:0},
+  {ch:'M',font:"'Bungee', sans-serif",size:'46px',style:'normal',bg:PAPER.magazineRed,fg:'#FFF6E6',ts:'1px 1px 0 rgba(0,0,0,0.25)',inset:WHITE_EDGE,w:'68px',h:'74px',pad:'0 12px',rot:5,dy:'-6px',tape:true,tapeRot:-6},
+  {ch:'u',font:"'Bodoni Moda', serif",size:'64px',style:'italic',bg:PAPER.photoSky,fg:'#1B1B1F',ts:'0 0 0 #fff, 2px 2px 0 #FFFDF6, -2px -2px 0 #FFFDF6, 2px -2px 0 #FFFDF6, -2px 2px 0 #FFFDF6',inset:'none',w:'64px',h:'86px',pad:'0 10px 10px',rot:-3,dy:'6px',tape:false,tapeRot:0},
+  {ch:'L',font:"'Rubik Mono One', sans-serif",size:'42px',style:'normal',bg:PAPER.glossyBlack,fg:'#F9D3DC',ts:'none',inset:'none',w:'60px',h:'70px',pad:'0 12px',rot:8,dy:'-2px',tape:false,tapeRot:0},
+  {ch:'y',font:"'Shrikhand', serif",size:'56px',style:'normal',bg:PAPER.pinkHalftone,fg:'#7E0A1E',ts:'none',inset:WHITE_EDGE,w:'62px',h:'84px',pad:'0 12px 14px',rot:-5,dy:'2px',tape:false,tapeRot:0},
+  {ch:'A',font:"'Gloock', serif",size:'60px',style:'normal',bg:PAPER.ledger,fg:'#1E3A8A',ts:'none',inset:'none',w:'62px',h:'80px',pad:'0 12px',rot:4,dy:'-4px',tape:true,tapeRot:5}
+].map((L, i) => Object.assign({}, L, {clip:jag(i + 3, 7)}));
+const LETTER = [
+  'dear you,',
+  'thanks for stopping by.',
+  'this is my little corner of the internet,',
+  'built with code, coffee & a little chaos.',
+  'poke around. everything moves.',
+  'love, amulya ✶'
+];
+const LFONTS = [["'Special Elite', monospace",'32px'],["'Homemade Apple', cursive",'25px'],["'Abril Fatface', serif",'35px'],["'Bodoni Moda', serif",'34px'],["'Zen Dots', sans-serif",'25px'],["'Metamorphous', serif",'30px'],["'Cedarville Cursive', cursive",'33px'],["'Syne', sans-serif",'32px'],["'Reenie Beanie', cursive",'42px']];
+const BANNERS = ['hi, you found me ✶','[your bg text 1]','[your bg text 2]','[your bg text 3]'];
+const EMAIL = '[YOUR EMAIL]';
+
+function lum(hex){ const n = parseInt(hex.slice(1),16); return (0.299*((n>>16)&255) + 0.587*((n>>8)&255) + 0.114*(n&255))/255; }
+function modeForHour(h){ return (h>=6 && h<19) ? 'afternoon' : 'night'; }
+function makeVinyl(){
+  const rows = 23, cols = 38, out = [];
+  for (let r = 0; r < rows; r++){
+    let line = '';
+    for (let c = 0; c < cols; c++){
+      const dx = (c - cols/2 + 0.5) * 0.6, dy = (r - rows/2 + 0.5);
+      const d = Math.sqrt(dx*dx + dy*dy) / (rows/2);
+      if (d > 1) line += ' ';
+      else if (d > 0.93) line += '#';
+      else if (d < 0.27) line += ' ';
+      else if (d < 0.32) line += '=';
+      else { const ring = Math.floor(d*18) % 3; const glint = (dx > 0 && dy < 0 && Math.abs(dx + dy*0.9) < 1.2); line += glint ? '/' : [':','.',':'][ring]; }
+    }
+    out.push(line);
+  }
+  return out.join('\n');
+}
+function makePlinth(){
+  const w = 46, h = 26, out = [];
+  for (let r = 0; r < h; r++){
+    if (r === 0 || r === h-1){ out.push('+' + '-'.repeat(w-2) + '+'); continue; }
+    let mid = ' '.repeat(w-2);
+    if (r === h-3) mid = mid.slice(0, 26) + '( 33 )( 45 )' + mid.slice(38);
+    if (r === h-2) mid = mid.slice(0, 26) + ' [ on/off ] ' + mid.slice(38);
+    out.push('|' + mid + '|');
+  }
+  return out.join('\n');
+}
+const VINYL = makeVinyl(), PLINTH = makePlinth();
+
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      mode: modeForHour(new Date().getHours()), quick:false, time:this.atlTime(), started:false, typed:0,
+      pos:{}, sel:null, dragging:false, cur:{x:0,y:0,seen:false},
+      lid:false, tab:'home', proj:0, banner:0,
+      track:0, arm:0, armDragging:false,
+      board:this.newBoard(), score:0, best:0, locked:false,
+      gbName:'', gbEmail:'', entries:SUPA_ON ? [] : [{name:'amulya (testing)', who:'', when:'oct 28, 3:43 pm'}], copied:false,
+      pops:{file:false, player:false, game:false, guest:false, archive:false}, view:'file', ftab:'education',
+      visits:0, firstVisit:'', lastVisit:''
+    };
+    this.hudBase = {};
+    this.letterLen = LETTER.join(' ').length;
+    this.setPivot = (el) => { this.pivotEl = el; };
+    this.setRoot = (el) => { this.rootEl = el; };
+    this.setBoard = (el) => { this.boardEl = el; };
+    this.setStartBtn = (el) => { if (el && !this.startFocused){ this.startFocused = true; setTimeout(() => { try { el.focus(); } catch(_){} }, 60); } };
+  }
+  componentDidMount(){
+    this.countVisit();
+    this.loadGuestbook();
+    this.cTimer = setInterval(() => this.setState({time:this.atlTime()}), 30000);
+    this.tTimer = setInterval(() => { if (this.state.typed >= this.letterLen){ clearInterval(this.tTimer); return; } this.setState({typed:this.state.typed + 1}); }, 38);
+  }
+  async countVisit(){
+    if (SUPA_ON) {
+      try {
+        await supa('visits', {method:'POST', headers:{Prefer:'return=minimal'}, body:'{}'});
+        const r = await supa('visits?select=id', {headers:{Prefer:'count=exact', Range:'0-0'}});
+        const total = parseInt(((r.headers.get('content-range') || '').split('/')[1]) || '0', 10);
+        const first = (await (await supa('visits?select=created_at&order=created_at.asc&limit=1')).json())[0];
+        this.setState({visits:total, firstVisit:first ? fmtDay(first.created_at) : 'today', lastVisit:fmtDay(Date.now())});
+        return;
+      } catch(_) { /* fall through to the local count */ }
+    }
+    try {
+      const K = 'amulya-os-visits', now = fmtDay(Date.now());
+      const prev = JSON.parse(window.localStorage.getItem(K) || '{}');
+      const rec = {n:(prev.n || 0) + 1, first:prev.first || now, last:now};
+      window.localStorage.setItem(K, JSON.stringify(rec));
+      this.setState({visits:rec.n, firstVisit:rec.first, lastVisit:rec.last});
+    } catch(_) { this.setState({visits:1, firstVisit:'today', lastVisit:'today'}); }
+  }
+  async loadGuestbook(){
+    if (!SUPA_ON) return;
+    try {
+      const rows = await (await supa('guestbook?select=name,created_at&order=created_at.desc&limit=100')).json();
+      this.setState({entries:rows.map(x => ({name:x.name, when:fmtWhen(x.created_at)}))});
+    } catch(_) {}
+  }
+  componentWillUnmount(){ clearInterval(this.cTimer); clearInterval(this.tTimer); clearTimeout(this.curT); clearTimeout(this.copyT); }
+  atlTime(){ try { return new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'}).toLowerCase(); } catch(e){ return ''; } }
+
+  /* ---------- intro letter ---------- */
+  letterLines(){
+    let left = this.state.typed, wi = 0, caretSet = false;
+    const lines = LETTER.map((line, li) => {
+      const words = [];
+      line.split(' ').forEach((w) => {
+        const f = LFONTS[wi % LFONTS.length]; wi++;
+        if (left <= 0) return;
+        const take = Math.min(w.length, left); left -= take + 1;
+        words.push({text:w.slice(0, take), font:f[0], size:f[1]});
+      });
+      return {words, caret:false};
+    });
+    for (let i = lines.length - 1; i >= 0; i--){ if (lines[i].words.length){ lines[i].caret = true; caretSet = true; break; } }
+    if (!caretSet) lines[0].caret = true;
+    return lines;
+  }
+
+  /* ---------- drag ---------- */
+  scale(){ const r = this.rootEl; if (r && r.offsetWidth) return r.getBoundingClientRect().width / r.offsetWidth || 1; return 1; }
+  startDrag(id, e){
+    if (e.button !== undefined && e.button !== 0) return;
+    const p = this.state.pos[id] || {x:0,y:0,r:0};
+    const sc = this.scale();
+    const el = HANDLE[id] ? e.currentTarget.parentElement : e.currentTarget;
+    if (this.rootEl && el){ const rr = this.rootEl.getBoundingClientRect(), er = el.getBoundingClientRect(); this.hudBase[id] = {x:Math.round((er.left-rr.left)/sc - p.x), y:Math.round((er.top-rr.top)/sc - p.y)}; }
+    this.drag = {id, sx:e.clientX, sy:e.clientY, ox:p.x, oy:p.y, moved:false, sc, pid:e.pointerId};
+    this.suppress = false;
+    if (this.state.sel !== id) this.setState({sel:id});
+  }
+  moveDrag(id, e){
+    const d = this.drag; if (!d || d.id !== id) return;
+    const dx = (e.clientX-d.sx)/d.sc, dy = (e.clientY-d.sy)/d.sc;
+    if (!d.moved){ if (Math.abs(dx)+Math.abs(dy) < 5) return; d.moved = true; try { e.currentTarget.setPointerCapture(d.pid); } catch(_){} }
+    const p = this.state.pos[id] || {x:0,y:0,r:0};
+    this.setState({dragging:true, pos:Object.assign({}, this.state.pos, {[id]:{x:Math.round(d.ox+dx), y:Math.round(d.oy+dy), r:p.r}})});
+  }
+  endDrag(id){ const d = this.drag; if (!d || d.id !== id) return; this.drag = null; if (d.moved){ this.suppress = true; this.setState({dragging:false}); } }
+  mk(id, tap){
+    const p = this.state.pos[id] || {x:0,y:0,r:0};
+    return {
+      tf:'translate(' + p.x + 'px, ' + p.y + 'px) rotate(' + p.r + 'deg)',
+      z: this.state.sel === id ? 40 : 2,
+      zp: this.state.sel === id ? 62 : 52,
+      zf: this.state.sel === id ? 64 : 58,
+      down:(e) => this.startDrag(id, e), move:(e) => this.moveDrag(id, e), up:() => this.endDrag(id), cancel:() => { this.drag = null; this.setState({dragging:false}); },
+      click:() => { if (this.suppress){ this.suppress = false; return; } if (tap) tap(); }
+    };
+  }
+  rotate(delta){ const id = this.state.sel; if (!id) return; const p = this.state.pos[id] || {x:0,y:0,r:0}; this.setState({pos:Object.assign({}, this.state.pos, {[id]:{x:p.x,y:p.y,r:p.r+delta}})}); }
+  onRootMove(e){
+    if (!this.rootEl) return;
+    const rr = this.rootEl.getBoundingClientRect(), sc = this.scale();
+    this.curV = {x:Math.round((e.clientX-rr.left)/sc), y:Math.round((e.clientY-rr.top)/sc), seen:true};
+    if (!this.curT){ this.curT = setTimeout(() => { this.curT = null; this.setState({cur:this.curV}); }, 40); }
+  }
+
+  /* ---------- record player ---------- */
+  armDown(e){ try { e.currentTarget.setPointerCapture(e.pointerId); } catch(_){} this.armD = {sx:e.clientX, sy:e.clientY, moved:false}; this.armSup = false; }
+  armMove(e){
+    const a0 = this.armD; if (!a0 || !this.pivotEl) return;
+    if (!a0.moved){ if (Math.abs(e.clientX-a0.sx)+Math.abs(e.clientY-a0.sy) < 4) return; a0.moved = true; }
+    const r = this.pivotEl.getBoundingClientRect();
+    const vx = e.clientX-(r.left+r.width/2), vy = e.clientY-(r.top+r.height/2);
+    this.setState({arm:Math.max(0, Math.min(44, Math.atan2(-vx, vy)*180/Math.PI)), armDragging:true});
+  }
+  armUp(){ const a0 = this.armD; if (!a0) return; this.armD = null; if (a0.moved){ this.armSup = true; const a = this.state.arm; this.setState({armDragging:false, arm: a >= 22 ? Math.max(28, Math.min(38, a)) : 0}); } }
+  armClick(){ if (this.armSup){ this.armSup = false; return; } this.setState({arm: this.state.arm >= 22 ? 0 : 32}); }
+
+  /* ---------- 2048 ---------- */
+  newBoard(){ const b = new Array(16).fill(0); this.addTile(b); this.addTile(b); return b; }
+  addTile(b){ const e = []; b.forEach((v,i) => { if (!v) e.push(i); }); if (!e.length) return; b[e[Math.floor(Math.random()*e.length)]] = Math.random() < 0.9 ? 2 : 4; }
+  slide(line){ const v = line.filter(x => x); const out = []; let g = 0; for (let i = 0; i < v.length; i++){ if (v[i] === v[i+1]){ out.push(v[i]*2); g += v[i]*2; i++; } else out.push(v[i]); } while (out.length < 4) out.push(0); return {out, g}; }
+  canMove(b){ if (b.includes(0)) return true; for (let i = 0; i < 16; i++){ if (i%4 < 3 && b[i] === b[i+1]) return true; if (i < 12 && b[i] === b[i+4]) return true; } return false; }
+  move(dir){
+    if (!this.canMove(this.state.board)) return;
+    const b = this.state.board.slice(); let gained = 0, changed = false;
+    for (let k = 0; k < 4; k++){
+      let idx;
+      if (dir === 'left') idx = [0,1,2,3].map(j => k*4+j);
+      if (dir === 'right') idx = [3,2,1,0].map(j => k*4+j);
+      if (dir === 'up') idx = [0,1,2,3].map(j => j*4+k);
+      if (dir === 'down') idx = [3,2,1,0].map(j => j*4+k);
+      const res = this.slide(idx.map(i => b[i])); gained += res.g;
+      idx.forEach((i,j) => { if (b[i] !== res.out[j]) changed = true; b[i] = res.out[j]; });
+    }
+    if (!changed) return;
+    this.addTile(b);
+    const score = this.state.score + gained;
+    this.setState({board:b, score, best:Math.max(this.state.best, score)});
+  }
+  onKey(e){
+    if (e.key === 'Escape' && this.state.locked){ this.setState({locked:false}); return; }
+    const m = {ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down',a:'left',d:'right',w:'up',s:'down'}[e.key];
+    if (m){ e.preventDefault(); this.move(m); }
+  }
+  focusBoard(){ setTimeout(() => { try { this.boardEl && this.boardEl.focus({preventScroll:true}); } catch(_){} }, 30); }
+  toggleLock(){ const locked = !this.state.locked; this.setState({locked}); if (locked) this.focusBoard(); }
+  /* trackpad: one move per two-finger swipe (the gesture ends after 160ms of quiet, so inertia never double-moves) */
+  onWheel(e){
+    clearTimeout(this.wT);
+    this.wT = setTimeout(() => { this.wGest = false; this.wx = 0; this.wy = 0; }, 160);
+    if (this.wGest) return;
+    this.wx = (this.wx || 0) + e.deltaX; this.wy = (this.wy || 0) + e.deltaY;
+    if (Math.abs(this.wx) < 26 && Math.abs(this.wy) < 26) return;
+    const dir = Math.abs(this.wx) > Math.abs(this.wy) ? (this.wx < 0 ? 'right' : 'left') : (this.wy < 0 ? 'down' : 'up');
+    this.wGest = true; this.wx = 0; this.wy = 0; this.move(dir);
+  }
+  /* touch / mouse: capture the pointer so the release always lands here, even off the board */
+  swipeStart(e){
+    if (e.button !== undefined && e.button !== 0) return;
+    this.sw = {x:e.clientX, y:e.clientY, id:e.pointerId};
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch(_){}
+    this.focusBoard();
+  }
+  swipeEnd(e){
+    const sw = this.sw; if (!sw || (sw.id !== undefined && e.pointerId !== sw.id)) return;
+    this.sw = null;
+    const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 16) return;
+    this.move(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
+  }
+
+  copyEmail(){ try { navigator.clipboard && navigator.clipboard.writeText(EMAIL); } catch(_){} this.setState({copied:true}); clearTimeout(this.copyT); this.copyT = setTimeout(() => this.setState({copied:false}), 1800); }
+  async gbSubmit(e){
+    e.preventDefault();
+    const name = this.state.gbName.trim().slice(0, 60); if (!name) return;
+    const email = this.state.gbEmail.trim().slice(0, 120) || null;
+    if (SUPA_ON) {
+      try {
+        await supa('guestbook', {method:'POST', headers:{Prefer:'return=minimal'}, body:JSON.stringify({name, email})});
+        this.setState({gbName:'', gbEmail:''});
+        this.loadGuestbook();
+        return;
+      } catch(_) { /* keep it locally if the network fails */ }
+    }
+    this.setState({entries:[{name, when:fmtWhen(Date.now())}].concat(this.state.entries), gbName:'', gbEmail:''});
+  }
+
+  renderVals(){
+    const s = this.state, t = THEMES[s.mode], pop = s.pops;
+    const ghost = this.props.ghostText ?? true;
+    const intro = this.props.showIntro ?? true;
+
+    const d = {};
+    Object.keys(LABELS).forEach(id => { d[id] = this.mk(id, id === 'laptop' ? () => this.setState({lid:true}) : null); });
+    let hud = {name:'',x:0,y:0,r:0,dragging:false};
+    if (s.sel){ const p = s.pos[s.sel] || {x:0,y:0,r:0}; const b = this.hudBase[s.sel] || {x:0,y:0}; hud = {name:LABELS[s.sel] || s.sel, x:b.x+p.x, y:b.y+p.y, r:p.r, dragging:s.dragging}; }
+
+    const playing = s.arm >= 22;
+    const R = RECORDS[s.track];
+    const rec = {t:R.t, short:R.t.replace(/[\[\]]/g,''), a:R.a, c:R.c, n:'0'+(s.track+1), fg:lum(R.c) > 0.6 ? '#2A2233' : '#FFFFFF'};
+    const crate = RECORDS.map((r,i) => ({t:r.t, short:r.t.replace(/[\[\]]/g,''), c:r.c, n:'0'+(i+1), fg:lum(r.c) > 0.6 ? '#2A2233' : '#FFFFFF', sel:i === s.track, nudge:i === s.track ? '-8px' : (i % 2 ? '3px' : '0px'), pick:() => this.setState({track:i})}));
+
+    const cells = s.board.map(v => {
+      if (!v) return {label:'', bg:t.cellEmpty, fg:t.ink, fs:'18px'};
+      const i = Math.min(Math.round(Math.log2(v)) - 1, t.tiles.length - 1);
+      const bg = t.tiles[i];
+      return {label:v, bg, fg: lum(bg) > 0.55 ? '#2A2233' : '#FFFFFF', fs: v < 100 ? '24px' : v < 1000 ? '19px' : '15px'};
+    });
+    const over = !this.canMove(s.board);
+    let gameHint = s.locked ? 'locked in · arrows / swipe / two-finger scroll · esc' : 'swipe the board, two-finger scroll on it, or click it + arrows';
+    if (s.board.includes(2048)) gameHint = 'you hit 2048?! okay, legend ✶';
+
+    const tabIs = {}; TABS.forEach(([id]) => { tabIs[id] = s.tab === id; });
+    const tabs = TABS.map(([id,label]) => ({label, on:s.tab === id, bg:s.tab === id ? '#12152A' : 'transparent', fg:s.tab === id ? t.screen : '#AEB9CC', pick:() => this.setState({tab:id})}));
+    const projects = PROJECTS.map((p,i) => Object.assign({}, p, {sel:i === s.proj, bg:i === s.proj ? '#232850' : 'transparent', border:i === s.proj ? t.screen : '#4A5180', pick:() => this.setState({proj:i})}));
+    const postcards = MODES.map(([id,label,aria],i) => { const on = s.mode === id; return {label, aria, on, cls:'bg-' + id, rot:[-4,4][i % 2], lift:on ? '-6px' : '0px', labelBg:on ? t.tape : 'rgba(255,253,246,0.85)', shadow:on ? '0 8px 16px rgba(0,0,0,0.4)' : '0 3px 8px rgba(0,0,0,0.3)', pick:() => this.setState({mode:id})}; });
+
+    const done = s.typed >= this.letterLen;
+    return {
+      t, ghost, bgClass:'bg-' + s.mode, d, hud, hasSel:!!s.sel, time:s.time,
+      cur:{x:s.cur.x, y:s.cur.y, seen:s.cur.seen, lx:(s.cur.x + 16) + 'px', ly:(s.cur.y + 18) + 'px'},
+      setRoot:this.setRoot, onRootMove:(e) => this.onRootMove(e), onRootLeave:() => this.setState({cur:Object.assign({}, s.cur, {seen:false})}),
+      postcards, quick:s.quick, notQuick:!s.quick, quickLabel:s.quick ? '← back to the fun' : 'recruiter? quick view',
+      toggleQuick:() => this.setState({quick:!s.quick, locked:false}),
+      banner:BANNERS[s.banner % BANNERS.length], nextBanner:() => this.setState({banner:s.banner + 1}),
+      showLetter:intro && !s.started && s.mode !== 'night', letter:this.letterLines(), introDone:done,
+      showBoot:intro && !s.started && s.mode === 'night',
+      bootLines:['> booting amulya.os', '> dusting off the records ............ ok', '> shuffling 2048 tiles ............... ok', '> opening 7 tabs (as usual) .......... ok', '> checking the sky ................... gotham, moody'].slice(0, Math.min(5, Math.floor(s.typed / 12))).map(x => ({t:x})),
+      bootDone:s.typed >= 64, lightColor:playing ? '#5BD17A' : '#9AA0B4',
+      skipIntro:() => this.setState({started:true}), start:() => this.setState({started:true}), setStartBtn:this.setStartBtn,
+      ransom:RANSOM,
+      rotL:() => this.rotate(-15), rotR:() => this.rotate(15), resetAll:() => this.setState({pos:{}, sel:null}),
+      plinth:PLINTH, vinyl:VINYL,
+      setPivot:this.setPivot, armDown:(e) => this.armDown(e), armMove:(e) => this.armMove(e), armUp:() => this.armUp(), armClick:() => this.armClick(),
+      armDeg:s.arm.toFixed(1), armTransition:s.armDragging ? 'none' : 'transform .45s cubic-bezier(.2,.8,.2,1)',
+      playing, spinState:playing ? 'running' : 'paused', nowLabel:playing ? 'now playing:' : 'needle up ·', rec, crate,
+      eqBars:[0,0.15,0.3,0.1,0.25].map(x => ({delay:x+'s'})),
+      lidClosed:false, lidOpen:true, closeLid:() => this.setState({lid:false}), tabs, tabIs, projects, proj:PROJECTS[s.proj],
+      cells, over, score:s.score, best:s.best, gameHint,
+      newGame:() => this.setState({board:this.newBoard(), score:0}),
+      setBoard:this.setBoard, onKey:(e) => this.onKey(e), swipeStart:(e) => this.swipeStart(e), swipeEnd:(e) => this.swipeEnd(e),
+      onWheel:(e) => this.onWheel(e), overlayDown:(e) => { this.swipeStart(e); this.focusBoard(); },
+      locked:s.locked, toggleLock:() => this.toggleLock(),
+      pop,
+      skillGroups:SKILLS.map(([name, items]) => ({name, items:items.map(([n, level]) => ({n, level, dots:DOTS[level]}))})),
+      bookmarks:[['file','cs file','#EDD29E',-2],['player','records','#F9D3DC',1.5],['game','2048','#FFE7A8',-1],['guest','guestbook','#CFE6F5',2],['archive','archive','#DCD3EC',-1.5]].map(([id,label,bg,rot]) => ({label, bg, rot, on:pop[id], h:pop[id] ? '96px' : '74px', hint:pop[id] ? 'tap to close' : 'tap to open', toggle:() => this.setState({pops:Object.assign({}, pop, {[id]:!pop[id]}), locked:id === 'game' && pop.game ? false : s.locked})})),
+      closeArchive:() => this.setState({pops:Object.assign({}, pop, {archive:false})}),
+      archive:ARCHIVE,
+      closeFile:() => this.setState({pops:Object.assign({}, pop, {file:false})}),
+      closePlayer:() => this.setState({pops:Object.assign({}, pop, {player:false})}),
+      closeGame:() => this.setState({pops:Object.assign({}, pop, {game:false}), locked:false}),
+      closeGuest:() => this.setState({pops:Object.assign({}, pop, {guest:false})}),
+      viewFile:s.view === 'file', viewComputer:s.view === 'computer',
+      showFile:() => this.setState({view:'file'}), showComputer:() => this.setState({view:'computer', lid:true}),
+      vbFile:{bg:s.view === 'file' ? t.ink : t.paper, fg:s.view === 'file' ? t.paper : t.ink},
+      vbComp:{bg:s.view === 'computer' ? t.ink : t.paper, fg:s.view === 'computer' ? t.paper : t.ink},
+      fileTabs:FILE_TABS.map(([id,label,bg]) => ({label, on:s.ftab === id, bg, h:s.ftab === id ? '46px' : '38px', shadow:s.ftab === id ? 'none' : 'inset 0 -6px 8px rgba(0,0,0,0.08)', pick:() => this.setState({ftab:id})})),
+      ftabIs:FILE_TABS.reduce((o,[id]) => { o[id] = s.ftab === id; return o; }, {}),
+      ftabLabel:(FILE_TABS.find(x => x[0] === s.ftab) || ['','education'])[1].toUpperCase(),
+      stop:(e) => e.stopPropagation(), swipeCancel:() => { this.sw = null; }, lockLabel:s.locked ? 'unlock' : 'lock in', lockTag:s.locked ? 'LOCKED IN' : '',
+      lockPath:s.locked ? 'M8 11V7a4 4 0 0 1 8 0v4' : 'M8 11V7a4 4 0 0 1 7.5-2',
+      gameZ:s.locked ? 80 : (s.sel === 'game' ? 40 : 2), gameShadow:s.locked ? '0 0 0 3px ' + t.accent + ', 0 14px 30px rgba(0,0,0,0.35)' : '0 10px 26px rgba(0,0,0,0.25)',
+      copyEmail:() => this.copyEmail(), copyLabel:s.copied ? 'copied ✶' : 'copy my email',
+      gbName:s.gbName, gbEmail:s.gbEmail, gbCount:s.entries.length, gbLatest:s.entries.slice(0,3).map(x => x.name).join(', '),
+      vlog:{visits:String(s.visits).padStart(4,'0'), signed:String(s.entries.length).padStart(3,'0'), you:String(s.visits).padStart(4,'0'), first:s.firstVisit || 'today', last:s.lastVisit || 'today'},
+      build:BUILD,
+      visitors:s.entries.map((x, i) => ({n:String(s.entries.length - i).padStart(3, '0'), name:x.name, when:x.when})),
+      onGbName:(e) => this.setState({gbName:e.target.value}), onGbEmail:(e) => this.setState({gbEmail:e.target.value}),
+      gbSubmit:(e) => this.gbSubmit(e)
+    };
+  }
+  render(){
+    const v = this.renderVals();
+    const {archive, armClick, armDeg, armDown, armMove, armTransition, armUp, banner, best, bgClass, bookmarks, bootDone, bootLines, build, cells, closeArchive, closeFile, closeGame, closeGuest, closePlayer, copyEmail, copyLabel, crate, cur, d, eqBars, fileTabs, ftabIs, ftabLabel, gameHint, gameShadow, gameZ, gbCount, gbEmail, gbLatest, gbName, gbSubmit, ghost, hasSel, hud, introDone, letter, lidClosed, lidOpen, lightColor, lockLabel, lockPath, lockTag, locked, newGame, nextBanner, notQuick, nowLabel, onGbEmail, onGbName, onKey, onRootLeave, onRootMove, onWheel, over, overlayDown, playing, pop, postcards, proj, projects, quick, quickLabel, ransom, rec, resetAll, rotL, rotR, score, setBoard, setPivot, setRoot, setStartBtn, showBoot, showLetter, skillGroups, skipIntro, spinState, start, stop, swipeCancel, swipeEnd, swipeStart, t, tabIs, tabs, time, toggleLock, toggleQuick, visitors, vlog} = v;
+    const PRE_3 = PRE_3_FN(t);
+    return html`<div ref=${setRoot} onPointerMove=${onRootMove} onPointerLeave=${onRootLeave} class=${bgClass} style="position: relative; min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; color: ${t.ink}; font-family: 'Syne', 'Kalam', 'Ramaraja', sans-serif; background-color: ${t.fallback}; background-attachment: fixed; transition: background-image .6s">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: ${t.veil}; pointer-events: none"></div>
+
+
+${(ghost) ? html`
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; user-select: none; color: ${t.ghost}">
+<span lang="hi" style="position: absolute; left: 2.5%; bottom: 4%; font-family: 'Kalam', cursive; font-size: 20px; transform: rotate(-6deg)">नमस्ते</span>
+<span lang="te" style="position: absolute; right: 3%; bottom: 5%; font-family: 'Ramaraja', serif; font-size: 20px; transform: rotate(5deg)">నమస్కారం</span>
+<span style="position: absolute; left: 2.5%; top: 16%; font-family: 'Reenie Beanie', cursive; font-size: 22px; transform: rotate(-4deg)">little sister only</span>
+<span style="position: absolute; right: 2.5%; top: 16%; font-family: 'Reenie Beanie', cursive; font-size: 22px; transform: rotate(4deg)">just starting makeup</span>
+<span style="position: absolute; left: 50%; bottom: 3%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 12px; white-space: nowrap">ain't that easy</span>
+</div>
+` : null}
+
+
+<header style="position: relative; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; justify-content: space-between; padding: 14px 24px 0">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+<span style="padding: 6px 12px; background: ${t.tape}; color: #2A2233; font-family: 'Space Mono', monospace; font-size: 12px; transform: rotate(-2deg); box-shadow: 0 2px 6px rgba(0,0,0,0.18)">${time} · atlanta</span>
+<button type="button" onClick=${toggleQuick} aria-pressed=${quick} class="nb" style="min-height: 36px; padding: 0 12px; border: 0; background: ${t.paper}; color: ${t.ink}; font-family: 'Space Mono', monospace; font-size: 12px; cursor: pointer; transform: rotate(1.5deg); box-shadow: 0 2px 6px rgba(0,0,0,0.18)">${quickLabel}</button>
+</div>
+<div role="group" aria-label="Pick a sky" style="display: flex; gap: 10px; align-items: flex-start">
+${(postcards || []).map((pc, $index) => html`
+<button type="button" aria-label=${pc.aria} aria-pressed=${pc.on} onClick=${pc.pick} style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0; border: 0; background: transparent; cursor: pointer; transform: rotate(${pc.rot}deg) translateY(${pc.lift}); transition: transform .25s">
+<span class=${pc.cls} style="display: block; width: 66px; height: 46px; border: 4px solid #FFFDF6; box-shadow: ${pc.shadow}"></span>
+<span style="padding: 1px 6px; background: ${pc.labelBg}; color: #2A2233; font-family: 'Space Mono', monospace; font-size: 10px">${pc.label}</span>
+</button>
+`)}
+</div>
 </header>
 
-<main id="top">
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <span class="hero-eyebrow">status: actively building</span>
-    <div class="terminal">
-      <div class="terminal-bar">
-        <span></span><span></span><span></span>
-        <span class="terminal-title">zsh — whoami</span>
-      </div>
-      <div class="terminal-body" id="typedBody"></div>
-    </div>
-    <div class="hero-links">
-      <a href="#projects" class="btn btn-primary">view projects</a>
-      <a href="resume.pdf" class="btn btn-ghost" id="resumeLink" target="_blank" rel="noopener">resume.pdf</a>
-      <a href="#contact" class="btn btn-ghost">get in touch</a>
-    </div>
-  </section>
+<div aria-hidden="true" style="position: relative; z-index: 5; height: 40px; pointer-events: none">
+<div onAnimationIteration=${nextBanner} style="position: absolute; left: 0; top: 4px; display: flex; align-items: center; gap: 0; white-space: nowrap; animation: fly 30s linear infinite">
+<span class="nb" style="padding: 4px 12px; background: ${t.paper}; color: ${t.ink}; font-family: 'Reenie Beanie', cursive; font-size: 21px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); animation: flap 1.4s ease-in-out infinite">${banner}</span>
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; color: ${t.planeInk}">~~~~</span>
+<pre style="font-family: 'Space Mono', monospace; font-size: 10px; line-height: 1; color: ${t.planeInk}">${PRE_0}</pre>
+</div>
+</div>
 
-  <!-- ================= ABOUT ================= -->
-  <section id="about">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-tag">01 · about</span>
-        <h2 class="section-title">Who's <span class="accent">writing this code</span></h2>
-      </div>
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <p>I'm <strong>Amulya Chidurala</strong>, a sophomore Computer Science major at Georgia State University with a 4.23 GPA. I'm proficient in Python and comfortable building with HTML, CSS, and JavaScript — with hands-on experience in Flask, React, and a few hackathon projects along the way.</p>
-          <p>Right now I'm focused on turning what I'm learning into real, shipped projects — from an event platform I built for a workshop on prompt engineering for women in tech, to mentorship and fortune-telling apps built solo at hackathons.</p>
-          <p><em>I'm still exploring which corner of CS I want to go deep on, so I'm staying open — web dev, AI, and beyond — and learning by building.</em></p>
-        </div>
-        <div class="edu-card reveal">
-          <div class="school">Georgia State University</div>
-          <div class="degree">B.S. Computer Science</div>
-          <div class="edu-stats">
-            <div class="edu-stat">
-              <div class="num">4.23</div>
-              <div class="label">GPA</div>
-            </div>
-            <div class="edu-stat">
-              <div class="num">Soph.</div>
-              <div class="label">YEAR</div>
-            </div>
-            <div class="edu-stat">
-              <div class="num">'28</div>
-              <!-- EDIT: update expected graduation year -->
-              <div class="label">EXP. GRAD</div>
-            </div>
-          </div>
-          <div class="coursework-label">// relevant coursework</div>
-          <div class="course-tags">
-            <!-- EDIT: swap in your actual courses -->
-            <span>Data Structures &amp; Algorithms</span>
-            <span>Discrete Math</span>
-            <span>Object-Oriented Programming</span>
-            <span>Computer Systems</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ================= SKILLS ================= -->
-  <section id="skills">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-tag">02 · skills</span>
-        <h2 class="section-title">What I <span class="accent">know & what I'm learning</span></h2>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-col reveal">
-          <h3>Languages</h3>
-          <div class="skill-list">
-            <div class="skill-pill">Python <span class="skill-status">proficient</span></div>
-            <div class="skill-pill">HTML / CSS <span class="skill-status">comfortable</span></div>
-            <div class="skill-pill">JavaScript <span class="skill-status">comfortable</span></div>
-            <div class="skill-pill">Java <span class="skill-status">familiar</span></div>
-            <div class="skill-pill">SQL <span class="skill-status">familiar</span></div>
-            <div class="skill-pill">C++ <span class="skill-status">familiar</span></div>
-          </div>
-        </div>
-        <div class="skill-col reveal">
-          <h3>Tools & Frameworks</h3>
-          <div class="skill-list">
-            <div class="skill-pill">Git / GitHub <span class="skill-status">comfortable</span></div>
-            <div class="skill-pill">VS Code <span class="skill-status">comfortable</span></div>
-            <div class="skill-pill">Flask <span class="skill-status">comfortable</span></div>
-            <div class="skill-pill">React <span class="skill-status">familiar</span></div>
-            <div class="skill-pill">Pandas / NumPy <span class="skill-status">familiar</span></div>
-            <div class="skill-pill">Tableau / Figma <span class="skill-status">familiar</span></div>
-          </div>
-        </div>
-        <div class="skill-col learning reveal">
-          <h3>Currently learning</h3>
-          <div class="skill-list">
-            <div class="skill-pill">React (deeper dive) <span class="skill-status">building</span></div>
-            <div class="skill-pill">Data Structures & Algorithms <span class="skill-status">building</span></div>
-            <div class="skill-pill">Prompt engineering / AI tools <span class="skill-status">building</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+${(quick) ? html`
+<main style="position: relative; z-index: 10; flex: 1; display: flex; justify-content: center; padding: 8px 24px 32px">
+<div class="nb" style="width: 100%; max-width: 760px; box-sizing: border-box; padding: 36px; background: ${t.paper}; color: ${t.ink}; box-shadow: 0 10px 30px rgba(0,0,0,0.25); display: flex; flex-direction: column; gap: 20px">
+<h1 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 46px; line-height: 1">Amulya Chidurala</h1>
+<p style="font-size: 16px; line-height: 1.6; color: ${t.muted}">B.S. Computer Science, Georgia State University · 4.23 GPA · Class of 2028 · Atlanta, GA · Interested in AI/ML, data analytics, software and UI/UX · Seeking internships.</p>
+<div style="display: flex; flex-direction: column; gap: 8px">
+${(projects || []).map((p, $index) => html`<p style="font-size: 15px; line-height: 1.5"><b>${p.name}</b> · ${p.what} · <span style="color: ${t.muted}">${p.stack}</span></p>`)}
+</div>
+<p style="font-size: 15px; line-height: 1.6"><b>Experience:</b> Student Assistant, GSU Advisement Center (Nov 2025–now) · Technical Recruiter, Teknoz Software (Summer 2025) · Marketing Lead, Girls Who Code · Marketing & Comms Manager, Hindu YUVA · SAA Ambassador · WomenLead · 6 hackathons · volunteer, Trees Atlanta & GSU Career Closet</p>
+<p style="font-size: 15px; line-height: 1.6"><b>Skills:</b> Python, Java, JavaScript, TypeScript, React, Flask, SQL, C++, R, Git, Figma</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<a href="https://amulyachidurala.me/resume.pdf" style="padding: 10px 18px; background: ${t.accent}; color: ${t.accentInk}; text-decoration: none; font-weight: 700">résumé ↗</a>
+<a href="https://www.linkedin.com/in/amulya-chidurala-145a233b6" style="padding: 10px 18px; border: 2px solid ${t.ink}; text-decoration: none; font-weight: 700">linkedin ↗</a>
+<a href="https://github.com/heyyamulya" style="padding: 10px 18px; border: 2px solid ${t.ink}; text-decoration: none; font-weight: 700">github ↗</a>
+<button type="button" onClick=${copyEmail} style="padding: 10px 18px; border: 2px solid ${t.ink}; background: transparent; font-weight: 700; cursor: pointer">${copyLabel}</button>
+</div>
+</div>
+</main>
+` : null}
 
-  <!-- ================= PROJECTS ================= -->
-  <section id="projects">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-tag">03 · projects</span>
-        <h2 class="section-title">Things I'm <span class="accent">building</span></h2>
-      </div>
-      <div class="projects-grid">
 
-        <div class="project-card reveal">
-          <span class="project-status">live</span>
-          <h3>Prompt Her — Event Site</h3>
-          <p>An event registration site built during CodePath, for a workshop introducing women to prompt engineering and emerging AI tools. Custom animations and a dark mode I spent a lot of time getting right.</p>
-          <div class="project-tags">
-            <span>HTML</span><span>CSS</span><span>JavaScript</span>
-          </div>
-          <div class="project-links">
-            <a href="https://cheerful-advising-software-798.vscodeedu.app/#resources" target="_blank" rel="noopener">Live site →</a>
-            <!-- EDIT: add a GitHub link here too if the repo is public -->
-          </div>
-        </div>
+${(notQuick) ? html`
+<main style="position: relative; z-index: 10; flex: 1; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; justify-content: center; padding: 12px 24px 120px">
 
-        <div class="project-card reveal">
-          <span class="project-status">hackathon</span>
-          <h3>Nexus</h3>
-          <p>A mentorship platform connecting Hispanic users to events and mentors. Built solo at a SHPE hackathon, handling backend logic and data flow.</p>
-          <div class="project-tags">
-            <span>Python</span><span>Flask</span>
-          </div>
-          <div class="project-links">
-            <a href="#" target="_blank" rel="noopener">GitHub → (add link)</a>
-            <!-- EDIT: add repo link when you find it -->
-          </div>
-        </div>
 
-        <div class="project-card reveal">
-          <span class="project-status">hackathon</span>
-          <h3>Dealer of Fate</h3>
-          <p>A card-based fortune-telling app with input-driven traversal flow, built as a solo prototype at HackAtlanta.</p>
-          <div class="project-tags">
-            <span>Python</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/heyyamulya/dealer-of-fate.git" target="_blank" rel="noopener">GitHub →</a>
-          </div>
-        </div>
+<div style="flex: 0 1 230px; max-width: 250px; min-width: 0; display: flex; flex-direction: column; gap: 26px">
 
-        <div class="project-card reveal">
-          <span class="project-status">complete</span>
-          <h3>President's Wheel</h3>
-          <p>An interactive game with dynamic outcomes, using conditional logic and randomized decision flows.</p>
-          <div class="project-tags">
-            <span>HTML</span><span>JavaScript</span>
-          </div>
-          <div class="project-links">
-            <a href="#" target="_blank" rel="noopener">GitHub → (add link)</a>
-          </div>
-        </div>
+<div onPointerDown=${d.todo.down} onPointerMove=${d.todo.move} onPointerUp=${d.todo.up} onPointerCancel=${d.todo.cancel} class="nb" style="position: relative; align-self: flex-start; z-index: ${d.todo.z}; transform: ${d.todo.tf}; cursor: grab; touch-action: none; user-select: none; padding: 16px 20px 18px; background: ${t.paper}; color: ${t.ink}; box-shadow: 0 8px 20px rgba(0,0,0,0.22); display: flex; flex-direction: column; gap: 6px; font-family: 'Metamorphous', serif; font-size: 15px; line-height: 1.45">
+<span aria-hidden="true" style="position: absolute; left: 50%; top: -10px; width: 74px; height: 20px; margin-left: -37px; background: ${t.tape}; opacity: .85; transform: rotate(-3deg)"></span>
+<span style="font-size: 20px">to-do</span>
+<span>☐ win a hackathon</span>
+<span>☐ land the internship</span>
+<span>☐ ship it, then fix it</span>
+<span>☐ sleep (side quest)</span>
+</div>
 
-        <div class="project-card reveal">
-          <span class="project-status">complete</span>
-          <h3>CLI Calculator</h3>
-          <p>A command-line calculator with modular arithmetic functions and error handling for efficient user interaction.</p>
-          <div class="project-tags">
-            <span>Python</span>
-          </div>
-          <div class="project-links">
-            <a href="#" target="_blank" rel="noopener">GitHub → (add link)</a>
-          </div>
-        </div>
 
-      </div>
-    </div>
-  </section>
+${(pop.player) ? html`
+<div class="nb" style="position: fixed; left: 24px; top: 120px; width: 410px; max-width: calc(100vw - 48px); z-index: ${d.player.zp}; transform: ${d.player.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: 0 18px 40px rgba(0,0,0,0.35); animation: fadein .25s ease">
+<div onPointerDown=${d.player.down} onPointerMove=${d.player.move} onPointerUp=${d.player.up} onPointerCancel=${d.player.cancel} style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>record_player.txt</span><span style="margin-left: auto" aria-hidden="true">:: drag</span><button type="button" aria-label="Close record player" onPointerDown=${stop} onClick=${closePlayer} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
+<div style="padding: 14px; display: flex; flex-direction: column; gap: 12px">
+<div style="overflow-x: auto">
+<div style="position: relative; width: 380px; height: 236px; margin: 0 auto">
 
-  <!-- ================= EXPERIENCE ================= -->
-  <section id="experience">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-tag">04 · experience</span>
-        <h2 class="section-title">Commit <span class="accent">history</span></h2>
-      </div>
-      <div class="log">
 
-        <!-- EDIT: grouped by category. Each "commit" = one line item.
-             Add, remove, or reorder freely within a group. -->
+<div aria-hidden="true" style="position: absolute; left: 0; top: 2px; width: 252px; height: 230px; border-radius: 16px; background: ${t.lid}; border: 2px solid #2A2233; box-shadow: 4px 4px 0 #2A2233"></div>
+<div aria-hidden="true" style="position: absolute; left: 10px; top: 14px; width: 204px; height: 204px; border-radius: 50%; background: #23232A"></div>
+<div aria-hidden="true" style="position: absolute; left: 16px; top: 20px; width: 192px; height: 192px; border-radius: 50%; background: repeating-radial-gradient(circle, #16161B 0 2px, #26262E 2px 4px); animation: spin 1.8s linear infinite; animation-play-state: ${spinState}">
+<div style="position: absolute; left: 64px; top: 64px; width: 64px; height: 64px; border-radius: 50%; background: ${rec.c}; color: ${rec.fg}; display: flex; align-items: center; justify-content: center; text-align: center; font-family: 'Space Mono', monospace; font-size: 8px; font-weight: 700; line-height: 1.1; padding: 6px; box-sizing: border-box">${rec.short}</div>
+<div style="position: absolute; left: 92px; top: 92px; width: 8px; height: 8px; border-radius: 50%; background: #16161B"></div>
+<div style="position: absolute; left: 26px; top: 24px; width: 46px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.09); transform: rotate(-32deg)"></div>
+</div>
+<span ref=${setPivot} aria-hidden="true" style="position: absolute; left: 222px; top: 22px; width: 2px; height: 2px"></span>
+<div aria-hidden="true" style="position: absolute; left: 207px; top: 7px; width: 30px; height: 30px; border-radius: 50%; background: #D5D9E2; border: 2px solid #2A2233; box-sizing: border-box"></div>
+<div aria-hidden="true" style="position: absolute; left: 212px; top: 196px; width: 22px; height: 11px; border-radius: 4px; background: #2A2233"></div>
+<span aria-hidden="true" style="position: absolute; left: 14px; top: 214px; display: flex; align-items: center; gap: 5px; font-family: 'Space Mono', monospace; font-size: 9px; color: #2A2233"><span style="width: 8px; height: 8px; border-radius: 50%; background: ${lightColor}; box-shadow: 0 0 6px ${lightColor}"></span>33⅓</span>
+<button type="button" aria-label="Tonearm — drag onto the record to play" aria-pressed=${playing} onPointerDown=${armDown} onPointerMove=${armMove} onPointerUp=${armUp} onPointerCancel=${armUp} onClick=${armClick} style="position: absolute; left: 209px; top: 22px; width: 26px; height: 180px; padding: 0; border: 0; background: transparent; cursor: grab; touch-action: none; transform-origin: 13px 0; transform: rotate(${armDeg}deg); transition: ${armTransition}">
+<span style="position: absolute; left: 10px; top: 0; width: 6px; height: 150px; border-radius: 3px; background: linear-gradient(90deg,#9EA3B2,#E6E8EE,#9EA3B2); border: 1px solid #2A2233"></span>
+<span style="position: absolute; left: 4px; top: 144px; width: 18px; height: 30px; border-radius: 4px; background: #2A2233"></span>
+</button>
 
-        <div class="log-category reveal">
-          <h3 class="log-cat-title">jobs/</h3>
-          <div class="log">
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">6d4b820</span><span>· Jun 2025 – Aug 2025</span></div>
-              <div class="commit-msg">Technical Recruiter — Teknoz Software Solutions LLC</div>
-              <div class="commit-desc">Screened 100+ résumés and shortlisted 45+ candidates, coordinated 120+ interviews, and led onboarding for 45+ hires.</div>
-            </div>
+<div style="position: absolute; left: 262px; top: 6px; width: 116px; height: 226px">
+<div style="position: absolute; right: 0; top: 0; width: 96px; display: flex; flex-direction: column; gap: 3px">
+${(crate || []).map((r, $index) => html`
+<button type="button" aria-label="Put on ${r.t}" aria-pressed=${r.sel} onClick=${r.pick} style="height: 20px; padding: 0 6px; border: 1px solid ${t.asciiDark}; background: ${r.c}; color: ${r.fg}; font-family: 'Space Mono', monospace; font-size: 9px; text-align: left; white-space: nowrap; overflow: hidden; cursor: pointer; transform: translateX(${r.nudge})">${r.n} ||| ${r.short}</button>
+`)}
+</div>
+<div aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 98px; height: 98px; box-sizing: border-box; padding: 6px; background: ${rec.c}; color: ${rec.fg}; border: 1px solid ${t.asciiDark}; transform: rotate(-9deg); transform-origin: bottom left; box-shadow: 4px 4px 0 rgba(0,0,0,0.15); display: flex; flex-direction: column; justify-content: space-between">
+<span style="position: absolute; right: -22px; top: 8px; width: 80px; height: 80px; border-radius: 50%; background: repeating-radial-gradient(circle, #16161B 0 2px, #2A2A31 2px 4px); z-index: -1"></span>
+<span style="font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700">No.${rec.n}</span>
+<span style="font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; line-height: 1.1">${rec.t}</span>
+</div>
+</div>
+</div>
+</div>
+<div aria-live="polite" style="display: flex; align-items: center; gap: 10px; font-family: 'Space Mono', monospace; font-size: 11px">
+<div aria-hidden="true" style="display: flex; align-items: flex-end; gap: 3px; height: 18px">${(eqBars || []).map((b, $index) => html`<span style="width: 3px; height: 5px; background: ${t.asciiDark}; animation: eq .9s ease-in-out infinite; animation-delay: ${b.delay}; animation-play-state: ${spinState}"></span>`)}</div>
+<span style="min-width: 0">${nowLabel} <b>${rec.t}</b> · ${rec.a}</span>
+</div>
+</div>
+</div>
+` : null}
+</div>
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">c48d015</span><span>· Nov 2025 – Present</span></div>
-              <div class="commit-msg">Student Assistant — GSU Advisement Center</div>
-              <div class="commit-desc">Support academic advising operations: scheduling, records management, and front desk/call center for 55,000+ student inquiries with 95% positive feedback.</div>
-            </div>
 
-          </div>
-        </div>
+<div style="flex: 1.6 1 560px; max-width: 780px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 16px">
+<div onPointerDown=${d.name.down} onPointerMove=${d.name.move} onPointerUp=${d.name.up} onPointerCancel=${d.name.cancel} style="position: relative; z-index: ${d.name.z}; transform: ${d.name.tf}; cursor: grab; touch-action: none; user-select: none; display: flex; flex-direction: column; align-items: center; gap: 10px">
+<h1 aria-label="amulya" style="display: flex; gap: 6px; align-items: center; font-weight: 400">
+${(ransom || []).map((L, $index) => html`<span aria-hidden="true" style="position: relative; display: inline-block; transform: rotate(${L.rot}deg) translateY(${L.dy}); filter: drop-shadow(1px 2px 1.5px rgba(0,0,0,0.45)) drop-shadow(3px 6px 8px rgba(0,0,0,0.18))">
+<span style="display: inline-flex; align-items: center; justify-content: center; min-width: ${L.w}; height: ${L.h}; padding: ${L.pad}; box-sizing: border-box; background: ${L.bg}; color: ${L.fg}; font-family: ${L.font}; font-size: ${L.size}; font-style: ${L.style}; line-height: 1; text-shadow: ${L.ts}; box-shadow: ${L.inset}; clip-path: polygon(${L.clip})">${L.ch}</span>
+${(L.tape) ? html`<span style="position: absolute; left: 50%; top: -9px; width: 40px; height: 16px; margin-left: -20px; background: rgba(255,240,200,0.75); transform: rotate(${L.tapeRot}deg); box-shadow: 0 1px 2px rgba(0,0,0,0.15)"></span>` : null}
+</span>`)}
+</h1>
+<span class="nb" style="padding: 2px 10px; background: ${t.paper}; color: ${t.ink}; font-family: 'Reenie Beanie', cursive; font-size: 24px; transform: rotate(-1.5deg)">cs @ georgia state · ai/ml, data analytics & web</span>
+</div>
 
-        <div class="log-category reveal">
-          <h3 class="log-cat-title">hackathons/</h3>
-          <div class="log">
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">7b1e6a0</span><span>· Mar 2026</span></div>
-              <div class="commit-msg">SHPE Hackathon — Built "Nexus"</div>
-              <div class="commit-desc">Built a mentorship platform connecting Hispanic users to events and mentors, solo — handled backend logic and data flow with Python and Flask.</div>
-            </div>
+${(pop.file) ? html`
+<div style="position: fixed; left: max(16px, calc(50% - 380px)); top: 92px; width: 760px; max-width: calc(100vw - 32px); z-index: ${d.file.zf}; transform: ${d.file.tf}; animation: fadein .25s ease">
+<div role="tablist" aria-label="File sections" style="display: flex; align-items: flex-end; gap: 4px; padding-left: 18px; overflow-x: auto">
+${(fileTabs || []).map((ft, $index) => html`
+<button type="button" role="tab" aria-selected=${ft.on} onClick=${ft.pick} style="flex: none; min-height: ${ft.h}; padding: 0 16px; border: 0; border-radius: 10px 10px 0 0; background: ${ft.bg}; color: #3B2A14; font-family: 'Special Elite', monospace; font-size: 14px; cursor: pointer; box-shadow: ${ft.shadow}">${ft.label}</button>
+`)}
+<span onPointerDown=${d.file.down} onPointerMove=${d.file.move} onPointerUp=${d.file.up} onPointerCancel=${d.file.cancel} aria-hidden="true" style="flex: none; margin-left: auto; padding: 8px 10px; font-family: 'Space Mono', monospace; font-size: 11px; color: ${t.tagInk}; text-shadow: 0 1px 2px ${t.tagShadow}; cursor: grab; touch-action: none; user-select: none">:: drag</span>
+<button type="button" aria-label="Close the file" onClick=${closeFile} style="flex: none; width: 40px; height: 40px; border: 0; border-radius: 10px 10px 0 0; background: #EDD29E; color: #3B2A14; font-size: 16px; cursor: pointer">✕</button>
+</div>
+<div style="position: relative; padding: 18px; border-radius: 0 12px 12px 12px; background: repeating-linear-gradient(100deg, rgba(120,80,20,0.05) 0 3px, transparent 3px 9px), linear-gradient(180deg,#EDD29E,#E2C185); box-shadow: 0 16px 36px rgba(0,0,0,0.35)">
+<svg aria-hidden="true" width="26" height="62" viewBox="0 0 26 62" style="position: absolute; left: 34px; top: -14px; z-index: 2"><path d="M8 54 V12 a5 5 0 0 1 10 0 V48 a8 8 0 0 1 -16 0 V16" fill="none" stroke="#9EA3B2" stroke-width="3" stroke-linecap="round"></path></svg>
+<div style="position: relative; min-height: 0; max-height: min(520px, calc(100vh - 250px)); overflow: auto; padding: 30px 30px 24px; background: repeating-linear-gradient(180deg, transparent 0 27px, rgba(80,110,180,0.18) 27px 28px), #FFFDF5; color: #1F1A26; box-shadow: 0 2px 6px rgba(0,0,0,0.15)">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; justify-content: space-between; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 2px solid #1F1A26; font-family: 'Special Elite', monospace">
+<span style="font-size: 22px">CHIDURALA, AMULYA</span>
+<span style="font-size: 13px">CS FILE No. 2028 · ${ftabLabel}</span>
+</div>
+<span aria-hidden="true" style="position: absolute; right: 26px; top: 70px; padding: 4px 12px; border: 3px solid rgba(200,16,46,0.7); color: rgba(200,16,46,0.75); font-family: 'Special Elite', monospace; font-size: 18px; letter-spacing: 0.1em; transform: rotate(-12deg); pointer-events: none">IN PROGRESS</span>
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">4a8f213</span><span>· Mar 2026</span></div>
-              <div class="commit-msg">HackAtlanta — Built "Dealer of Fate"</div>
-              <div class="commit-desc">Created a card-based fortune app with input-driven traversal flow, a solo prototype built in Python.</div>
-            </div>
+${(ftabIs.education) ? html`
+<div style="display: flex; flex-direction: column; gap: 18px; font-size: 16px; line-height: 1.55">
+<div><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 30px; line-height: 1.1">Georgia State University</h2>
+<p>B.S. Computer Science · Class of 2028 · Atlanta, GA</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px">
+<div style="padding: 12px; border: 1.5px dashed #1F1A26"><span style="display: block; font-family: 'Special Elite', monospace; font-size: 12px">GPA</span><span style="font-family: 'Gloock', serif; font-size: 34px">4.23</span></div>
+<div style="padding: 12px; border: 1.5px dashed #1F1A26"><span style="display: block; font-family: 'Special Elite', monospace; font-size: 12px">PRESIDENT'S LIST</span><span style="font-family: 'Gloock', serif; font-size: 34px">3×</span><span style="display: block; font-size: 12px">Fall '25 · Spring '26 · Summer '26</span></div>
+<div style="padding: 12px; border: 1.5px dashed #1F1A26"><span style="display: block; font-family: 'Special Elite', monospace; font-size: 12px">YEAR</span><span style="font-family: 'Gloock', serif; font-size: 34px">Soph.</span></div>
+</div>
+<div><span style="font-family: 'Special Elite', monospace; font-size: 13px">RELEVANT COURSEWORK</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px">
+<span style="padding: 4px 10px; background: #FFE7A8">Data Structures & Algorithms</span>
+<span style="padding: 4px 10px; background: #F9D3DC">Discrete Math</span>
+<span style="padding: 4px 10px; background: #CFE6F5">Object-Oriented Programming</span>
+<span style="padding: 4px 10px; background: #D7E8CF">Computer Systems</span>
+<span style="padding: 4px 10px; background: #E6DAF5">Statistics & Probability</span>
+<span style="padding: 4px 10px; background: #FFD9C2">Calculus & Linear Algebra</span>
+</div></div>
+<div><span style="font-family: 'Special Elite', monospace; font-size: 13px">ALSO</span>
+<p>CodePath Web Development certificate (Jun–Aug 2026), capstone: Prompt Her.</p></div>
+<div><span style="font-family: 'Special Elite', monospace; font-size: 13px">FOCUS AREAS</span>
+<p>AI/ML · data analytics · software development · UI/UX</p></div>
+</div>
+` : null}
 
-          </div>
-        </div>
+${(ftabIs.projects) ? html`
+<div style="display: flex; flex-direction: column; gap: 16px">
+${(projects || []).map((p, $index) => html`
+<div style="display: flex; flex-wrap: wrap; gap: 6px 18px; padding-bottom: 14px; border-bottom: 1px dashed #8A8494">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px; padding-top: 6px">No.${p.num}</span>
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px"><span style="font-family: 'Gloock', serif; font-size: 26px; line-height: 1.1">${p.name}</span><span style="padding: 1px 8px; background: #FFE7A8; font-family: 'Special Elite', monospace; font-size: 12px">${p.tag}</span></span>
+<span style="font-size: 15px; line-height: 1.5">${p.desc}</span>
+<span style="font-family: 'Space Mono', monospace; font-size: 12px">${p.stack}${(p.links || []).map((lk, $index) => html` · <a href=${lk.href}>${lk.label}</a>`)}</span>
+</div>
+</div>
+`)}
+</div>
+` : null}
 
-        <div class="log-category reveal">
-          <h3 class="log-cat-title">leadership &amp; boards/</h3>
-          <div class="log">
+${(ftabIs.experience) ? html`
+<div style="display: flex; flex-direction: column; gap: 22px; font-size: 15px; line-height: 1.55">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px">NOV 2025 – PRESENT</span>
+<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Student Assistant · GSU Advisement Center</h2>
+<p>• Run the front desk and phone line: checking students in for advising and answering their questions.</p>
+<p>• Schedule advising appointments and update student records in the office's computer databases.</p>
+<p>• Handled 55,000+ student inquiries with 95% positive feedback.</p>
+<p>• Keep the office running: filing, document prep and secure shredding.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px">JUN – AUG 2025</span>
+<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Technical Recruiter · Teknoz Software Solutions</h2>
+<p>• Recruited remotely for a US-based IT staffing firm, filling software development, data and cloud roles on contract (C2C / W2).</p>
+<p>• Screened 100+ résumés and shortlisted 45+ candidates.</p>
+<p>• Coordinated 120+ interviews and led onboarding for 45+ hires.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px">2026</span>
+<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Hackathons · 6 and counting</h2>
+<p>• <b>HackHERS 2026</b>: 1st place overall + MLH Best Use of Presage, with PreggoPillow (team of 4).</p>
+<p>• <b>HackGT 13</b>: built Cation for the Impiricus track (team of 4).</p>
+<p>• <b>Hacklanta 2</b>: built Outlens solo, live at lookslikeitworks.us.</p>
+<p>• <b>Hacklanta</b>: built Dealer of Fate solo · <b>SHPE Hackathon</b>: built Nexus solo.</p>
+<p>• <b>VibraATL</b>: designed Nexos, a mentorship app prototype, in Figma.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px">OCT 2026 – PRESENT</span>
+<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Marketing Lead · Girls Who Code @ GSU</h2>
+<p>• Run the chapter's social media: posts, stories and reels.</p>
+<p>• Design flyers and graphics for meetings and workshops.</p>
+<p>• Lead outreach to recruit new members, and help plan chapter events.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px">VOLUNTEERING</span>
+<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Giving back</h2>
+<p>• <b>Trees Atlanta</b>: planted 3 trees around the city, hauling shovels and watering them in.</p>
+<p>• <b>GSU Career Closet</b> (Career Services): organized donated professional clothing and helped students find interview outfits.</p>
+</div>
+</div>
+` : null}
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">2c7e9a1</span><span>· Jul 2026 – Present</span></div>
-              <div class="commit-msg">Marketing & Communications Manager — Hindu Yuva @ GSU</div>
-              <div class="commit-desc">Lead marketing and communications for the organization's events and outreach.</div>
-            </div>
+${(ftabIs.skills) ? html`
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; gap: 14px; font-family: 'Special Elite', monospace; font-size: 12px"><span>●●● proficient</span><span>●●○ comfortable</span><span>●○○ familiar</span><span>◌ learning</span></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px 28px">
+${(skillGroups || []).map((g, $index) => html`
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px; padding-bottom: 4px; border-bottom: 1px solid #1F1A26">${g.name}</span>
+${(g.items || []).map((sk, $index) => html`
+<div style="display: flex; justify-content: space-between; gap: 10px; font-size: 15px; line-height: 1.6"><span>${sk.n}</span><span title=${sk.level} style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 2px; color: #8A1A2E">${sk.dots} <span style="letter-spacing: 0; color: #5E5568">${sk.level}</span></span></div>
+`)}
+</div>
+`)}
+</div>
+</div>
+` : null}
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">e920f3b</span><span>· Nov 2025 – Present</span></div>
-              <div class="commit-msg">Ambassador — Student Alumni Association (SAA)</div>
-              <div class="commit-desc">Represent GSU's Student Alumni Association at events and outreach initiatives.</div>
-            </div>
+${(ftabIs.awards) ? html`
+<div style="display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.5">
+<p><b>HackHERS 2026</b> · 1st Place Overall + MLH Best Use of Presage Technologies</p>
+<p><b>GSU Math Competition 2026</b> · 2nd place</p>
+<p><b>President's List</b> · Georgia State, 3 consecutive terms</p>
+<p><b>CodePath</b> · Web Development certificate</p>
+<p style="margin-top: 8px; font-family: 'Special Elite', monospace; font-size: 13px">LEADERSHIP & COMMUNITY</p>
+<p><b>Marketing Lead</b> · Girls Who Code @ GSU · Oct 2026–present <span style="padding: 0 6px; background: #FFE7A8; font-family: 'Special Elite', monospace; font-size: 12px">new</span></p>
+<p><b>Marketing & Communications Manager</b> · Hindu YUVA @ GSU · Jul 2026–present</p>
+<p><b>Ambassador</b> · Student Alumni Association · Nov 2025–present</p>
+<p><b>Member</b> · WomenLead</p>
+<p style="margin-top: 8px; font-family: 'Special Elite', monospace; font-size: 13px">VOLUNTEERING</p>
+<p><b>Trees Atlanta</b> · planted and watered 3 trees</p>
+<p><b>GSU Career Closet</b> · organized clothing, helped students find professional attire</p>
+</div>
+` : null}
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">1f4a7c9</span><span>· 2025 – Present</span></div>
-              <div class="commit-msg">Executive Board — ProgSU</div>
-              <div class="commit-desc">Serve on the executive board of GSU's programming/tech student organization.</div>
-            </div>
+</div>
+</div>
+</div>
+` : null}
 
-          </div>
-        </div>
 
-        <div class="log-category reveal">
-          <h3 class="log-cat-title">achievements &amp; certifications/</h3>
-          <div class="log">
+<div style="order: 1; position: relative; width: 100%; max-width: 540px; display: flex; flex-direction: column; align-items: center; z-index: ${d.laptop.z}; transform: ${d.laptop.tf}">
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">a3f9c2d</span><span>· Fall 2025 · Spring 2026 · Summer 2026</span></div>
-              <div class="commit-msg">President's List — Georgia State University</div>
-              <div class="commit-desc">Named to President's List for three consecutive terms.</div>
-            </div>
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">0d2b8e1</span><span>· Apr 2026</span></div>
-              <div class="commit-msg">Runner-up — GSU Math Competition 2026</div>
-              <div class="commit-desc">Placed as runner-up in Georgia State's 2026 math competition.</div>
-            </div>
+<div aria-hidden="true" style="position: absolute; right: -6px; top: 14px; z-index: 3; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: swing 2.8s ease-in-out infinite; pointer-events: none">
+<span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #C9CDD8"></span>
+<span style="width: 2px; height: 18px; background: #C9CDD8"></span>
+<span style="width: 12px; height: 12px; border-radius: 50%; background: #F6C6D0; border: 1px solid #2A2233"></span>
+<span style="width: 10px; height: 10px; border-radius: 50%; background: #FFE7A8; border: 1px solid #2A2233; margin-top: 2px"></span>
+<span style="width: 18px; height: 18px; margin-top: 2px; background: #FFFDF6; border: 1px solid #2A2233; display: flex; align-items: center; justify-content: center; font-family: 'Abril Fatface', serif; font-size: 12px; color: #2A2233">A</span>
+<span style="width: 10px; height: 10px; border-radius: 50%; background: #A9D6F5; border: 1px solid #2A2233; margin-top: 2px"></span>
+<svg width="26" height="26" viewBox="0 0 24 24" style="margin-top: 2px"><path d="M12 2.5l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.8 6.2 20.3l1.6-6.6L2.6 9.3l6.8-.5z" fill="#D5D9E2" stroke="#2A2233" stroke-width="1.2" stroke-linejoin="round"></path></svg>
+</div>
+<div aria-hidden="true" style="position: absolute; right: 30px; top: 14px; z-index: 3; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: swing 3.4s ease-in-out infinite reverse; pointer-events: none">
+<span style="width: 2px; height: 26px; background: #C9CDD8"></span>
+<svg width="24" height="28" viewBox="0 0 24 28"><path d="M12 2 C 12 8 8 10 7 14 M12 2 C 13 8 16 10 17 14" stroke="#4E7A3A" stroke-width="1.6" fill="none"></path><circle cx="7" cy="19" r="5.5" fill="#E1241B" stroke="#2A2233" stroke-width="1"></circle><circle cx="17" cy="19" r="5.5" fill="#E1241B" stroke="#2A2233" stroke-width="1"></circle></svg>
+<span style="width: 8px; height: 8px; border-radius: 50%; background: #F6C6D0; border: 1px solid #2A2233"></span>
+<svg width="20" height="18" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12.2C3 5 5.6 2.5 8.6 2.5c1.6 0 2.7.8 3.4 1.8.7-1 1.8-1.8 3.4-1.8 3 0 5.6 2.5 5.6 6.3C21 15.4 12 21 12 21z" fill="#F6C6D0" stroke="#2A2233" stroke-width="1.4"></path></svg>
+</div>
 
-            <div class="commit">
-              <div class="commit-meta"><span class="commit-hash">9f2a11c</span><span>· Jun 2026 – Aug 2026</span></div>
-              <div class="commit-msg">CodePath — Web Development Certificate</div>
-              <div class="commit-desc">Built projects with HTML, CSS, and JavaScript, including custom animations and dark mode. Capstone project: "Prompt Her," an event site for a prompt-engineering workshop for women in tech.</div>
-              <a class="cert-link" href="#" target="_blank" rel="noopener">📄 View certificate</a>
-              <!-- EDIT: replace href="#" with a link to your certificate file once you upload it -->
-            </div>
+${(lidClosed) ? html`
+<button type="button" aria-label="Open the laptop" onPointerDown=${d.laptop.down} onPointerMove=${d.laptop.move} onPointerUp=${d.laptop.up} onPointerCancel=${d.laptop.cancel} onClick=${d.laptop.click} style="position: relative; width: 100%; height: 320px; padding: 0; border-radius: 16px 16px 6px 6px; border: 2px solid #2A2233; background: ${t.lid}; cursor: grab; touch-action: none; user-select: none; box-shadow: 0 12px 28px rgba(0,0,0,0.3)">
+<span aria-hidden="true" style="position: absolute; left: 12%; top: 18%; padding: 6px 12px; background: #FFE7A8; color: #2A2233; font-family: 'Bungee', sans-serif; font-size: 13px; transform: rotate(-8deg)">hello world</span>
+<span aria-hidden="true" style="position: absolute; right: 16%; top: 20%; width: 56px; height: 56px; border-radius: 50%; background: #F25C78; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: 'Shrikhand', serif; font-size: 13px; transform: rotate(10deg)">1st!</span>
+<span aria-hidden="true" style="position: absolute; left: 20%; bottom: 22%; padding: 6px 10px; background: #C3C6EC; color: #2A2233; font-family: 'Space Mono', monospace; font-size: 11px; transform: rotate(5deg)">python > sleep</span>
+<span aria-hidden="true" style="position: absolute; right: 20%; bottom: 26%; padding: 6px 10px; border-radius: 999px; background: #A9D6F5; color: #2A2233; font-family: 'Zen Dots', sans-serif; font-size: 11px; transform: rotate(-6deg)">ATL ✶</span>
+<span style="position: absolute; left: 0; right: 0; top: 46%; text-align: center; font-family: 'Reenie Beanie', cursive; font-size: 28px; color: ${t.lidInk}">tap to open</span>
+</button>
+` : null}
+${(lidOpen) ? html`
+<div style="width: 100%; box-sizing: border-box; padding: 10px; border-radius: 16px 16px 6px 6px; background: #D5D9E2; border: 2px solid #2A2233; box-shadow: 0 12px 28px rgba(0,0,0,0.3); transform-origin: bottom center; animation: lidopen .6s cubic-bezier(.2,.8,.2,1)">
+<div style="border-radius: 8px; overflow: hidden; background: #12152A; color: #E8EEF6; display: flex; flex-direction: column; height: 290px; font-family: 'Space Mono', monospace">
+<div role="tablist" aria-label="Laptop tabs" style="display: flex; align-items: flex-end; gap: 2px; padding: 6px 6px 0; background: #1D2140; overflow-x: auto">
+${(tabs || []).map((tb, $index) => html`
+<button type="button" role="tab" aria-selected=${tb.on} onClick=${tb.pick} style="flex: none; min-height: 30px; padding: 0 10px; border: 0; border-radius: 8px 8px 0 0; background: ${tb.bg}; color: ${tb.fg}; font-size: 11px; cursor: pointer; white-space: nowrap">${tb.label}</button>
+`)}
+</div>
+<div role="tabpanel" style="flex: 1; overflow: auto; padding: 14px 16px; font-size: 12px; line-height: 1.5; animation: fadein .3s ease">
 
-          </div>
-        </div>
+${(tabIs.home) ? html`
+<pre style="color: ${t.screen}; font-size: 11px; line-height: 1.15">${PRE_1}</pre>
+<p style="margin-top: 12px">welcome to my little corner of the internet.</p>
+<p style="color: ${t.screen}">currently into: ai/ml · data analytics · building for the web</p>
+<p style="color: #AEB9CC">7 tabs open (as usual). everything else on this page moves.</p>
+` : null}
 
-      </div>
-    </div>
-  </section>
+${(tabIs.projects) ? html`
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px">
+${(projects || []).map((p, $index) => html`
+<button type="button" aria-pressed=${p.sel} onClick=${p.pick} style="text-align: left; padding: 8px 10px; border: 1.5px dashed ${p.border}; border-radius: 6px; background: ${p.bg}; color: #E8EEF6; cursor: pointer; display: flex; flex-direction: column; gap: 2px">
+<span style="display: flex; justify-content: space-between; font-size: 10px; color: ${t.screen}"><span>No.${p.num}</span><span>${p.tag}</span></span>
+<span style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px">${p.name}</span>
+<span style="font-size: 10px; color: #AEB9CC">${p.what}</span>
+</button>
+`)}
+</div>
+<div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #3A4170; display: flex; flex-direction: column; gap: 6px">
+<span style="color: ${t.screen}">> cat ${proj.file}</span>
+<span>${proj.desc}</span>
+<span style="color: #AEB9CC">${proj.stack}${(proj.links || []).map((lk, $index) => html` · <a href=${lk.href} style="color: ${t.screen}">${lk.label}</a>`)}</span>
+</div>
+` : null}
 
-  <!-- ================= CONTACT ================= -->
-  <section id="contact">
-    <div class="wrap">
-      <div class="contact-card reveal">
-        <span class="section-tag">05 · contact</span>
-        <h2 class="section-title">Let's <span class="accent">talk</span></h2>
-        <p>Open to internships, project collabs, and hackathon teams. Easiest way to reach me is email — I check it daily.</p>
-        <div class="contact-links">
-          <button class="btn btn-primary" id="emailBtn" data-email="amulya.chidurala1@gmail.com">✉ Copy email</button>
-          <a href="https://github.com/heyyamulya" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://www.linkedin.com/in/amulya-chidurala-145a233b6" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="resume.pdf" class="btn btn-ghost" id="resumeLink2" target="_blank" rel="noopener">Resume</a>
-          <!-- EDIT: both resume buttons point to "resume.pdf" — export your resume as a PDF named
-               exactly "resume.pdf" and keep it in the same folder as this HTML file when you host it -->
-        </div>
-      </div>
-    </div>
-  </section>
+${(tabIs.pillow) ? html`
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+<pre style="color: ${t.screen}; font-size: 11px; line-height: 1.15">${PRE_2}</pre>
+<div style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 6px">
+<span style="color: ${t.screen}; font-weight: 700">PreggoPillow.md</span>
+<span>An AI pillow that learns a baby's movement pattern overnight and flags the night it changes.</span>
+<span>HackHERS 2026: 1st place overall + MLH Best Use of Presage Technologies.</span>
+<span style="color: #AEB9CC">team of 4 · Raspberry Pi · Arduino · Next.js · Go · Gemini · Presage · <a href="https://devpost.com/software/xyz-g9satd" style="color: ${t.screen}">devpost ↗</a></span>
+</div>
+</div>
+` : null}
+
+${(tabIs.skills) ? html`
+<pre style="font-size: 12px; line-height: 1.55" dangerouslySetInnerHTML=${{__html: PRE_3}}></pre>
+` : null}
+
+${(tabIs.resume) ? html`
+<div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: center">
+<pre style="color: ${t.screen}; font-size: 11px; line-height: 1.15">${PRE_4}</pre>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span>B.S. Computer Science · Georgia State · 4.23 GPA · '28</span>
+<span style="color: #AEB9CC">3× President's List · CodePath Web Dev certificate</span>
+<a href="https://amulyachidurala.me/resume.pdf" style="align-self: flex-start; padding: 8px 14px; border-radius: 999px; background: ${t.screen}; color: #12152A; text-decoration: none; font-weight: 700">open résumé ↗</a>
+</div>
+</div>
+` : null}
+
+${(tabIs.github) ? html`
+<p style="color: ${t.screen}">github.com/heyyamulya</p>
+<pre style="margin-top: 8px; font-size: 12px; line-height: 1.1; color: ${t.screen}">${PRE_5}</pre>
+<a href="https://github.com/heyyamulya" style="display: inline-block; margin-top: 10px; color: ${t.screen}">visit github ↗</a>
+` : null}
+
+${(tabIs.hi) ? html`
+<pre style="color: ${t.screen}; font-size: 11px; line-height: 1.15">${PRE_6}</pre>
+<p style="margin-top: 10px">open to internships, collabs & hackathon teams.</p>
+<div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" onClick=${copyEmail} style="min-height: 36px; padding: 0 14px; border-radius: 999px; border: 0; background: ${t.screen}; color: #12152A; font-weight: 700; cursor: pointer">${copyLabel}</button>
+<a href="mailto:[YOUR EMAIL]?subject=Hi%20Amulya%20%E2%80%94%20saw%20your%20portfolio" style="min-height: 36px; display: inline-flex; align-items: center; padding: 0 14px; border-radius: 999px; border: 1.5px solid ${t.screen}; color: ${t.screen}; text-decoration: none; font-weight: 700">write me (pre-filled) ↗</a>
+</div>
+` : null}
+
+</div>
+</div>
+</div>
+` : null}
+<div onPointerDown=${d.laptop.down} onPointerMove=${d.laptop.move} onPointerUp=${d.laptop.up} onPointerCancel=${d.laptop.cancel} style="width: 108%; height: 18px; border-radius: 0 0 16px 16px; background: #B9BECB; border: 2px solid #2A2233; border-top: 0; display: flex; justify-content: center; cursor: grab; touch-action: none; user-select: none">
+<span aria-hidden="true" style="width: 80px; height: 6px; border-radius: 0 0 6px 6px; background: #9AA0B0"></span>
+</div>
+</div>
+
+<div style="order: 3; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; font-family: 'Space Mono', monospace; font-size: 12px">
+<a href="https://www.linkedin.com/in/amulya-chidurala-145a233b6" class="nb" style="padding: 8px 12px; background: ${t.paper}; color: ${t.ink}; text-decoration: none; transform: rotate(-2deg)">linkedin ↗</a>
+<a href="https://github.com/heyyamulya" class="nb" style="padding: 8px 12px; background: ${t.paper}; color: ${t.ink}; text-decoration: none; transform: rotate(1.5deg)">github ↗</a>
+<a href="https://amulyachidurala.me/resume.pdf" class="nb" style="padding: 8px 12px; background: ${t.paper}; color: ${t.ink}; text-decoration: none; transform: rotate(-1deg)">résumé ↗</a>
+<button type="button" onClick=${copyEmail} style="padding: 8px 12px; border: 0; background: ${t.tape}; color: #2A2233; cursor: pointer; transform: rotate(2deg)">${copyLabel}</button>
+</div>
+</div>
+
+
+${(pop.archive) ? html`
+<div class="nb" style="position: fixed; left: 24px; bottom: 104px; width: 400px; max-width: calc(100vw - 48px); z-index: ${d.archive.zp}; transform: ${d.archive.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: 0 18px 40px rgba(0,0,0,0.35); animation: fadein .25s ease">
+<div onPointerDown=${d.archive.down} onPointerMove=${d.archive.move} onPointerUp=${d.archive.up} onPointerCancel=${d.archive.cancel} style="display: flex; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>archive/</span><span style="margin-left: auto" aria-hidden="true">:: drag</span><button type="button" aria-label="Close archive" onPointerDown=${stop} onClick=${closeArchive} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
+<div style="padding: 14px; display: flex; flex-direction: column; gap: 12px; max-height: 380px; overflow: auto">
+<span style="font-family: 'Reenie Beanie', cursive; font-size: 24px; line-height: 1">old stuff i'm keeping around ✶</span>
+${(archive || []).map((ar, $index) => html`
+<div style="position: relative; padding: 12px 14px; background: #FFFDF5; color: #1F1A26; border-left: 6px solid #DCD3EC; box-shadow: 0 2px 6px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; justify-content: space-between; gap: 8px; font-family: 'Special Elite', monospace; font-size: 12px"><span>${ar.when}</span><span style="padding: 0 6px; border: 1.5px solid rgba(200,16,46,0.7); color: rgba(200,16,46,0.85); transform: rotate(-3deg)">${ar.stamp}</span></span>
+<span style="font-family: 'Gloock', serif; font-size: 20px; line-height: 1.1">${ar.title}</span>
+<span style="font-size: 13px; line-height: 1.45">${ar.note}</span>
+<span style="font-family: 'Space Mono', monospace; font-size: 11px; color: #5E5568">${ar.stack}</span>
+</div>
+`)}
+</div>
+</div>
+` : null}
+
+
+<nav aria-label="Open a pop-up" style="position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 66; display: flex; align-items: flex-end; gap: 10px; max-width: calc(100vw - 24px); overflow-x: auto; padding-top: 30px; pointer-events: none">
+${(bookmarks || []).map((bk, $index) => html`
+<button type="button" aria-pressed=${bk.on} onClick=${bk.toggle} style="pointer-events: auto; flex: none; width: 104px; height: ${bk.h}; padding: 26px 8px 10px; border: 0; background: ${bk.bg}; color: #2A2233; clip-path: polygon(0 0, 50% 16px, 100% 0, 100% 100%, 0 100%); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 4px; cursor: pointer; transition: height .25s cubic-bezier(.2,.8,.2,1); filter: drop-shadow(0 -2px 3px rgba(0,0,0,0.25)); transform: rotate(${bk.rot}deg); transform-origin: bottom center">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px; line-height: 1.1; text-align: center">${bk.label}</span>
+<span aria-hidden="true" style="width: 60%; border-top: 1px dashed rgba(42,34,51,0.45)"></span>
+<span style="font-family: 'Space Mono', monospace; font-size: 9px">${bk.hint}</span>
+</button>
+`)}
+</nav>
+
+
+<div style="display: contents">
+
+<div aria-hidden="true" style="flex: 0 1 230px; max-width: 250px; min-width: 0"></div>
+
+
+${(locked) ? html`
+<div onWheel=${onWheel} onPointerDown=${overlayDown} onPointerUp=${swipeEnd} style="position: fixed; inset: 0; z-index: 70; background: rgba(5,7,15,0.5); overflow-y: scroll; overscroll-behavior: contain; touch-action: none">
+<div style="height: 101%; display: flex; justify-content: center; padding-top: 70px; box-sizing: border-box">
+<span style="height: 36px; display: inline-flex; align-items: center; padding: 0 16px; background: #FFE7A8; color: #2A2233; font-family: 'Space Mono', monospace; font-size: 12px; transform: rotate(-1deg)">locked in · arrows, swipe or two-finger scroll · esc to unlock</span>
+</div>
+</div>
+` : null}
+
+${(pop.game) ? html`
+<div onWheel=${onWheel} class="nb" style="position: fixed; right: 24px; top: 120px; width: 360px; max-width: calc(100vw - 48px); z-index: ${gameZ}; transform: ${d.game.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: ${gameShadow}; animation: fadein .25s ease">
+<div onPointerDown=${d.game.down} onPointerMove=${d.game.move} onPointerUp=${d.game.up} onPointerCancel=${d.game.cancel} style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>2048.txt</span><span style="margin-left: auto">${lockTag}</span><button type="button" aria-label="Close 2048" onPointerDown=${stop} onClick=${closeGame} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
+<div style="padding: 14px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: 'Space Mono', monospace; font-size: 12px">
+<span>score <b>${score}</b></span>
+<span>best <b>${best}</b></span>
+<button type="button" onClick=${newGame} style="min-height: 34px; padding: 0 10px; border: 1px solid ${t.ink}; background: transparent; cursor: pointer">new</button>
+<button type="button" aria-pressed=${locked} onClick=${toggleLock} style="margin-left: auto; min-height: 34px; padding: 0 12px; border: 0; background: ${t.accent}; color: ${t.accentInk}; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px">
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d=${lockPath}></path></svg>${lockLabel}</button>
+</div>
+<div style="position: relative; width: 100%; max-width: 300px; margin: 0 auto">
+<div ref=${setBoard} tabIndex="0" aria-label="2048 board — arrow keys to play" onKeyDown=${onKey} onPointerDown=${swipeStart} onPointerUp=${swipeEnd} onPointerCancel=${swipeCancel} style="user-select: none; cursor: grab; width: 100%; aspect-ratio: 1 / 1; box-sizing: border-box; padding: 10px; border-radius: 10px; background: ${t.boardBg}; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; touch-action: none">
+${(cells || []).map((cl, $index) => html`<div style="border-radius: 8px; background: ${cl.bg}; color: ${cl.fg}; display: flex; align-items: center; justify-content: center; font-family: 'Zen Dots', sans-serif; font-size: ${cl.fs}; transition: background .15s">${cl.label}</div>`)}
+</div>
+${(over) ? html`
+<div aria-live="assertive" style="position: absolute; inset: 0; border-radius: 10px; background: rgba(20,14,30,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px">
+<span style="padding: 4px 14px; background: #F25C78; color: #FFFFFF; font-family: 'Shrikhand', serif; font-size: 34px; transform: rotate(-6deg); box-shadow: 3px 3px 0 #2A2233">sikeee!</span>
+<span style="padding: 4px 10px; background: #FFE7A8; color: #2A2233; font-family: 'Zen Dots', sans-serif; font-size: 16px; transform: rotate(3deg)">game over!</span>
+<button type="button" onClick=${newGame} style="min-height: 38px; padding: 0 16px; border: 0; background: #FFFDF6; color: #2A2233; font-family: 'Space Mono', monospace; font-size: 12px; cursor: pointer">run it back ↺</button>
+</div>
+` : null}
+</div>
+<p aria-live="polite" style="font-family: 'Space Mono', monospace; font-size: 10px; text-align: center; color: ${t.muted}">${gameHint}</p>
+</div>
+</div>
+` : null}
+
+${(pop.guest) ? html`
+<div class="nb" style="position: fixed; right: 24px; bottom: 104px; width: 380px; max-width: calc(100vw - 48px); z-index: ${d.guest.zp}; transform: ${d.guest.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: 0 18px 40px rgba(0,0,0,0.35); animation: fadein .25s ease">
+<div onPointerDown=${d.guest.down} onPointerMove=${d.guest.move} onPointerUp=${d.guest.up} onPointerCancel=${d.guest.cancel} style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>guestbook.txt</span><span style="margin-left: auto" aria-hidden="true">:: drag</span><button type="button" aria-label="Close guestbook" onPointerDown=${stop} onClick=${closeGuest} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
+<form onSubmit=${gbSubmit} style="padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'Reenie Beanie', cursive; font-size: 24px; line-height: 1">drop your name so I know you stopped by</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<label style="flex: 1 1 120px; display: flex; flex-direction: column; gap: 4px; font-family: 'Space Mono', monospace; font-size: 10px">name
+<input name="name" autocomplete="name" value=${gbName} onInput=${onGbName} placeholder="who's this?" style="min-height: 38px; padding: 0 10px; border: 1px solid ${t.ink}; background: ${t.field}; font-family: 'Syne', sans-serif; font-size: 14px" />
+</label>
+<label style="flex: 1 1 150px; display: flex; flex-direction: column; gap: 4px; font-family: 'Space Mono', monospace; font-size: 10px">email (autofills)
+<input name="email" type="email" autocomplete="email" value=${gbEmail} onInput=${onGbEmail} placeholder="you@email.com" style="min-height: 38px; padding: 0 10px; border: 1px solid ${t.ink}; background: ${t.field}; font-family: 'Syne', sans-serif; font-size: 14px" />
+</label>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between">
+<span style="font-family: 'Space Mono', monospace; font-size: 10px; color: ${t.muted}">${gbCount} signed · ${gbLatest}</span>
+<button type="submit" style="min-height: 38px; padding: 0 16px; border: 0; background: ${t.accent}; color: ${t.accentInk}; font-weight: 700; cursor: pointer">drop it ✶</button>
+</div>
+</form>
+<div style="padding: 0 14px 14px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px; padding-top: 10px; border-top: 1px dashed ${t.rule}">VISITOR LOG</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; font-family: 'Space Mono', monospace">
+<div style="padding: 6px 8px; border: 1px solid ${t.rule}; display: flex; flex-direction: column"><span style="font-size: 9px; color: ${t.muted}">VISITS</span><span style="font-family: 'Zen Dots', sans-serif; font-size: 18px">${vlog.visits}</span></div>
+<div style="padding: 6px 8px; border: 1px solid ${t.rule}; display: flex; flex-direction: column"><span style="font-size: 9px; color: ${t.muted}">SIGNED</span><span style="font-family: 'Zen Dots', sans-serif; font-size: 18px">${vlog.signed}</span></div>
+<div style="padding: 6px 8px; border: 1px solid ${t.rule}; display: flex; flex-direction: column"><span style="font-size: 9px; color: ${t.muted}">YOU ARE VISIT</span><span style="font-family: 'Zen Dots', sans-serif; font-size: 18px">#${vlog.you}</span></div>
+</div>
+<span style="font-family: 'Space Mono', monospace; font-size: 10px; color: ${t.muted}">first visit ${vlog.first} · last ${vlog.last} · ${build.version} (built ${build.date})</span>
+<div style="max-height: 150px; overflow: auto; display: flex; flex-direction: column; font-family: 'Space Mono', monospace; font-size: 11px; line-height: 1.9; background: repeating-linear-gradient(180deg, transparent 0 20px, ${t.rule} 20px 21px)">
+${(visitors || []).map((vv, $index) => html`<div style="display: flex; gap: 10px; height: 21px; align-items: center"><span style="color: ${t.muted}">#${vv.n}</span><span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700">${vv.name}</span><span style="color: ${t.muted}">${vv.when}</span></div>`)}
+</div>
+</div>
+</div>
+` : null}
+</div>
 
 </main>
 
-<footer>
-  <p>// built by Amulya Chidurala · last recompiled <span id="buildDate"></span></p>
-</footer>
 
-<div class="toast" id="toast">Email copied to clipboard</div>
+${(hasSel) ? html`
+<div style="position: fixed; left: 16px; bottom: 16px; z-index: 60; display: flex; align-items: center; gap: 6px; padding: 6px 8px 6px 12px; background: ${t.tape}; color: #2A2233; font-family: 'Space Mono', monospace; font-size: 11px; transform: rotate(-1.5deg); box-shadow: 0 3px 8px rgba(0,0,0,0.2)">
+<span>${hud.name}</span>
+<button type="button" aria-label="Rotate left" onClick=${rotL} style="width: 30px; height: 30px; border: 1px solid #2A2233; background: transparent; cursor: pointer">↺</button>
+<button type="button" aria-label="Rotate right" onClick=${rotR} style="width: 30px; height: 30px; border: 1px solid #2A2233; background: transparent; cursor: pointer">↻</button>
+<button type="button" onClick=${resetAll} style="height: 30px; padding: 0 8px; border: 1px solid #2A2233; background: transparent; cursor: pointer">tidy up</button>
+</div>
+` : null}
+` : null}
 
-<script>
-// ---------- mobile nav ----------
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
-navToggle.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('open');
-  navToggle.setAttribute('aria-expanded', open);
-});
-navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  navLinks.classList.remove('open');
-  navToggle.setAttribute('aria-expanded', false);
-}));
 
-// ---------- terminal typing effect ----------
-const typedBody = document.getElementById('typedBody');
-const scriptLines = [
-  { type: 'prompt', text: '$ whoami' },
-  { type: 'out', text: 'Amulya Chidurala' },
-  { type: 'prompt', text: '$ cat status.txt' },
-  { type: 'out', text: 'Sophomore · Computer Science · Georgia State University\nGPA: 4.23  |  status: actively building' },
-  { type: 'prompt', text: '$ ./run --next' },
-  { type: 'highlight', text: 'looking for: internships, hackathons, collaborators' }
-];
+${(cur.seen) ? html`
+<div aria-hidden="true" style="position: absolute; left: ${cur.lx}; top: ${cur.ly}; z-index: 90; pointer-events: none; display: flex; flex-direction: column; gap: 2px; font-family: 'Space Mono', monospace; font-size: 10px; line-height: 1.2; color: ${t.tagInk}; text-shadow: 0 1px 2px ${t.tagShadow}; white-space: nowrap">
+<span>+ ${cur.x}, ${cur.y}</span>
+${(hud.dragging) ? html`<span>${hud.name} @ ${hud.x}, ${hud.y} · ${hud.r}°</span>` : null}
+</div>
+` : null}
 
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+<span aria-hidden="true" style="position: absolute; right: 24px; bottom: 26px; z-index: 6; font-family: 'Space Mono', monospace; font-size: 10px; color: ${t.tagInk}; text-shadow: 0 1px 2px ${t.tagShadow}">${build.version} · built ${build.date} · ${vlog.visits} visits</span>
+<span aria-hidden="true" style="position: absolute; right: 24px; bottom: 10px; z-index: 6; font-family: 'Space Mono', monospace; font-size: 10px; color: ${t.tagInk}; text-shadow: 0 1px 2px ${t.tagShadow}">33.75° N, 84.39° W</span>
 
-function renderStatic(){
-  typedBody.innerHTML = scriptLines.map(l => {
-    const cls = l.type === 'prompt' ? 'prompt' : (l.type === 'highlight' ? 'highlight' : 'out');
-    return `<div class="line ${cls}">${l.text.replace(/\n/g,'<br>')}</div>`;
-  }).join('');
-}
 
-async function typeSequence(){
-  for (const l of scriptLines){
-    const div = document.createElement('div');
-    div.className = 'line ' + (l.type === 'prompt' ? 'prompt' : (l.type === 'highlight' ? 'highlight' : 'out'));
-    typedBody.appendChild(div);
-    const text = l.text;
-    for (let i = 0; i <= text.length; i++){
-      div.innerHTML = text.slice(0, i).replace(/\n/g,'<br>') + '<span class="cursor"></span>';
-      await new Promise(r => setTimeout(r, l.type === 'prompt' ? 28 : 12));
-    }
-    div.innerHTML = text.replace(/\n/g,'<br>');
-    await new Promise(r => setTimeout(r, 180));
+${(showBoot) ? html`
+<div style="position: fixed; inset: 0; z-index: 100; background: #070914; color: #E8EEF6; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; font-family: 'Space Mono', monospace">
+<div style="width: 100%; max-width: 620px; display: flex; flex-direction: column; gap: 22px">
+<pre style="color: #A9D6F5; font-size: clamp(9px, 2.2vw, 15px); line-height: 1.15">${PRE_7}</pre>
+<div aria-live="polite" style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; min-height: 130px">
+${(bootLines || []).map((bl, $index) => html`<span style="animation: fadein .3s ease">${bl.t}</span>`)}
+<span aria-hidden="true" style="width: 9px; height: 16px; background: #A9D6F5; animation: blink 1s steps(1) infinite"></span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+${(bootDone) ? html`<button type="button" ref=${setStartBtn} onClick=${start} style="min-height: 54px; padding: 0 26px; border: 2px solid #A9D6F5; background: transparent; color: #A9D6F5; font-family: 'Zen Dots', sans-serif; font-size: 18px; letter-spacing: 0.06em; cursor: pointer; animation: fadein .4s ease">[ press start ]</button>` : null}
+<button type="button" onClick=${skipIntro} style="min-height: 40px; padding: 0 8px; border: 0; background: transparent; color: #8A93AD; font-size: 12px; text-decoration: underline; cursor: pointer">skip</button>
+</div>
+</div>
+</div>
+` : null}
+
+
+${(showLetter) ? html`
+<div style="position: fixed; inset: 0; z-index: 100; background: rgba(20,14,30,0.72); display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box">
+<div style="position: relative; width: 100%; max-width: 720px; box-sizing: border-box; padding: 44px 44px 32px; background: #FFFBF1; color: #1F1A26; box-shadow: 0 20px 50px rgba(0,0,0,0.45); transform: rotate(-1deg); display: flex; flex-direction: column; gap: 18px">
+<span aria-hidden="true" style="position: absolute; left: 50%; top: -12px; width: 110px; height: 24px; margin-left: -55px; background: rgba(255,231,168,0.9); transform: rotate(2deg)"></span>
+<div aria-live="polite" style="min-height: 300px; display: flex; flex-direction: column; gap: 0">
+${(letter || []).map((ln, $index) => html`
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; min-height: 40px">
+${(ln.words || []).map((w, $index) => html`<span style="font-family: ${w.font}; font-size: ${w.size}; font-weight: 700; line-height: 1.08; letter-spacing: -0.01em">${w.text}</span>`)}
+${(ln.caret) ? html`<span aria-hidden="true" style="display: inline-block; width: 3px; height: 32px; background: #1F1A26; animation: blink 1s steps(1) infinite"></span>` : null}
+</div>
+`)}
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+<button type="button" onClick=${skipIntro} style="min-height: 40px; padding: 0 12px; border: 0; background: transparent; font-family: 'Space Mono', monospace; font-size: 12px; text-decoration: underline; cursor: pointer">skip</button>
+${(introDone) ? html`
+<button type="button" ref=${setStartBtn} onClick=${start} style="width: 84px; height: 84px; border-radius: 50%; border: 0; background: #B3122E; color: #FFE7A8; font-family: 'Shrikhand', serif; font-size: 18px; cursor: pointer; box-shadow: inset 0 0 0 6px rgba(0,0,0,0.12), 0 6px 14px rgba(0,0,0,0.3); animation: fadein .4s ease">open ✶</button>
+` : null}
+</div>
+</div>
+</div>
+` : null}
+
+</div>`;
   }
 }
 
-if (reduceMotion){ renderStatic(); } else { typeSequence(); }
 
-// ---------- scroll reveal ----------
-const revealEls = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
-revealEls.forEach(el => io.observe(el));
-
-// ---------- copy email ----------
-const emailBtn = document.getElementById('emailBtn');
-const toast = document.getElementById('toast');
-emailBtn.addEventListener('click', async () => {
-  const email = emailBtn.dataset.email;
-  try{
-    await navigator.clipboard.writeText(email);
-  }catch(e){ /* clipboard may be unavailable; fail silently */ }
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2000);
-});
-
-// ---------- build date footer ----------
-document.getElementById('buildDate').textContent = new Date().toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+render(html`<${App} />`, document.getElementById('app'));
 </script>
-
 </body>
 </html>

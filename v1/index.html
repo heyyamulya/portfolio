@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amulya Chidurala — CS @ GSU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   EDIT ME: search for "EDIT:" comments to find every place
+   you should personalize this file. Everything else is
+   scaffolding you probably don't need to touch.
+   ============================================================ */
+
+:root{
+  --bg: #0F1419;
+  --surface: #151C24;
+  --surface-2: #1B2430;
+  --border: #263140;
+  --text: #E8EAED;
+  --text-muted: #8B96A5;
+  --text-dim: #56616F;
+  --amber: #E8A33D;
+  --amber-dim: #7A5A25;
+  --mint: #4FD1AE;
+  --mint-dim: #285E4E;
+  --red: #E2685A;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --max: 980px;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ scroll-behavior:smooth; }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.6;
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(232,163,61,0.07), transparent 45%),
+    radial-gradient(circle at 85% 0%, rgba(79,209,174,0.06), transparent 40%);
+}
+
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+
+.wrap{ max-width:var(--max); margin:0 auto; padding:0 24px; }
+
+::selection{ background:var(--amber); color:#0F1419; }
+
+/* focus states */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline:2px solid var(--mint);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* ---------- nav ---------- */
+
+header.site-nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(15,20,25,0.82);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:var(--max); margin:0 auto; padding:16px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.nav-logo{
+  font-family:var(--font-mono); font-weight:700; font-size:15px;
+  color:var(--text);
+}
+.nav-logo .dot{ color:var(--amber); }
+.nav-links{ display:flex; gap:28px; }
+.nav-links a{
+  font-family:var(--font-mono); font-size:13px; color:var(--text-muted);
+  transition:color .15s ease;
+  position:relative;
+}
+.nav-links a:hover{ color:var(--mint); }
+.nav-links a::before{ content:'./'; color:var(--text-dim); }
+
+.nav-toggle{
+  display:none; flex-direction:column; gap:4px; background:none; border:none; cursor:pointer; padding:6px;
+}
+.nav-toggle span{ width:20px; height:2px; background:var(--text); display:block; }
+
+@media (max-width:720px){
+  .nav-links{
+    position:absolute; top:100%; left:0; right:0;
+    background:var(--surface); border-bottom:1px solid var(--border);
+    flex-direction:column; gap:0; padding:8px 0;
+    display:none;
+  }
+  .nav-links.open{ display:flex; }
+  .nav-links a{ padding:12px 24px; }
+  .nav-toggle{ display:flex; }
+}
+
+/* ---------- hero ---------- */
+
+.hero{
+  min-height:100svh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:120px 24px 60px;
+  text-align:center;
+}
+
+.hero-eyebrow{
+  font-family:var(--font-mono); font-size:13px; color:var(--mint);
+  letter-spacing:0.08em; margin-bottom:18px;
+}
+.hero-eyebrow::before{ content:'// '; color:var(--text-dim); }
+
+.terminal{
+  width:100%; max-width:640px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  box-shadow:0 30px 80px -20px rgba(0,0,0,0.6);
+  overflow:hidden;
+  text-align:left;
+  margin-bottom:34px;
+}
+.terminal-bar{
+  display:flex; align-items:center; gap:8px;
+  padding:11px 14px;
+  background:var(--surface-2);
+  border-bottom:1px solid var(--border);
+}
+.terminal-bar span{ width:11px; height:11px; border-radius:50%; display:block; }
+.terminal-bar span:nth-child(1){ background:#E2685A; }
+.terminal-bar span:nth-child(2){ background:#E8A33D; }
+.terminal-bar span:nth-child(3){ background:#4FD1AE; }
+.terminal-title{
+  margin-left:8px; font-family:var(--font-mono); font-size:12px; color:var(--text-dim);
+}
+.terminal-body{
+  padding:22px 22px 26px;
+  font-family:var(--font-mono);
+  font-size:14.5px;
+  min-height:190px;
+}
+.terminal-body .line{ margin-bottom:8px; white-space:pre-wrap; }
+.terminal-body .prompt{ color:var(--mint); }
+.terminal-body .out{ color:var(--text-muted); padding-left:0; }
+.terminal-body .highlight{ color:var(--amber); }
+.cursor{
+  display:inline-block; width:8px; height:16px; background:var(--amber);
+  vertical-align:middle; animation:blink 1s step-end infinite;
+}
+@keyframes blink{ 50%{ opacity:0; } }
+
+.hero-links{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+.btn{
+  font-family:var(--font-mono); font-size:13.5px;
+  padding:11px 20px; border-radius:6px;
+  border:1px solid var(--border);
+  transition:all .15s ease;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.btn-primary{ background:var(--amber); color:#181206; border-color:var(--amber); font-weight:600; }
+.btn-primary:hover{ background:#f3b658; }
+.btn-ghost{ color:var(--text); }
+.btn-ghost:hover{ border-color:var(--mint); color:var(--mint); }
+
+/* ---------- section scaffolding ---------- */
+
+section{ padding:90px 0; }
+.section-head{ margin-bottom:44px; }
+.section-tag{
+  font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
+  margin-bottom:10px; display:block;
+}
+.section-title{
+  font-family:var(--font-display); font-size:32px; font-weight:600;
+  letter-spacing:-0.01em;
+}
+.section-title .accent{ color:var(--amber); }
+
+/* ---------- about ---------- */
+
+.about-grid{
+  display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px;
+}
+@media (max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
+
+.about-text p{ color:var(--text-muted); margin-bottom:16px; font-size:15.5px; }
+.about-text strong{ color:var(--text); font-weight:600; }
+
+.photo-placeholder{
+  border:1px dashed var(--border);
+  border-radius:8px;
+  background:var(--surface);
+  color:var(--text-dim);
+  font-family:var(--font-mono);
+  font-size:12px;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; gap:6px;
+}
+.photo-placeholder.profile{ width:96px; height:96px; border-radius:50%; margin-bottom:18px; }
+.photo-placeholder.project{ width:100%; height:140px; margin-bottom:2px; }
+
+.edu-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:26px;
+}
+.edu-card .school{ font-family:var(--font-display); font-size:19px; font-weight:600; margin-bottom:4px; }
+.edu-card .degree{ color:var(--text-muted); font-size:14px; margin-bottom:18px; }
+.edu-stats{ display:flex; gap:24px; margin-bottom:20px; }
+.edu-stat .num{ font-family:var(--font-mono); font-size:22px; color:var(--mint); font-weight:700; }
+.edu-stat .label{ font-size:12px; color:var(--text-dim); font-family:var(--font-mono); }
+.edu-card .coursework-label{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); margin-bottom:8px; }
+.course-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+.course-tags span{
+  font-family:var(--font-mono); font-size:12px; color:var(--text-muted);
+  border:1px solid var(--border); padding:5px 10px; border-radius:5px;
+}
+
+/* ---------- skills ---------- */
+
+.skills-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media (max-width:760px){ .skills-grid{ grid-template-columns:1fr; } }
+
+.skill-col h3{
+  font-family:var(--font-mono); font-size:13px; color:var(--text-dim);
+  margin-bottom:16px; text-transform:uppercase; letter-spacing:.05em;
+}
+.skill-col.learning h3{ color:var(--amber); }
+.skill-list{ display:flex; flex-direction:column; gap:10px; }
+.skill-pill{
+  background:var(--surface); border:1px solid var(--border); border-radius:7px;
+  padding:12px 14px; font-family:var(--font-mono); font-size:13.5px;
+  display:flex; align-items:center; justify-content:space-between;
+  transition:border-color .15s ease;
+}
+.skill-pill:hover{ border-color:var(--mint-dim); }
+.skill-col.learning .skill-pill{ border-left:2px solid var(--amber); }
+.skill-status{ font-size:11px; color:var(--text-dim); }
+
+/* ---------- projects ---------- */
+
+.projects-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media (max-width:900px){ .projects-grid{ grid-template-columns:1fr; } }
+
+.project-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:24px; display:flex; flex-direction:column; gap:14px;
+  transition:transform .18s ease, border-color .18s ease;
+}
+.project-card:hover{ transform:translateY(-4px); border-color:var(--mint-dim); }
+.project-status{
+  align-self:flex-start;
+  font-family:var(--font-mono); font-size:11px; padding:4px 9px; border-radius:20px;
+  border:1px solid var(--amber-dim); color:var(--amber);
+}
+/* To add a real project photo later, put an <img src="..." alt="..."> at the top of a .project-card, styled full-width with border-radius:7px */
+.project-card h3{ font-family:var(--font-display); font-size:19px; font-weight:600; }
+.project-card p{ color:var(--text-muted); font-size:14px; flex-grow:1; }
+.project-tags{ display:flex; flex-wrap:wrap; gap:6px; }
+.project-tags span{
+  font-family:var(--font-mono); font-size:11px; color:var(--text-dim);
+  border:1px solid var(--border); padding:3px 8px; border-radius:4px;
+}
+.project-links{ display:flex; gap:16px; margin-top:4px; }
+.project-links a{
+  font-family:var(--font-mono); font-size:12.5px; color:var(--text-muted);
+  border-bottom:1px solid var(--border); padding-bottom:2px;
+}
+.project-links a:hover{ color:var(--mint); border-color:var(--mint); }
+
+/* ---------- experience (commit log) ---------- */
+
+.log-category{ margin-bottom:40px; }
+.log-category:last-child{ margin-bottom:0; }
+.log-cat-title{
+  font-family:var(--font-mono); font-size:13px; color:var(--mint);
+  letter-spacing:.04em; margin-bottom:18px;
+  padding-bottom:8px; border-bottom:1px solid var(--border);
+}
+.log{ position:relative; padding-left:28px; }
+.log::before{
+  content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+  background:linear-gradient(var(--border), var(--border) 90%, transparent);
+}
+.commit{ position:relative; padding-bottom:30px; }
+.commit:last-child{ padding-bottom:0; }
+.commit::before{
+  content:''; position:absolute; left:-28px; top:5px; width:11px; height:11px;
+  border-radius:50%; background:var(--bg); border:2px solid var(--mint);
+}
+.commit-meta{
+  display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;
+  font-family:var(--font-mono); font-size:12px; color:var(--text-dim); margin-bottom:6px;
+}
+.commit-hash{ color:var(--amber); }
+.commit-msg{ font-family:var(--font-display); font-size:17px; font-weight:600; margin-bottom:6px; }
+.commit-desc{ color:var(--text-muted); font-size:14px; }
+.cert-link{
+  display:inline-block; margin-top:8px; font-family:var(--font-mono); font-size:12.5px;
+  color:var(--mint); border-bottom:1px solid var(--mint-dim);
+}
+.cert-link:hover{ border-color:var(--mint); }
+
+/* ---------- contact ---------- */
+
+.contact-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:44px; text-align:center;
+}
+.contact-card p{ color:var(--text-muted); max-width:460px; margin:12px auto 28px; }
+.contact-links{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+footer{
+  border-top:1px solid var(--border); padding:28px 0; text-align:center;
+}
+footer p{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); }
+
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease; }
+.reveal.in{ opacity:1; transform:none; }
+
+.toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--mint); color:#0b1e18; font-family:var(--font-mono); font-size:13px;
+  padding:10px 18px; border-radius:6px; opacity:0; pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease; z-index:200;
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">amulya<span class="dot">.</span>dev</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#experience">experience</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <span class="hero-eyebrow">status: actively building</span>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span></span><span></span><span></span>
+        <span class="terminal-title">zsh — whoami</span>
+      </div>
+      <div class="terminal-body" id="typedBody"></div>
+    </div>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">view projects</a>
+      <a href="resume.pdf" class="btn btn-ghost" id="resumeLink" target="_blank" rel="noopener">resume.pdf</a>
+      <a href="#contact" class="btn btn-ghost">get in touch</a>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">01 · about</span>
+        <h2 class="section-title">Who's <span class="accent">writing this code</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>I'm <strong>Amulya Chidurala</strong>, a sophomore Computer Science major at Georgia State University with a 4.23 GPA. I'm proficient in Python and comfortable building with HTML, CSS, and JavaScript — with hands-on experience in Flask, React, and a few hackathon projects along the way.</p>
+          <p>Right now I'm focused on turning what I'm learning into real, shipped projects — from an event platform I built for a workshop on prompt engineering for women in tech, to mentorship and fortune-telling apps built solo at hackathons.</p>
+          <p><em>I'm still exploring which corner of CS I want to go deep on, so I'm staying open — web dev, AI, and beyond — and learning by building.</em></p>
+        </div>
+        <div class="edu-card reveal">
+          <div class="school">Georgia State University</div>
+          <div class="degree">B.S. Computer Science</div>
+          <div class="edu-stats">
+            <div class="edu-stat">
+              <div class="num">4.23</div>
+              <div class="label">GPA</div>
+            </div>
+            <div class="edu-stat">
+              <div class="num">Soph.</div>
+              <div class="label">YEAR</div>
+            </div>
+            <div class="edu-stat">
+              <div class="num">'28</div>
+              <!-- EDIT: update expected graduation year -->
+              <div class="label">EXP. GRAD</div>
+            </div>
+          </div>
+          <div class="coursework-label">// relevant coursework</div>
+          <div class="course-tags">
+            <!-- EDIT: swap in your actual courses -->
+            <span>Data Structures &amp; Algorithms</span>
+            <span>Discrete Math</span>
+            <span>Object-Oriented Programming</span>
+            <span>Computer Systems</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">02 · skills</span>
+        <h2 class="section-title">What I <span class="accent">know & what I'm learning</span></h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-col reveal">
+          <h3>Languages</h3>
+          <div class="skill-list">
+            <div class="skill-pill">Python <span class="skill-status">proficient</span></div>
+            <div class="skill-pill">HTML / CSS <span class="skill-status">comfortable</span></div>
+            <div class="skill-pill">JavaScript <span class="skill-status">comfortable</span></div>
+            <div class="skill-pill">Java <span class="skill-status">familiar</span></div>
+            <div class="skill-pill">SQL <span class="skill-status">familiar</span></div>
+            <div class="skill-pill">C++ <span class="skill-status">familiar</span></div>
+          </div>
+        </div>
+        <div class="skill-col reveal">
+          <h3>Tools & Frameworks</h3>
+          <div class="skill-list">
+            <div class="skill-pill">Git / GitHub <span class="skill-status">comfortable</span></div>
+            <div class="skill-pill">VS Code <span class="skill-status">comfortable</span></div>
+            <div class="skill-pill">Flask <span class="skill-status">comfortable</span></div>
+            <div class="skill-pill">React <span class="skill-status">familiar</span></div>
+            <div class="skill-pill">Pandas / NumPy <span class="skill-status">familiar</span></div>
+            <div class="skill-pill">Tableau / Figma <span class="skill-status">familiar</span></div>
+          </div>
+        </div>
+        <div class="skill-col learning reveal">
+          <h3>Currently learning</h3>
+          <div class="skill-list">
+            <div class="skill-pill">React (deeper dive) <span class="skill-status">building</span></div>
+            <div class="skill-pill">Data Structures & Algorithms <span class="skill-status">building</span></div>
+            <div class="skill-pill">Prompt engineering / AI tools <span class="skill-status">building</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">03 · projects</span>
+        <h2 class="section-title">Things I'm <span class="accent">building</span></h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card reveal">
+          <span class="project-status">live</span>
+          <h3>Prompt Her — Event Site</h3>
+          <p>An event registration site built during CodePath, for a workshop introducing women to prompt engineering and emerging AI tools. Custom animations and a dark mode I spent a lot of time getting right.</p>
+          <div class="project-tags">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://cheerful-advising-software-798.vscodeedu.app/#resources" target="_blank" rel="noopener">Live site →</a>
+            <!-- EDIT: add a GitHub link here too if the repo is public -->
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <span class="project-status">hackathon</span>
+          <h3>Nexus</h3>
+          <p>A mentorship platform connecting Hispanic users to events and mentors. Built solo at a SHPE hackathon, handling backend logic and data flow.</p>
+          <div class="project-tags">
+            <span>Python</span><span>Flask</span>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noopener">GitHub → (add link)</a>
+            <!-- EDIT: add repo link when you find it -->
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <span class="project-status">hackathon</span>
+          <h3>Dealer of Fate</h3>
+          <p>A card-based fortune-telling app with input-driven traversal flow, built as a solo prototype at HackAtlanta.</p>
+          <div class="project-tags">
+            <span>Python</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/heyyamulya/dealer-of-fate.git" target="_blank" rel="noopener">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <span class="project-status">complete</span>
+          <h3>President's Wheel</h3>
+          <p>An interactive game with dynamic outcomes, using conditional logic and randomized decision flows.</p>
+          <div class="project-tags">
+            <span>HTML</span><span>JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noopener">GitHub → (add link)</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <span class="project-status">complete</span>
+          <h3>CLI Calculator</h3>
+          <p>A command-line calculator with modular arithmetic functions and error handling for efficient user interaction.</p>
+          <div class="project-tags">
+            <span>Python</span>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noopener">GitHub → (add link)</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">04 · experience</span>
+        <h2 class="section-title">Commit <span class="accent">history</span></h2>
+      </div>
+      <div class="log">
+
+        <!-- EDIT: grouped by category. Each "commit" = one line item.
+             Add, remove, or reorder freely within a group. -->
+
+        <div class="log-category reveal">
+          <h3 class="log-cat-title">jobs/</h3>
+          <div class="log">
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">6d4b820</span><span>· Jun 2025 – Aug 2025</span></div>
+              <div class="commit-msg">Technical Recruiter — Teknoz Software Solutions LLC</div>
+              <div class="commit-desc">Screened 100+ résumés and shortlisted 45+ candidates, coordinated 120+ interviews, and led onboarding for 45+ hires.</div>
+            </div>
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">c48d015</span><span>· Nov 2025 – Present</span></div>
+              <div class="commit-msg">Student Assistant — GSU Advisement Center</div>
+              <div class="commit-desc">Support academic advising operations: scheduling, records management, and front desk/call center for 55,000+ student inquiries with 95% positive feedback.</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="log-category reveal">
+          <h3 class="log-cat-title">hackathons/</h3>
+          <div class="log">
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">7b1e6a0</span><span>· Mar 2026</span></div>
+              <div class="commit-msg">SHPE Hackathon — Built "Nexus"</div>
+              <div class="commit-desc">Built a mentorship platform connecting Hispanic users to events and mentors, solo — handled backend logic and data flow with Python and Flask.</div>
+            </div>
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">4a8f213</span><span>· Mar 2026</span></div>
+              <div class="commit-msg">HackAtlanta — Built "Dealer of Fate"</div>
+              <div class="commit-desc">Created a card-based fortune app with input-driven traversal flow, a solo prototype built in Python.</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="log-category reveal">
+          <h3 class="log-cat-title">leadership &amp; boards/</h3>
+          <div class="log">
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">2c7e9a1</span><span>· Jul 2026 – Present</span></div>
+              <div class="commit-msg">Marketing & Communications Manager — Hindu Yuva @ GSU</div>
+              <div class="commit-desc">Lead marketing and communications for the organization's events and outreach.</div>
+            </div>
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">e920f3b</span><span>· Nov 2025 – Present</span></div>
+              <div class="commit-msg">Ambassador — Student Alumni Association (SAA)</div>
+              <div class="commit-desc">Represent GSU's Student Alumni Association at events and outreach initiatives.</div>
+            </div>
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">1f4a7c9</span><span>· 2025 – Present</span></div>
+              <div class="commit-msg">Executive Board — ProgSU</div>
+              <div class="commit-desc">Serve on the executive board of GSU's programming/tech student organization.</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="log-category reveal">
+          <h3 class="log-cat-title">achievements &amp; certifications/</h3>
+          <div class="log">
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">a3f9c2d</span><span>· Fall 2025 · Spring 2026 · Summer 2026</span></div>
+              <div class="commit-msg">President's List — Georgia State University</div>
+              <div class="commit-desc">Named to President's List for three consecutive terms.</div>
+            </div>
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">0d2b8e1</span><span>· Apr 2026</span></div>
+              <div class="commit-msg">Runner-up — GSU Math Competition 2026</div>
+              <div class="commit-desc">Placed as runner-up in Georgia State's 2026 math competition.</div>
+            </div>
+
+            <div class="commit">
+              <div class="commit-meta"><span class="commit-hash">9f2a11c</span><span>· Jun 2026 – Aug 2026</span></div>
+              <div class="commit-msg">CodePath — Web Development Certificate</div>
+              <div class="commit-desc">Built projects with HTML, CSS, and JavaScript, including custom animations and dark mode. Capstone project: "Prompt Her," an event site for a prompt-engineering workshop for women in tech.</div>
+              <a class="cert-link" href="#" target="_blank" rel="noopener">📄 View certificate</a>
+              <!-- EDIT: replace href="#" with a link to your certificate file once you upload it -->
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-card reveal">
+        <span class="section-tag">05 · contact</span>
+        <h2 class="section-title">Let's <span class="accent">talk</span></h2>
+        <p>Open to internships, project collabs, and hackathon teams. Easiest way to reach me is email — I check it daily.</p>
+        <div class="contact-links">
+          <button class="btn btn-primary" id="emailBtn" data-email="amulya.chidurala1@gmail.com">✉ Copy email</button>
+          <a href="https://github.com/heyyamulya" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/amulya-chidurala-145a233b6" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="resume.pdf" class="btn btn-ghost" id="resumeLink2" target="_blank" rel="noopener">Resume</a>
+          <!-- EDIT: both resume buttons point to "resume.pdf" — export your resume as a PDF named
+               exactly "resume.pdf" and keep it in the same folder as this HTML file when you host it -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>// built by Amulya Chidurala · last recompiled <span id="buildDate"></span></p>
+</footer>
+
+<div class="toast" id="toast">Email copied to clipboard</div>
+
+<script>
+// ---------- mobile nav ----------
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open);
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', false);
+}));
+
+// ---------- terminal typing effect ----------
+const typedBody = document.getElementById('typedBody');
+const scriptLines = [
+  { type: 'prompt', text: '$ whoami' },
+  { type: 'out', text: 'Amulya Chidurala' },
+  { type: 'prompt', text: '$ cat status.txt' },
+  { type: 'out', text: 'Sophomore · Computer Science · Georgia State University\nGPA: 4.23  |  status: actively building' },
+  { type: 'prompt', text: '$ ./run --next' },
+  { type: 'highlight', text: 'looking for: internships, hackathons, collaborators' }
+];
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function renderStatic(){
+  typedBody.innerHTML = scriptLines.map(l => {
+    const cls = l.type === 'prompt' ? 'prompt' : (l.type === 'highlight' ? 'highlight' : 'out');
+    return `<div class="line ${cls}">${l.text.replace(/\n/g,'<br>')}</div>`;
+  }).join('');
+}
+
+async function typeSequence(){
+  for (const l of scriptLines){
+    const div = document.createElement('div');
+    div.className = 'line ' + (l.type === 'prompt' ? 'prompt' : (l.type === 'highlight' ? 'highlight' : 'out'));
+    typedBody.appendChild(div);
+    const text = l.text;
+    for (let i = 0; i <= text.length; i++){
+      div.innerHTML = text.slice(0, i).replace(/\n/g,'<br>') + '<span class="cursor"></span>';
+      await new Promise(r => setTimeout(r, l.type === 'prompt' ? 28 : 12));
+    }
+    div.innerHTML = text.replace(/\n/g,'<br>');
+    await new Promise(r => setTimeout(r, 180));
+  }
+}
+
+if (reduceMotion){ renderStatic(); } else { typeSequence(); }
+
+// ---------- scroll reveal ----------
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+// ---------- copy email ----------
+const emailBtn = document.getElementById('emailBtn');
+const toast = document.getElementById('toast');
+emailBtn.addEventListener('click', async () => {
+  const email = emailBtn.dataset.email;
+  try{
+    await navigator.clipboard.writeText(email);
+  }catch(e){ /* clipboard may be unavailable; fail silently */ }
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+});
+
+// ---------- build date footer ----------
+document.getElementById('buildDate').textContent = new Date().toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+</script>
+
+</body>
+</html>
