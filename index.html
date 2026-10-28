@@ -74,29 +74,29 @@ const PRE_7 = "\n                         _\n  __ _  _ __ ___  _   _ | | _   _  
 
 
 const THEMES = {
-  morning: {fallback:'#C9774E', veil:'linear-gradient(180deg,rgba(40,20,40,0.15) 0%,rgba(40,20,40,0.05) 50%,rgba(30,20,50,0.35) 100%)',
+  morning: {bead:'#A9D6F5', fallback:'#C9774E', veil:'linear-gradient(180deg,rgba(40,20,40,0.15) 0%,rgba(40,20,40,0.05) 50%,rgba(30,20,50,0.35) 100%)',
     paper:'#FFF8EC', ink:'#2A2233', muted:'#5E5568', rule:'#B9AFC0', tape:'rgba(255,214,190,0.95)', accent:'#D63A8E', accentInk:'#FFFFFF', field:'#FFFFFF',
     lid:'#F3C8C0', lidInk:'#2A2233', screen:'#FFB59E', boardBg:'#F2DED2', cellEmpty:'rgba(255,255,255,0.65)', asciiGray:'#A7A2AE', asciiDark:'#4F4A58',
     ghost:'rgba(255,248,236,0.55)', tagInk:'#FFF8EC', tagShadow:'rgba(0,0,0,0.6)', planeInk:'#FFF8EC',
     tiles:['#FFF4E0','#FFE7A8','#FFD9C2','#FFB59E','#FF7F6B','#F25C78','#D63A8E','#E8B32F','#C3C6EC','#7FA7E8','#2A2233']},
-  afternoon: {fallback:'#8DB8DA', veil:'linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.05) 60%,rgba(40,60,30,0.2) 100%)',
+  afternoon: {bead:'#A9D6F5', fallback:'#8DB8DA', veil:'linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.05) 60%,rgba(40,60,30,0.2) 100%)',
     paper:'#FFFDF4', ink:'#1E2A3A', muted:'#4F5A66', rule:'#C2C7B8', tape:'rgba(255,224,138,0.95)', accent:'#B35A35', accentInk:'#FFFFFF', field:'#FFFFFF',
     lid:'#CFE6F5', lidInk:'#1E2A3A', screen:'#FFE08A', boardBg:'#EADBB8', cellEmpty:'rgba(255,255,255,0.65)', asciiGray:'#A9ADB2', asciiDark:'#4E555E',
     ghost:'rgba(30,42,58,0.4)', tagInk:'#1E2A3A', tagShadow:'rgba(255,255,255,0.8)', planeInk:'#1E2A3A',
     tiles:['#FFFDF4','#FFF1C9','#FFE08A','#FFC72C','#E9D3A8','#D9A866','#D2754F','#C8862B','#7EC6E8','#2F8FD8','#1E4E8C']},
-  evening: {fallback:'#C25A1E', veil:'linear-gradient(180deg,rgba(60,20,10,0.1) 0%,rgba(60,20,10,0.05) 50%,rgba(40,10,10,0.35) 100%)',
+  evening: {bead:'#A9D6F5', fallback:'#C25A1E', veil:'linear-gradient(180deg,rgba(60,20,10,0.1) 0%,rgba(60,20,10,0.05) 50%,rgba(40,10,10,0.35) 100%)',
     paper:'#FFF3E6', ink:'#2B1B1B', muted:'#5E4B4B', rule:'#C7AFA0', tape:'rgba(255,200,140,0.95)', accent:'#E1241B', accentInk:'#FFFFFF', field:'#FFFFFF',
     lid:'#F8B4B8', lidInk:'#2B1B1B', screen:'#FFB24B', boardBg:'#F3D3C8', cellEmpty:'rgba(255,255,255,0.6)', asciiGray:'#AFA5A0', asciiDark:'#55494A',
     ghost:'rgba(255,243,230,0.55)', tagInk:'#FFF3E6', tagShadow:'rgba(0,0,0,0.65)', planeInk:'#FFF3E6',
     tiles:['#FFF1E2','#FFD6C2','#F8B4B8','#E99BB0','#FFB24B','#FF8A4C','#FF6F61','#E1241B','#B15A8E','#6E3C8F','#3E2A6B']},
-  night: {fallback:'#13254A', veil:'linear-gradient(180deg,rgba(5,7,15,0) 0%,rgba(5,7,15,0.05) 50%,rgba(5,7,15,0.3) 100%)',
+  night: {bead:'#F4F1EA', fallback:'#13254A', veil:'linear-gradient(180deg,rgba(5,7,15,0) 0%,rgba(5,7,15,0.05) 50%,rgba(5,7,15,0.3) 100%)',
     paper:'#22263A', ink:'#F4EFE6', muted:'#CFC8BC', rule:'#6B6A86', tape:'rgba(255,196,107,0.92)', accent:'#FFB347', accentInk:'#1A1218', field:'#181B2B',
     lid:'#3A4060', lidInk:'#EAF0FA', screen:'#A9D6F5', boardBg:'#2C2A3E', cellEmpty:'rgba(255,255,255,0.12)', asciiGray:'#5D6788', asciiDark:'#C9D1DC',
     ghost:'rgba(234,240,250,0.45)', tagInk:'#EAF0FA', tagShadow:'rgba(0,0,0,0.8)', planeInk:'#EAF0FA',
     tiles:['#3A4570','#4E5A85','#6B7AA6','#2A9D8F','#A9D6F5','#C9D1DC','#6B3F69','#8E5FA8','#4B2C7A','#E8EEF6','#FFFFFF']}
 };
 const MODES = [['afternoon','day · meadow','Daytime spring meadow'],['night','night · gotham','Gotham-style city at night']];
-const LABELS = {archive:'archive',player:'record player',guest:'guestbook',laptop:'laptop',game:'2048',todo:'to-do',name:'name',file:'case file'};
+const LABELS = {w0:'sticker',w1:'sticker',w2:'sticker',w3:'sticker',w4:'sticker',w5:'sticker',w6:'sticker',w7:'sticker',archive:'archive',player:'record player',guest:'guestbook',laptop:'laptop',game:'2048',todo:'to-do',name:'name',file:'case file'};
 const HANDLE = {player:true,guest:true,game:true};
 const PROJECTS = [
   {id:'pp',num:'01',name:'PreggoPillow',file:'preggopillow.md',what:'AI pillow that tracks fetal movement',tag:'1st place',desc:"An AI pillow that learns a baby's movement pattern overnight and flags the night it changes. Three accelerometers cancel out the mother's own motion, and if movement drops below her baseline two nights in a row, it calls her emergency contact and prints a report for her midwife. HackHERS 2026: 1st place overall + MLH Best Use of Presage (team of 4).",stack:'Raspberry Pi · Arduino · Next.js · Go · Gemini · Presage SmartSpectra · TimescaleDB',links:[{label:'Devpost ↗',href:'https://devpost.com/software/xyz-g9satd'},{label:'GitHub ↗',href:'https://github.com/kbhatnagar1506/preggo-pillow'}]},
@@ -123,6 +123,25 @@ const ARCHIVE = [
   {title:'[older site version]', when:'—', stack:'', note:'[One line: what it looked like, and a screenshot]', stamp:'add me'}
 ];
 const BUILD = {version:'BUILD_v3.1.0', date:'10.28.2026'};
+const GEMS = {
+  ruby:['#FF8A9B','#E0112B','#8A0716'], emerald:['#8FE3A8','#1E9E55','#0B5A2C'], sapphire:['#8FB3FF','#1F3FBF','#0B1E6E'],
+  pearl:['#FFFFFF','#F3EEE6','#CFC5B8'], amethyst:['#E6B8FF','#A447D6','#5E1D8A'], citrine:['#FFE29A','#F2A20F','#A35C05'],
+  peridot:['#E5FF8A','#9ACD1E','#557A06'], diamond:['#FFFFFF','#E6ECF5','#A9B4C6'], garnet:['#FF7B7B','#B3121F','#5E0710'],
+  pinksapphire:['#FFB3D1','#F0428A','#9A1550'], aquamarine:['#C9F3FF','#5CCBEA','#1E7FA3']
+};
+const BLUE_GEMS = {sapphire:1, aquamarine:1};
+const CHARMS_GUEST = [['ruby','round',12],['pearl','pearl',6],['sapphire','pear',8],['amethyst','emerald',6],['star','star',8]];
+const CHARMS_ARCHIVE = [['emerald','emerald',10],['pearl','pearl',6],['citrine','pear',8],['pinksapphire','round',6],['peridot','round',6]];
+const WOOL = [
+  {id:'w0', text:'trying to pro maxxx', left:'2.5%', top:'340px', rot:-6, bg:'#F7B6C8', radius:'999px'},
+  {id:'w1', text:'leetcode daily', left:'6%', top:'420px', rot:4, bg:'#FFE08A', radius:'14px'},
+  {id:'w2', text:'how to center a div', left:'1.5%', top:'500px', rot:-3, bg:'#D7C4F2', radius:'999px'},
+  {id:'w3', text:'internship apps (47)', left:'7%', top:'580px', rot:5, bg:'#B9E4C2', radius:'14px'},
+  {id:'w4', text:'lofi beats to code to', right:'3%', top:'130px', rot:5, bg:'#FFC7A6', radius:'999px'},
+  {id:'w5', text:'chikni chameli on beat', right:'6%', top:'210px', rot:-4, bg:'#F49AB6', radius:'14px'},
+  {id:'w6', text:'fake love ♡', right:'2.5%', top:'290px', rot:6, bg:'#E8C8F5', radius:'999px'},
+  {id:'w7', text:'doomscrolling', right:'7%', top:'370px', rot:-5, bg:'#BFE2F7', radius:'14px', blue:true}
+];
 const FILE_TABS = [['education','education','#F3DDB0'],['projects','projects','#EBCB92'],['experience','experience','#F0D6A4'],['skills','skills','#E6C489'],['awards','awards & more','#EFD39C']];
 const EXTRA_TABS = [
   ['leetcode','leetcode daily #42','leetcode · daily challenge','  [ ] two sum (again)\n  [x] valid parentheses\n  [ ] the hard one',['streak: still alive','runtime: beats 61% (we take those)']],
@@ -237,6 +256,13 @@ class App extends Component {
     this.loadGuestbook();
     this.cTimer = setInterval(() => this.setState({time:this.atlTime()}), 30000);
     this.tTimer = setInterval(() => { if (this.state.typed >= this.letterLen){ clearInterval(this.tTimer); return; } this.setState({typed:this.state.typed + 1}); }, 38);
+  }
+  charms(list, mode){
+    return list.map(([gem, shape, gap]) => {
+      const key = (mode === 'night' && BLUE_GEMS[gem]) ? 'diamond' : gem;
+      const c = GEMS[key] || GEMS.pearl;
+      return {c1:c[0], c2:c[1], c3:c[2], gap:gap + 'px', size:'22px', sizeTall:'28px', round:shape === 'round', pear:shape === 'pear', emerald:shape === 'emerald', pearl:shape === 'pearl', star:shape === 'star'};
+    });
   }
   async countVisit(){
     if (SUPA_ON) {
@@ -468,8 +494,10 @@ class App extends Component {
       onWheel:(e) => this.onWheel(e), overlayDown:(e) => { this.swipeStart(e); this.focusBoard(); },
       locked:s.locked, toggleLock:() => this.toggleLock(),
       pop,
+      charmsGuest:this.charms(CHARMS_GUEST, s.mode), charmsArchive:this.charms(CHARMS_ARCHIVE, s.mode),
+      wool:WOOL.map(w => Object.assign({}, this.mk(w.id, null), w, {left:w.left || 'auto', right:w.right || 'auto', tf:this.mk(w.id, null).tf + ' rotate(' + w.rot + 'deg)', bg:(w.blue && s.mode === 'night') ? '#F4F1EA' : w.bg, ink:'#2A1A1E', edge:'rgba(255,255,255,0.55)'})),
       skillGroups:SKILLS.map(([name, items]) => ({name, items:items.map(([n, level]) => ({n, level, dots:DOTS[level]}))})),
-      bookmarks:[['file','cs file','#EDD29E',-2],['player','records','#F9D3DC',1.5],['game','2048','#FFE7A8',-1],['guest','guestbook','#CFE6F5',2],['archive','archive','#DCD3EC',-1.5]].map(([id,label,bg,rot]) => ({label, bg, rot, on:pop[id], h:pop[id] ? '96px' : '74px', hint:pop[id] ? 'tap to close' : 'tap to open', toggle:() => this.setState({pops:Object.assign({}, pop, {[id]:!pop[id]}), locked:id === 'game' && pop.game ? false : s.locked})})),
+      bookmarks:[['file','cs file','#EDD29E',-2],['player','records','#F9D3DC',1.5],['game','2048','#FFE7A8',-1],['guest','guestbook',s.mode === 'night' ? '#F4F1EA' : '#CFE6F5',2],['archive','archive','#DCD3EC',-1.5]].map(([id,label,bg,rot]) => ({label, bg, rot, on:pop[id], h:pop[id] ? '96px' : '74px', hint:pop[id] ? 'tap to close' : 'tap to open', toggle:() => this.setState({pops:Object.assign({}, pop, {[id]:!pop[id]}), locked:id === 'game' && pop.game ? false : s.locked})})),
       closeArchive:() => this.setState({pops:Object.assign({}, pop, {archive:false})}),
       archive:ARCHIVE,
       closeFile:() => this.setState({pops:Object.assign({}, pop, {file:false})}),
@@ -497,7 +525,7 @@ class App extends Component {
   }
   render(){
     const v = this.renderVals();
-    const {archive, armClick, armDeg, armDown, armMove, armTransition, armUp, banner, best, bgClass, bookmarks, bootDone, bootLines, build, cells, closeArchive, closeFile, closeGame, closeGuest, closePlayer, copyEmail, copyLabel, crate, cur, d, eqBars, extraTab, fileTabs, ftabIs, ftabLabel, gameHint, gameShadow, gameZ, gbEmail, gbName, gbSubmit, ghost, hasSel, hud, introDone, letter, lidClosed, lidOpen, lightColor, lockLabel, lockPath, lockTag, locked, newGame, nextBanner, notQuick, nowLabel, onGbEmail, onGbName, onKey, onRootLeave, onRootMove, onWheel, over, overlayDown, playing, pop, postcards, proj, projects, quick, quickLabel, ransom, rec, resetAll, rotL, rotR, score, setBoard, setPivot, setRoot, setStartBtn, showBoot, showLetter, skillGroups, skipIntro, spinState, start, stop, swipeCancel, swipeEnd, swipeStart, t, tabCount, tabIs, tabUrl, tabs, time, toggleLock, toggleQuick, visitors, vlog} = v;
+    const {archive, armClick, armDeg, armDown, armMove, armTransition, armUp, banner, best, bgClass, bookmarks, bootDone, bootLines, build, cells, charmsArchive, charmsGuest, closeArchive, closeFile, closeGame, closeGuest, closePlayer, copyEmail, copyLabel, crate, cur, d, eqBars, extraTab, fileTabs, ftabIs, ftabLabel, gameHint, gameShadow, gameZ, gbEmail, gbName, gbSubmit, ghost, hasSel, hud, introDone, letter, lidClosed, lidOpen, lightColor, lockLabel, lockPath, lockTag, locked, newGame, nextBanner, notQuick, nowLabel, onGbEmail, onGbName, onKey, onRootLeave, onRootMove, onWheel, over, overlayDown, playing, pop, postcards, proj, projects, quick, quickLabel, ransom, rec, resetAll, rotL, rotR, score, setBoard, setPivot, setRoot, setStartBtn, showBoot, showLetter, skillGroups, skipIntro, spinState, start, stop, swipeCancel, swipeEnd, swipeStart, t, tabCount, tabIs, tabUrl, tabs, time, toggleLock, toggleQuick, visitors, vlog, wool} = v;
     const PRE_3 = PRE_3_FN(t);
     return html`<div ref=${setRoot} onPointerMove=${onRootMove} onPointerLeave=${onRootLeave} class=${bgClass} style="position: relative; min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; color: ${t.ink}; font-family: 'Syne', 'Kalam', 'Ramaraja', sans-serif; background-color: ${t.fallback}; background-attachment: fixed; transition: background-image .6s">
 <div aria-hidden="true" style="position: absolute; inset: 0; background: ${t.veil}; pointer-events: none"></div>
@@ -785,7 +813,7 @@ ${(ftabIs.awards) ? html`
 <span style="width: 12px; height: 12px; border-radius: 50%; background: #F6C6D0; border: 1px solid #2A2233"></span>
 <span style="width: 10px; height: 10px; border-radius: 50%; background: #FFE7A8; border: 1px solid #2A2233; margin-top: 2px"></span>
 <span style="width: 18px; height: 18px; margin-top: 2px; background: #FFFDF6; border: 1px solid #2A2233; display: flex; align-items: center; justify-content: center; font-family: 'Abril Fatface', serif; font-size: 12px; color: #2A2233">A</span>
-<span style="width: 10px; height: 10px; border-radius: 50%; background: #A9D6F5; border: 1px solid #2A2233; margin-top: 2px"></span>
+<span style="width: 10px; height: 10px; border-radius: 50%; background: ${t.bead}; border: 1px solid #2A2233; margin-top: 2px"></span>
 <svg width="26" height="26" viewBox="0 0 24 24" style="margin-top: 2px"><path d="M12 2.5l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.8 6.2 20.3l1.6-6.6L2.6 9.3l6.8-.5z" fill="#D5D9E2" stroke="#2A2233" stroke-width="1.2" stroke-linejoin="round"></path></svg>
 </div>
 <div aria-hidden="true" style="position: absolute; right: 30px; top: 14px; z-index: 3; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: swing 3.4s ease-in-out infinite reverse; pointer-events: none">
@@ -911,13 +939,28 @@ ${(tabIs.hi) ? html`
 
 
 ${(pop.archive) ? html`
-<div class="nb" style="position: fixed; left: 24px; bottom: 104px; width: 400px; max-width: calc(100vw - 48px); z-index: ${d.archive.zp}; transform: ${d.archive.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: 0 18px 40px rgba(0,0,0,0.35); animation: fadein .25s ease">
-<div onPointerDown=${d.archive.down} onPointerMove=${d.archive.move} onPointerUp=${d.archive.up} onPointerCancel=${d.archive.cancel} style="display: flex; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>archive/</span><span style="margin-left: auto" aria-hidden="true">:: drag</span><button type="button" aria-label="Close archive" onPointerDown=${stop} onClick=${closeArchive} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
-<div style="padding: 14px; display: flex; flex-direction: column; gap: 12px; max-height: 380px; overflow: auto">
-<span style="font-family: 'Reenie Beanie', cursive; font-size: 24px; line-height: 1">old stuff i'm keeping around ✶</span>
+<div class="nb" style="position: fixed; left: 24px; bottom: 104px; width: 400px; max-width: calc(100vw - 48px); z-index: ${d.archive.zp}; transform: ${d.archive.tf}; padding: 10px 22px 14px 12px; box-sizing: border-box; border-radius: 14px 6px 6px 14px; background: #1E5B3A; color: #F6D58E; box-shadow: inset -10px 0 0 #14462B, inset -12px 0 0 rgba(246,213,142,0.35), 0 18px 40px rgba(0,0,0,0.45); animation: fadein .25s ease">
+<div aria-hidden="true" style="position: absolute; left: calc(100% + 4px); top: 30px; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: swing 3.6s ease-in-out infinite; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35))">
+<span style="width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #E7C66A; box-sizing: border-box"></span>
+${(charmsArchive || []).map((cm, $index) => html`<span style="width: 2px; height: ${cm.gap}; background: repeating-linear-gradient(180deg, #E7C66A 0 3px, #B8962E 3px 4px)"></span>
+${(cm.round) ? html`<svg width=${cm.size} height=${cm.size} viewBox="0 0 24 24"><polygon points="7,2 17,2 22,7 22,17 17,22 7,22 2,17 2,7" fill=${cm.c2} stroke=${cm.c3} stroke-width=".8"></polygon><polygon points="9,6 15,6 18,9 18,15 15,18 9,18 6,15 6,9" fill=${cm.c1}></polygon><polygon points="7,2 9,6 6,9 2,7" fill=${cm.c3}></polygon><polygon points="17,22 15,18 18,15 22,17" fill=${cm.c3}></polygon><polygon points="22,7 18,9 18,15 22,17" fill=${cm.c3} opacity=".55"></polygon><polygon points="12,2 15,6 9,6" fill="#FFFFFF" opacity=".45"></polygon><circle cx="10" cy="9" r="1.5" fill="#FFFFFF" opacity=".9"></circle></svg>` : null}
+${(cm.pear) ? html`<svg width=${cm.size} height=${cm.sizeTall} viewBox="0 0 24 30"><path d="M12 2 C 16 8 21 13 21 19 a9 9 0 0 1 -18 0 C3 13 8 8 12 2Z" fill=${cm.c2} stroke=${cm.c3} stroke-width=".8"></path><path d="M12 9 C 14 12 16 15 16 19 a4 4 0 0 1 -8 0 C 8 15 10 12 12 9Z" fill=${cm.c1}></path><path d="M12 2 L12 9 L8 19 L3 19 C3 13 8 8 12 2Z" fill=${cm.c3} opacity=".5"></path><circle cx="9.5" cy="17" r="1.6" fill="#FFFFFF" opacity=".9"></circle></svg>` : null}
+${(cm.emerald) ? html`<svg width=${cm.size} height=${cm.sizeTall} viewBox="0 0 22 28"><polygon points="5,1 17,1 21,5 21,23 17,27 5,27 1,23 1,5" fill=${cm.c2} stroke=${cm.c3} stroke-width=".8"></polygon><polygon points="7,5 15,5 17,7 17,21 15,23 7,23 5,21 5,7" fill=${cm.c1} opacity=".85"></polygon><polygon points="9,9 13,9 13,19 9,19" fill=${cm.c2}></polygon><polygon points="17,1 21,5 17,7 15,5" fill=${cm.c3}></polygon><polygon points="1,23 5,27 7,23 5,21" fill=${cm.c3}></polygon><rect x="7" y="6" width="3" height="1.4" fill="#FFFFFF" opacity=".9"></rect></svg>` : null}
+${(cm.pearl) ? html`<svg width=${cm.size} height=${cm.size} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill=${cm.c2} stroke=${cm.c3} stroke-width=".8"></circle><circle cx="13.5" cy="13.5" r="7" fill=${cm.c3} opacity=".25"></circle><circle cx="10" cy="10" r="5" fill=${cm.c1} opacity=".9"></circle><circle cx="8.5" cy="8" r="2" fill="#FFFFFF"></circle></svg>` : null}
+${(cm.star) ? html`<svg width=${cm.size} height=${cm.size} viewBox="0 0 24 24"><path d="M12 2.5l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.8 6.2 20.3l1.6-6.6L2.6 9.3l6.8-.5z" fill="#E7C66A" stroke="#9C7A1F" stroke-width="1" stroke-linejoin="round"></path><text x="12" y="15.5" text-anchor="middle" font-size="7" font-family="serif" fill="#7A5A10">A</text></svg>` : null}
+`)}
+</div>
+<div onPointerDown=${d.archive.down} onPointerMove=${d.archive.move} onPointerUp=${d.archive.up} onPointerCancel=${d.archive.cancel} style="display: flex; align-items: center; gap: 10px; padding: 2px 0 10px; cursor: grab; touch-action: none; user-select: none">
+<span style="font-family: 'Gloock', serif; font-size: 24px; letter-spacing: 0.22em">ARCHIVE</span>
+<span aria-hidden="true" style="font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8">✶ vol. 1</span>
+<span style="margin-left: auto; font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8" aria-hidden="true">:: drag</span>
+<button type="button" aria-label="Close archive" onPointerDown=${stop} onClick=${closeArchive} style="width: 34px; height: 34px; border: 1.5px solid #F6D58E; border-radius: 50%; background: transparent; color: #F6D58E; font-size: 14px; cursor: pointer">✕</button>
+</div>
+<div style="padding: 14px; display: flex; flex-direction: column; gap: 12px; max-height: 360px; overflow: auto; background: repeating-linear-gradient(180deg, transparent 0 25px, rgba(30,91,58,0.14) 25px 26px), #FFF9EC; color: #1F1A26; border-radius: 8px 2px 2px 8px; box-shadow: 0 2px 0 #EADFC8, 0 4px 0 #DCCFB4">
+<span style="font-family: 'Reenie Beanie', cursive; font-size: 26px; line-height: 1; color: #1E5B3A">old stuff i'm keeping around ✶</span>
 ${(archive || []).map((ar, $index) => html`
-<div style="position: relative; padding: 12px 14px; background: #FFFDF5; color: #1F1A26; border-left: 6px solid #DCD3EC; box-shadow: 0 2px 6px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 4px">
-<span style="display: flex; justify-content: space-between; gap: 8px; font-family: 'Special Elite', monospace; font-size: 12px"><span>${ar.when}</span><span style="padding: 0 6px; border: 1.5px solid rgba(200,16,46,0.7); color: rgba(200,16,46,0.85); transform: rotate(-3deg)">${ar.stamp}</span></span>
+<div style="position: relative; padding: 12px 14px; background: #FFFFFF; color: #1F1A26; border-left: 6px solid #1E5B3A; box-shadow: 0 2px 6px rgba(0,0,0,0.12); display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; justify-content: space-between; gap: 8px; font-family: 'Special Elite', monospace; font-size: 12px"><span>${ar.when}</span><span style="padding: 0 6px; border: 1.5px solid rgba(30,91,58,0.8); color: #1E5B3A; transform: rotate(-3deg)">${ar.stamp}</span></span>
 <span style="font-family: 'Gloock', serif; font-size: 20px; line-height: 1.1">${ar.title}</span>
 <span style="font-size: 13px; line-height: 1.45">${ar.note}</span>
 <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: #5E5568">${ar.stack}</span>
@@ -926,6 +969,11 @@ ${(archive || []).map((ar, $index) => html`
 </div>
 </div>
 ` : null}
+
+
+${(wool || []).map((ws, $index) => html`
+<div onPointerDown=${ws.down} onPointerMove=${ws.move} onPointerUp=${ws.up} onPointerCancel=${ws.cancel} style="position: absolute; left: ${ws.left}; right: ${ws.right}; top: ${ws.top}; z-index: ${ws.z}; transform: ${ws.tf}; padding: 9px 16px; border-radius: ${ws.radius}; background: radial-gradient(rgba(255,255,255,0.35) 0.8px, transparent 1.2px) 0 0 / 4px 4px, repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 4px), ${ws.bg}; color: ${ws.ink}; outline: 2.5px dashed rgba(255,255,255,0.85); outline-offset: -7px; box-shadow: 0 0 0 3px ${ws.edge}, 0 6px 12px rgba(0,0,0,0.25), inset 0 -3px 0 rgba(0,0,0,0.08); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.01em; white-space: nowrap; text-shadow: 0 1px 0 rgba(255,255,255,0.5), 0 -1px 0 rgba(0,0,0,0.12); cursor: grab; touch-action: none; user-select: none">${ws.text}</div>
+`)}
 
 
 <nav aria-label="Open a pop-up" style="position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 66; display: flex; align-items: flex-end; gap: 10px; max-width: calc(100vw - 24px); overflow-x: auto; padding-top: 30px; pointer-events: none">
@@ -982,6 +1030,16 @@ ${(over) ? html`
 
 ${(pop.guest) ? html`
 <div class="nb" style="position: fixed; right: 24px; bottom: 104px; width: 390px; max-width: calc(100vw - 48px); z-index: ${d.guest.zp}; transform: ${d.guest.tf}; padding: 10px 12px 14px 22px; box-sizing: border-box; border-radius: 6px 14px 14px 6px; background: #8E1B2E; color: #F6D58E; box-shadow: inset 10px 0 0 #6E1222, inset 12px 0 0 rgba(246,213,142,0.35), 0 18px 40px rgba(0,0,0,0.45); animation: fadein .25s ease">
+<div aria-hidden="true" style="position: absolute; left: -22px; top: 30px; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: swing 3.2s ease-in-out infinite; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35))">
+<span style="width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #E7C66A; box-sizing: border-box"></span>
+${(charmsGuest || []).map((cm, $index) => html`<span style="width: 2px; height: ${cm.gap}; background: repeating-linear-gradient(180deg, #E7C66A 0 3px, #B8962E 3px 4px)"></span>
+${(cm.round) ? html`<svg width=${cm.size} height=${cm.size} viewBox="0 0 24 24"><polygon points="7,2 17,2 22,7 22,17 17,22 7,22 2,17 2,7" fill=${cm.c2} stroke=${cm.c3} stroke-width=".8"></polygon><polygon points="9,6 15,6 18,9 18,15 15,18 9,18 6,15 6,9" fill=${cm.c1}></polygon><polygon points="7,2 9,6 6,9 2,7" fill=${cm.c3}></polygon><polygon points="17,22 15,18 18,15 22,17" fill=${cm.c3}></polygon><polygon points="22,7 18,9 18,15 22,17" fill=${cm.c3} opacity=".55"></polygon><polygon points="12,2 15,6 9,6" fill="#FFFFFF" opacity=".45"></polygon><circle cx="10" cy="9" r="1.5" fill="#FFFFFF" opacity=".9"></circle></svg>` : null}
+${(cm.pear) ? html`<svg width=${cm.size} height=${cm.sizeTall} viewBox="0 0 24 30"><path d="M12 2 C 16 8 21 13 21 19 a9 9 0 0 1 -18 0 C3 13 8 8 12 2Z" fill=${cm.c2} stroke=${cm.c3} stroke-width=".8"></path><path d="M12 9 C 14 12 16 15 16 19 a4 4 0 0 1 -8 0 C 8 15 10 12 12 9Z" fill=${cm.c1}></path><path d="M12 2 L12 9 L8 19 L3 19 C3 13 8 8 12 2Z" fill=${cm.c3} opacity=".5"></path><circle cx="9.5" cy="17" r="1.6" fill="#FFFFFF" opacity=".9"></circle></svg>` : null}
+${(cm.emerald) ? html`<svg width=${cm.size} height=${cm.sizeTall} viewBox="0 0 22 28"><polygon points="5,1 17,1 21,5 21,23 17,27 5,27 1,23 1,5" fill=${cm.c2} stroke=${cm.c3} stroke-width=".8"></polygon><polygon points="7,5 15,5 17,7 17,21 15,23 7,23 5,21 5,7" fill=${cm.c1} opacity=".85"></polygon><polygon points="9,9 13,9 13,19 9,19" fill=${cm.c2}></polygon><polygon points="17,1 21,5 17,7 15,5" fill=${cm.c3}></polygon><polygon points="1,23 5,27 7,23 5,21" fill=${cm.c3}></polygon><rect x="7" y="6" width="3" height="1.4" fill="#FFFFFF" opacity=".9"></rect></svg>` : null}
+${(cm.pearl) ? html`<svg width=${cm.size} height=${cm.size} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill=${cm.c2} stroke=${cm.c3} stroke-width=".8"></circle><circle cx="13.5" cy="13.5" r="7" fill=${cm.c3} opacity=".25"></circle><circle cx="10" cy="10" r="5" fill=${cm.c1} opacity=".9"></circle><circle cx="8.5" cy="8" r="2" fill="#FFFFFF"></circle></svg>` : null}
+${(cm.star) ? html`<svg width=${cm.size} height=${cm.size} viewBox="0 0 24 24"><path d="M12 2.5l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.8 6.2 20.3l1.6-6.6L2.6 9.3l6.8-.5z" fill="#E7C66A" stroke="#9C7A1F" stroke-width="1" stroke-linejoin="round"></path><text x="12" y="15.5" text-anchor="middle" font-size="7" font-family="serif" fill="#7A5A10">A</text></svg>` : null}
+`)}
+</div>
 <div onPointerDown=${d.guest.down} onPointerMove=${d.guest.move} onPointerUp=${d.guest.up} onPointerCancel=${d.guest.cancel} style="display: flex; align-items: center; gap: 10px; padding: 2px 0 10px; cursor: grab; touch-action: none; user-select: none">
 <span style="font-family: 'Gloock', serif; font-size: 24px; letter-spacing: 0.22em">GUESTBOOK</span>
 <span aria-hidden="true" style="font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8">✶ est. 2026</span>
