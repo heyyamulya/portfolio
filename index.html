@@ -44,7 +44,7 @@ import { html, Component, render } from './assets/vendor/htm-preact-3.1.1.js';
    Paste your project's URL and anon key below (Supabase → Project Settings → API).
    Leave them empty and the site falls back to counting in the visitor's own browser. */
 const SUPABASE_URL = 'https://glmvgwgkgphegrrlqiqc.supabase.co';
-const SUPABASE_ANON_KEY = '';
+const SUPABASE_ANON_KEY = 'sb_publishable_OwJCq9M-FOIM31AgID9-Jg_irDsOAKS';
 const SUPA_ON = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
 async function supa(path, opts = {}) {
   const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, Object.assign({}, opts, {

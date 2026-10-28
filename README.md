@@ -12,7 +12,7 @@ A one-screen desk: an always-open laptop, a CS case file, a record player, 2048 
 
 ## Turning on the shared guestbook + visit counter
 
-Without keys, visits are counted in each visitor's own browser. To make them shared:
+Keys are already set for this site. Without keys, visits are counted in each visitor's own browser. To make them shared:
 
 1. Create a free project at [supabase.com](https://supabase.com).
 2. Open **SQL Editor**, paste `supabase-setup.sql`, and run it.
