@@ -124,6 +124,17 @@ const ARCHIVE = [
 ];
 const BUILD = {version:'BUILD_v3.1.0', date:'10.28.2026'};
 const FILE_TABS = [['education','education','#F3DDB0'],['projects','projects','#EBCB92'],['experience','experience','#F0D6A4'],['skills','skills','#E6C489'],['awards','awards & more','#EFD39C']];
+const EXTRA_TABS = [
+  ['leetcode','leetcode daily #42','leetcode · daily challenge','  [ ] two sum (again)\n  [x] valid parentheses\n  [ ] the hard one',['streak: still alive','runtime: beats 61% (we take those)']],
+  ['center','how to center a div','search: how to center a div','   +-----------+\n   |   (div)   |\n   +-----------+',['display: grid; place-items: center;','asked this 400 times. will ask again.']],
+  ['internships','internship apps (47)','internships.xlsx','  applied ....... 47\n  OA ........... 6\n  interviews ... 2',['rejection emails make me stronger','(this tab never closes)']],
+  ['canvas','canvas: due 11:59pm','canvas · assignments','  CSC 2720 hw ...... due 11:59\n  MATH quiz ........ tmrw\n  sleep ............ ???',['it is 11:41. we ball.']],
+  ['figma','figma: nexos v3','figma · nexos','  [ screen 1 ] -> [ screen 2 ]\n        |\n  [ mentor match ]',['47 frames, 3 named properly']],
+  ['lofi','lofi beats to code to','now playing','   ♪ ┈ ┈ ♫ ┈ ┈ ♪\n  ▁▃▅▇▅▃▁▃▅▇',['volume: 37%','vibe: locked in']],
+  ['devpost','devpost: my hackathons','devpost · portfolio','  HackHERS ... 1st place\n  HackGT 13 .. Cation\n  Hacklanta 2  Outlens',['6 hackathons, 0 hours of sleep']],
+  ['docs','gwc meeting notes','docs · girls who code','  - flyer for workshop\n  - post reel thurs\n  - tabling at the student center',['marketing lead things']],
+  ['maps','route to campus','maps · atlanta','  home --> MARTA --> GSU\n   ~ 35 min (if the train shows up)',['commute podcast: pending']]
+];
 const TABS = [['home','~/home'],['projects','projects/'],['pillow','pillow.md'],['skills','skills.json'],['resume','resume.pdf'],['github','github'],['hi','say_hi.txt']];
 const RECORDS = [
   {t:'[fave song 1]',a:'[artist]',c:'#F25C78'},{t:'[fave song 2]',a:'[artist]',c:'#A9D6F5'},{t:'[fave song 3]',a:'[artist]',c:'#FFE08A'},
@@ -421,7 +432,12 @@ class App extends Component {
     if (s.board.includes(2048)) gameHint = 'you hit 2048?! okay, legend ✶';
 
     const tabIs = {}; TABS.forEach(([id]) => { tabIs[id] = s.tab === id; });
-    const tabs = TABS.map(([id,label]) => ({label, on:s.tab === id, bg:s.tab === id ? '#12152A' : 'transparent', fg:s.tab === id ? t.screen : '#AEB9CC', pick:() => this.setState({tab:id})}));
+    const DOTC = ['#F25C78','#FFE08A','#A9D6F5','#C3C6EC','#9CC9A0','#FF8A4C'];
+    const allTabs = TABS.map(([id,label]) => [id,label]).concat(EXTRA_TABS.map(x => [x[0], x[1]]));
+    const tabs = allTabs.map(([id,label], i) => ({label, on:s.tab === id, flex:s.tab === id ? '0 0 auto' : '1 1 0', bg:s.tab === id ? '#12152A' : 'transparent', fg:s.tab === id ? t.screen : '#AEB9CC', edge:s.tab === id ? 'none' : 'inset -1px 0 0 #2E3463', dot:DOTC[i % DOTC.length], pick:() => this.setState({tab:id})}));
+    const ex = EXTRA_TABS.find(x => x[0] === s.tab);
+    const extraTab = ex ? {on:true, title:ex[2], art:ex[3], lines:ex[4].map(t2 => ({t:t2}))} : {on:false, title:'', art:'', lines:[]};
+    const tabUrl = (allTabs.find(x => x[0] === s.tab) || ['','~/home'])[1].replace(/\s+/g, '-');
     const projects = PROJECTS.map((p,i) => Object.assign({}, p, {sel:i === s.proj, bg:i === s.proj ? '#232850' : 'transparent', border:i === s.proj ? t.screen : '#4A5180', pick:() => this.setState({proj:i})}));
     const postcards = MODES.map(([id,label,aria],i) => { const on = s.mode === id; return {label, aria, on, cls:'bg-' + id, rot:[-4,4][i % 2], lift:on ? '-6px' : '0px', labelBg:on ? t.tape : 'rgba(255,253,246,0.85)', shadow:on ? '0 8px 16px rgba(0,0,0,0.4)' : '0 3px 8px rgba(0,0,0,0.3)', pick:() => this.setState({mode:id})}; });
 
@@ -435,7 +451,7 @@ class App extends Component {
       banner:BANNERS[s.banner % BANNERS.length], nextBanner:() => this.setState({banner:s.banner + 1}),
       showLetter:intro && !s.started && s.mode !== 'night', letter:this.letterLines(), introDone:done,
       showBoot:intro && !s.started && s.mode === 'night',
-      bootLines:['> booting amulya.os', '> dusting off the records ............ ok', '> shuffling 2048 tiles ............... ok', '> opening 7 tabs (as usual) .......... ok', '> checking the sky ................... gotham, moody'].slice(0, Math.min(5, Math.floor(s.typed / 12))).map(x => ({t:x})),
+      bootLines:['> booting amulya.os', '> dusting off the records ............ ok', '> shuffling 2048 tiles ............... ok', '> opening 16 tabs (as usual) ......... ok', '> checking the sky ................... gotham, moody'].slice(0, Math.min(5, Math.floor(s.typed / 12))).map(x => ({t:x})),
       bootDone:s.typed >= 64, lightColor:playing ? '#5BD17A' : '#9AA0B4',
       skipIntro:() => this.setState({started:true}), start:() => this.setState({started:true}), setStartBtn:this.setStartBtn,
       ransom:RANSOM,
@@ -445,7 +461,7 @@ class App extends Component {
       armDeg:s.arm.toFixed(1), armTransition:s.armDragging ? 'none' : 'transform .45s cubic-bezier(.2,.8,.2,1)',
       playing, spinState:playing ? 'running' : 'paused', nowLabel:playing ? 'now playing:' : 'needle up ·', rec, crate,
       eqBars:[0,0.15,0.3,0.1,0.25].map(x => ({delay:x+'s'})),
-      lidClosed:false, lidOpen:true, closeLid:() => this.setState({lid:false}), tabs, tabIs, projects, proj:PROJECTS[s.proj],
+      lidClosed:false, lidOpen:true, closeLid:() => this.setState({lid:false}), tabs, tabIs, extraTab, tabUrl, tabCount:allTabs.length, projects, proj:PROJECTS[s.proj],
       cells, over, score:s.score, best:s.best, gameHint,
       newGame:() => this.setState({board:this.newBoard(), score:0}),
       setBoard:this.setBoard, onKey:(e) => this.onKey(e), swipeStart:(e) => this.swipeStart(e), swipeEnd:(e) => this.swipeEnd(e),
@@ -481,7 +497,7 @@ class App extends Component {
   }
   render(){
     const v = this.renderVals();
-    const {archive, armClick, armDeg, armDown, armMove, armTransition, armUp, banner, best, bgClass, bookmarks, bootDone, bootLines, build, cells, closeArchive, closeFile, closeGame, closeGuest, closePlayer, copyEmail, copyLabel, crate, cur, d, eqBars, fileTabs, ftabIs, ftabLabel, gameHint, gameShadow, gameZ, gbCount, gbEmail, gbLatest, gbName, gbSubmit, ghost, hasSel, hud, introDone, letter, lidClosed, lidOpen, lightColor, lockLabel, lockPath, lockTag, locked, newGame, nextBanner, notQuick, nowLabel, onGbEmail, onGbName, onKey, onRootLeave, onRootMove, onWheel, over, overlayDown, playing, pop, postcards, proj, projects, quick, quickLabel, ransom, rec, resetAll, rotL, rotR, score, setBoard, setPivot, setRoot, setStartBtn, showBoot, showLetter, skillGroups, skipIntro, spinState, start, stop, swipeCancel, swipeEnd, swipeStart, t, tabIs, tabs, time, toggleLock, toggleQuick, visitors, vlog} = v;
+    const {archive, armClick, armDeg, armDown, armMove, armTransition, armUp, banner, best, bgClass, bookmarks, bootDone, bootLines, build, cells, closeArchive, closeFile, closeGame, closeGuest, closePlayer, copyEmail, copyLabel, crate, cur, d, eqBars, extraTab, fileTabs, ftabIs, ftabLabel, gameHint, gameShadow, gameZ, gbEmail, gbName, gbSubmit, ghost, hasSel, hud, introDone, letter, lidClosed, lidOpen, lightColor, lockLabel, lockPath, lockTag, locked, newGame, nextBanner, notQuick, nowLabel, onGbEmail, onGbName, onKey, onRootLeave, onRootMove, onWheel, over, overlayDown, playing, pop, postcards, proj, projects, quick, quickLabel, ransom, rec, resetAll, rotL, rotR, score, setBoard, setPivot, setRoot, setStartBtn, showBoot, showLetter, skillGroups, skipIntro, spinState, start, stop, swipeCancel, swipeEnd, swipeStart, t, tabCount, tabIs, tabUrl, tabs, time, toggleLock, toggleQuick, visitors, vlog} = v;
     const PRE_3 = PRE_3_FN(t);
     return html`<div ref=${setRoot} onPointerMove=${onRootMove} onPointerLeave=${onRootLeave} class=${bgClass} style="position: relative; min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; color: ${t.ink}; font-family: 'Syne', 'Kalam', 'Ramaraja', sans-serif; background-color: ${t.fallback}; background-attachment: fixed; transition: background-image .6s">
 <div aria-hidden="true" style="position: absolute; inset: 0; background: ${t.veil}; pointer-events: none"></div>
@@ -791,18 +807,30 @@ ${(lidClosed) ? html`
 ${(lidOpen) ? html`
 <div style="width: 100%; box-sizing: border-box; padding: 10px; border-radius: 16px 16px 6px 6px; background: #D5D9E2; border: 2px solid #2A2233; box-shadow: 0 12px 28px rgba(0,0,0,0.3); transform-origin: bottom center; animation: lidopen .6s cubic-bezier(.2,.8,.2,1)">
 <div style="border-radius: 8px; overflow: hidden; background: #12152A; color: #E8EEF6; display: flex; flex-direction: column; height: 290px; font-family: 'Space Mono', monospace">
-<div role="tablist" aria-label="Laptop tabs" style="display: flex; align-items: flex-end; gap: 2px; padding: 6px 6px 0; background: #1D2140; overflow-x: auto">
+<div role="tablist" aria-label="Laptop tabs" style="display: flex; align-items: flex-end; gap: 1px; padding: 6px 6px 0; background: #1D2140; overflow: hidden">
 ${(tabs || []).map((tb, $index) => html`
-<button type="button" role="tab" aria-selected=${tb.on} onClick=${tb.pick} style="flex: none; min-height: 30px; padding: 0 10px; border: 0; border-radius: 8px 8px 0 0; background: ${tb.bg}; color: ${tb.fg}; font-size: 11px; cursor: pointer; white-space: nowrap">${tb.label}</button>
+<button type="button" role="tab" aria-selected=${tb.on} aria-label=${tb.label} title=${tb.label} onClick=${tb.pick} style="flex: ${tb.flex}; min-width: 22px; max-width: 150px; min-height: 30px; padding: 0 7px; border: 0; border-radius: 8px 8px 0 0; background: ${tb.bg}; color: ${tb.fg}; font-size: 10px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; box-shadow: ${tb.edge}"><span aria-hidden="true" style="display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 2px; background: ${tb.dot}"></span>${tb.label}</button>
 `)}
+<span aria-hidden="true" style="flex: none; padding: 0 6px 6px; color: #AEB9CC; font-size: 14px">+</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 5px 10px; background: #12152A; border-bottom: 1px solid #262B52; font-size: 10px; color: #AEB9CC">
+<span aria-hidden="true">← → ↻</span>
+<span style="flex: 1; min-width: 0; padding: 3px 10px; border-radius: 999px; background: #1D2140; color: #E8EEF6; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">amulya.os/${tabUrl}</span>
+<span aria-hidden="true">${tabCount} tabs ☆</span>
 </div>
 <div role="tabpanel" style="flex: 1; overflow: auto; padding: 14px 16px; font-size: 12px; line-height: 1.5; animation: fadein .3s ease">
 
+${(extraTab.on) ? html`
+<pre style="color: ${t.screen}; font-size: 11px; line-height: 1.15">${extraTab.art}</pre>
+<p style="margin-top: 10px; color: ${t.screen}">> ${extraTab.title}</p>
+${(extraTab.lines || []).map((xl, $index) => html`<p style="color: #E8EEF6">${xl.t}</p>`)}
+<p style="margin-top: 8px; color: #AEB9CC">(one of the ${tabCount} tabs i never close)</p>
+` : null}
 ${(tabIs.home) ? html`
 <pre style="color: ${t.screen}; font-size: 11px; line-height: 1.15">${PRE_1}</pre>
 <p style="margin-top: 12px">welcome to my little corner of the internet.</p>
 <p style="color: ${t.screen}">currently into: ai/ml · data analytics · building for the web</p>
-<p style="color: #AEB9CC">7 tabs open (as usual). everything else on this page moves.</p>
+<p style="color: #AEB9CC">${tabCount} tabs open (as usual). everything else on this page moves.</p>
 ` : null}
 
 ${(tabIs.projects) ? html`
@@ -953,33 +981,37 @@ ${(over) ? html`
 ` : null}
 
 ${(pop.guest) ? html`
-<div class="nb" style="position: fixed; right: 24px; bottom: 104px; width: 380px; max-width: calc(100vw - 48px); z-index: ${d.guest.zp}; transform: ${d.guest.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: 0 18px 40px rgba(0,0,0,0.35); animation: fadein .25s ease">
-<div onPointerDown=${d.guest.down} onPointerMove=${d.guest.move} onPointerUp=${d.guest.up} onPointerCancel=${d.guest.cancel} style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>guestbook.txt</span><span style="margin-left: auto" aria-hidden="true">:: drag</span><button type="button" aria-label="Close guestbook" onPointerDown=${stop} onClick=${closeGuest} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
-<form onSubmit=${gbSubmit} style="padding: 14px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-family: 'Reenie Beanie', cursive; font-size: 24px; line-height: 1">drop your name so I know you stopped by</span>
+<div class="nb" style="position: fixed; right: 24px; bottom: 104px; width: 390px; max-width: calc(100vw - 48px); z-index: ${d.guest.zp}; transform: ${d.guest.tf}; padding: 10px 12px 14px 22px; box-sizing: border-box; border-radius: 6px 14px 14px 6px; background: #8E1B2E; color: #F6D58E; box-shadow: inset 10px 0 0 #6E1222, inset 12px 0 0 rgba(246,213,142,0.35), 0 18px 40px rgba(0,0,0,0.45); animation: fadein .25s ease">
+<div onPointerDown=${d.guest.down} onPointerMove=${d.guest.move} onPointerUp=${d.guest.up} onPointerCancel=${d.guest.cancel} style="display: flex; align-items: center; gap: 10px; padding: 2px 0 10px; cursor: grab; touch-action: none; user-select: none">
+<span style="font-family: 'Gloock', serif; font-size: 24px; letter-spacing: 0.22em">GUESTBOOK</span>
+<span aria-hidden="true" style="font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8">✶ est. 2026</span>
+<span style="margin-left: auto; font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8" aria-hidden="true">:: drag</span>
+<button type="button" aria-label="Close guestbook" onPointerDown=${stop} onClick=${closeGuest} style="width: 34px; height: 34px; border: 1.5px solid #F6D58E; border-radius: 50%; background: transparent; color: #F6D58E; font-size: 14px; cursor: pointer">✕</button>
+</div>
+<div style="background: repeating-linear-gradient(180deg, transparent 0 25px, rgba(142,27,46,0.14) 25px 26px), #FFF9EC; color: #2A1A1E; border-radius: 2px 8px 8px 2px; box-shadow: 0 2px 0 #EADFC8, 0 4px 0 #DCCFB4">
+<form onSubmit=${gbSubmit} style="padding: 14px 16px 12px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'Reenie Beanie', cursive; font-size: 26px; line-height: 1; color: #8E1B2E">drop your name so I know you stopped by</span>
 <div style="display: flex; flex-wrap: wrap; gap: 8px">
 <label style="flex: 1 1 120px; display: flex; flex-direction: column; gap: 4px; font-family: 'Space Mono', monospace; font-size: 10px">name
-<input name="name" autocomplete="name" value=${gbName} onInput=${onGbName} placeholder="who's this?" style="min-height: 38px; padding: 0 10px; border: 1px solid ${t.ink}; background: ${t.field}; font-family: 'Syne', sans-serif; font-size: 14px" />
+<input name="name" autocomplete="name" value=${gbName} onInput=${onGbName} placeholder="who's this?" style="min-height: 38px; padding: 0 10px; border: 0; border-bottom: 2px solid #8E1B2E; background: #FFFFFF; color: #2A1A1E; font-family: 'Syne', sans-serif; font-size: 14px" />
 </label>
-<label style="flex: 1 1 150px; display: flex; flex-direction: column; gap: 4px; font-family: 'Space Mono', monospace; font-size: 10px">email (autofills)
-<input name="email" type="email" autocomplete="email" value=${gbEmail} onInput=${onGbEmail} placeholder="you@email.com" style="min-height: 38px; padding: 0 10px; border: 1px solid ${t.ink}; background: ${t.field}; font-family: 'Syne', sans-serif; font-size: 14px" />
+<label style="flex: 1 1 150px; display: flex; flex-direction: column; gap: 4px; font-family: 'Space Mono', monospace; font-size: 10px">email (autofills, stays private)
+<input name="email" type="email" autocomplete="email" value=${gbEmail} onInput=${onGbEmail} placeholder="you@email.com" style="min-height: 38px; padding: 0 10px; border: 0; border-bottom: 2px solid #8E1B2E; background: #FFFFFF; color: #2A1A1E; font-family: 'Syne', sans-serif; font-size: 14px" />
 </label>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between">
-<span style="font-family: 'Space Mono', monospace; font-size: 10px; color: ${t.muted}">${gbCount} signed · ${gbLatest}</span>
-<button type="submit" style="min-height: 38px; padding: 0 16px; border: 0; background: ${t.accent}; color: ${t.accentInk}; font-weight: 700; cursor: pointer">drop it ✶</button>
-</div>
+<button type="submit" style="align-self: flex-start; min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: #8E1B2E; color: #F6D58E; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer">sign the book ✶</button>
 </form>
-<div style="padding: 0 14px 14px; display: flex; flex-direction: column; gap: 6px">
-<span style="font-family: 'Special Elite', monospace; font-size: 13px; padding-top: 10px; border-top: 1px dashed ${t.rule}">VISITOR LOG</span>
+<div style="padding: 0 16px 14px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'Special Elite', monospace; font-size: 13px; padding-top: 10px; border-top: 2px solid #8E1B2E; color: #8E1B2E">VISITOR LOG</span>
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; font-family: 'Space Mono', monospace">
-<div style="padding: 6px 8px; border: 1px solid ${t.rule}; display: flex; flex-direction: column"><span style="font-size: 9px; color: ${t.muted}">VISITS</span><span style="font-family: 'Zen Dots', sans-serif; font-size: 18px">${vlog.visits}</span></div>
-<div style="padding: 6px 8px; border: 1px solid ${t.rule}; display: flex; flex-direction: column"><span style="font-size: 9px; color: ${t.muted}">SIGNED</span><span style="font-family: 'Zen Dots', sans-serif; font-size: 18px">${vlog.signed}</span></div>
-<div style="padding: 6px 8px; border: 1px solid ${t.rule}; display: flex; flex-direction: column"><span style="font-size: 9px; color: ${t.muted}">YOU ARE VISIT</span><span style="font-family: 'Zen Dots', sans-serif; font-size: 18px">#${vlog.you}</span></div>
+<div style="padding: 8px; background: #F6D58E; color: #2A1A1E; display: flex; flex-direction: column"><span style="font-size: 9px; font-weight: 700">VISITS</span><span style="font-family: 'Zen Dots', sans-serif; font-size: 20px">${vlog.visits}</span></div>
+<div style="padding: 8px; background: #F2B8C6; color: #2A1A1E; display: flex; flex-direction: column"><span style="font-size: 9px; font-weight: 700">SIGNED</span><span style="font-family: 'Zen Dots', sans-serif; font-size: 20px">${vlog.signed}</span></div>
+<div style="padding: 8px; background: #8E1B2E; color: #F6D58E; display: flex; flex-direction: column"><span style="font-size: 9px; font-weight: 700">YOU ARE VISIT</span><span style="font-family: 'Zen Dots', sans-serif; font-size: 20px">#${vlog.you}</span></div>
 </div>
-<span style="font-family: 'Space Mono', monospace; font-size: 10px; color: ${t.muted}">first visit ${vlog.first} · last ${vlog.last} · ${build.version} (built ${build.date})</span>
-<div style="max-height: 150px; overflow: auto; display: flex; flex-direction: column; font-family: 'Space Mono', monospace; font-size: 11px; line-height: 1.9; background: repeating-linear-gradient(180deg, transparent 0 20px, ${t.rule} 20px 21px)">
-${(visitors || []).map((vv, $index) => html`<div style="display: flex; gap: 10px; height: 21px; align-items: center"><span style="color: ${t.muted}">#${vv.n}</span><span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700">${vv.name}</span><span style="color: ${t.muted}">${vv.when}</span></div>`)}
+<span style="font-family: 'Space Mono', monospace; font-size: 10px; color: #6B5A5E">first visit ${vlog.first} · last ${vlog.last} · ${build.version} (built ${build.date})</span>
+<div style="max-height: 140px; overflow: auto; display: flex; flex-direction: column; font-family: 'Space Mono', monospace; font-size: 11px">
+${(visitors || []).map((vv, $index) => html`<div style="display: flex; gap: 10px; height: 26px; align-items: center; border-bottom: 1px solid rgba(142,27,46,0.18)"><span style="color: #8E1B2E">#${vv.n}</span><span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'Homemade Apple', cursive; font-size: 13px">${vv.name}</span><span style="color: #6B5A5E">${vv.when}</span></div>`)}
+</div>
 </div>
 </div>
 </div>
