@@ -43,7 +43,7 @@ import { html, Component, render } from './assets/vendor/htm-preact-3.1.1.js';
 /* ---------- shared guestbook + visit counter (Supabase) ----------
    Paste your project's URL and anon key below (Supabase → Project Settings → API).
    Leave them empty and the site falls back to counting in the visitor's own browser. */
-const SUPABASE_URL = '';
+const SUPABASE_URL = 'https://glmvgwgkgphegrrlqiqc.supabase.co';
 const SUPABASE_ANON_KEY = '';
 const SUPA_ON = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
 async function supa(path, opts = {}) {
@@ -127,11 +127,11 @@ const GEMS = {
   ruby:['#FF8A9B','#E0112B','#8A0716'], emerald:['#8FE3A8','#1E9E55','#0B5A2C'], sapphire:['#8FB3FF','#1F3FBF','#0B1E6E'],
   pearl:['#FFFFFF','#F3EEE6','#CFC5B8'], amethyst:['#E6B8FF','#A447D6','#5E1D8A'], citrine:['#FFE29A','#F2A20F','#A35C05'],
   peridot:['#E5FF8A','#9ACD1E','#557A06'], diamond:['#FFFFFF','#E6ECF5','#A9B4C6'], garnet:['#FF7B7B','#B3121F','#5E0710'],
-  pinksapphire:['#FFB3D1','#F0428A','#9A1550'], aquamarine:['#C9F3FF','#5CCBEA','#1E7FA3']
+  pinksapphire:['#FFB3D1','#F0428A','#9A1550'], rhodolite:['#F7A8D0','#C2185B','#6E0B3A'], aquamarine:['#C9F3FF','#5CCBEA','#1E7FA3']
 };
 const BLUE_GEMS = {sapphire:1, aquamarine:1};
-const CHARMS_GUEST = [['ruby','round',12],['pearl','pearl',6],['sapphire','pear',8],['amethyst','emerald',6],['star','star',8]];
-const CHARMS_ARCHIVE = [['emerald','emerald',10],['pearl','pearl',6],['citrine','pear',8],['pinksapphire','round',6],['peridot','round',6]];
+const CHARMS_GUEST = [['rhodolite','round',12],['ruby','round',6],['pearl','pearl',6],['sapphire','pear',8],['amethyst','emerald',6],['star','star',8]];
+const CHARMS_ARCHIVE = [['rhodolite','pear',10],['emerald','emerald',6],['pearl','pearl',6],['citrine','pear',8],['pinksapphire','round',6],['peridot','round',6]];
 const WOOL = [
   {id:'w0', text:'trying to pro maxxx', left:'2.5%', top:'340px', rot:-6, bg:'#F7B6C8', radius:'999px'},
   {id:'w1', text:'leetcode daily', left:'6%', top:'420px', rot:4, bg:'#FFE08A', radius:'14px'},
