@@ -150,7 +150,8 @@ const EXTRA_TABS = [
   ['docs','gwc meeting notes','docs · girls who code','  - flyer for workshop\n  - post reel thurs\n  - tabling at the student center',['marketing lead things']],
   ['maps','route to campus','maps · atlanta','  home --> MARTA --> GSU\n   ~ 35 min (if the train shows up)',['commute podcast: pending']]
 ];
-const TABS = [['home','~/home'],['projects','projects/'],['pillow','pillow.md'],['skills','skills.json'],['resume','resume.pdf'],['github','github'],['hi','say_hi.txt']];
+const LIVE = {outlens:{name:'Outlens', url:'https://lookslikeitworks.us/', host:'lookslikeitworks.us', blurb:'point your camera at anything: it outlines it, names it and says its color out loud'}, prompther:{name:'Prompt Her', url:'https://cheerful-advising-software-798.vscodeedu.app/#resources', host:'vscodeedu.app', blurb:'event site for a workshop introducing women to prompt engineering'}};
+const TABS = [['home','~/home'],['outlens','outlens · live'],['prompther','prompt her · live'],['projects','projects/'],['pillow','pillow.md'],['skills','skills.json'],['resume','resume.pdf'],['github','github'],['hi','say_hi.txt']];
 const RECORDS = [
   {t:'[fave song 1]',a:'[artist]',c:'#F25C78'},{t:'[fave song 2]',a:'[artist]',c:'#A9D6F5'},{t:'[fave song 3]',a:'[artist]',c:'#FFE08A'},
   {t:'[fave song 4]',a:'[artist]',c:'#C3C6EC'},{t:'[fave song 5]',a:'[artist]',c:'#FF8A4C'},{t:'[fave song 6]',a:'[artist]',c:'#9CC9A0'}
@@ -191,7 +192,7 @@ const LETTER = [
   'poke around. everything moves.',
   'love, amulya ✶'
 ];
-const LFONTS = [["'Special Elite', monospace",'32px'],["'Homemade Apple', cursive",'25px'],["'Abril Fatface', serif",'35px'],["'Bodoni Moda', serif",'34px'],["'Zen Dots', sans-serif",'25px'],["'Metamorphous', serif",'30px'],["'Cedarville Cursive', cursive",'33px'],["'Syne', sans-serif",'32px'],["'Reenie Beanie', cursive",'42px']];
+const LFONTS = [["'Special Elite', monospace",'32px'],["'Homemade Apple', cursive",'25px'],["'Abril Fatface', serif",'35px'],["'Bodoni Moda', serif",'34px'],["'Zen Dots', sans-serif",'25px'],["'Metamorphous', serif",'30px'],["'Cedarville Cursive', cursive",'33px'],["'Syne', sans-serif",'32px'],["'Lazydog', 'Reenie Beanie', cursive",'42px']];
 const BANNERS = ['hi, you found me ✶','[your bg text 1]','[your bg text 2]','[your bg text 3]'];
 const EMAIL = 'amulyachdev@gmail.com';
 
@@ -233,7 +234,7 @@ class App extends Component {
     this.state = {
       mode: modeForHour(new Date().getHours()), quick:false, time:this.atlTime(), started:false, typed:0,
       pos:{}, sel:null, dragging:false, cur:{x:0,y:0,seen:false},
-      lid:false, tab:'home', proj:0, banner:0,
+      lid:false, tab:'home', proj:0, banner:0, zorder:['file','player','game','guest','archive'], expanded:null,
       track:0, arm:0, armDragging:false,
       board:this.newBoard(), score:0, best:0, locked:false,
       gbName:'', gbEmail:'', entries:SUPA_ON ? [] : [{name:'amulya (testing)', who:'', when:'oct 28, 3:43 pm'}], copied:false,
@@ -456,7 +457,9 @@ class App extends Component {
     const tabIs = {}; TABS.forEach(([id]) => { tabIs[id] = s.tab === id; });
     const DOTC = ['#F25C78','#FFE08A','#A9D6F5','#C3C6EC','#9CC9A0','#FF8A4C'];
     const allTabs = TABS.map(([id,label]) => [id,label]).concat(EXTRA_TABS.map(x => [x[0], x[1]]));
-    const tabs = allTabs.map(([id,label], i) => ({label, on:s.tab === id, flex:s.tab === id ? '0 0 auto' : '1 1 0', bg:s.tab === id ? '#12152A' : 'transparent', fg:s.tab === id ? t.screen : '#AEB9CC', edge:s.tab === id ? 'none' : 'inset -1px 0 0 #2E3463', dot:DOTC[i % DOTC.length], pick:() => this.setState({tab:id})}));
+    const lv = LIVE[s.tab];
+    const liveTab = lv ? Object.assign({on:true}, lv) : {on:false, name:'', url:'', host:'', blurb:''};
+    const tabs = allTabs.map(([id,label], i) => ({label, on:s.tab === id, flex:s.tab === id ? '0 0 auto' : '1 1 0', bg:s.tab === id ? '#12152A' : 'transparent', fg:s.tab === id ? t.screen : '#AEB9CC', edge:s.tab === id ? 'none' : 'inset -1px 0 0 #2E3463', dot:LIVE[id] ? '#5BD17A' : DOTC[i % DOTC.length], pick:() => this.setState({tab:id})}));
     const ex = EXTRA_TABS.find(x => x[0] === s.tab);
     const extraTab = ex ? {on:true, title:ex[2], art:ex[3], lines:ex[4].map(t2 => ({t:t2}))} : {on:false, title:'', art:'', lines:[]};
     const tabUrl = (allTabs.find(x => x[0] === s.tab) || ['','~/home'])[1].replace(/\s+/g, '-');
@@ -483,7 +486,7 @@ class App extends Component {
       armDeg:s.arm.toFixed(1), armTransition:s.armDragging ? 'none' : 'transform .45s cubic-bezier(.2,.8,.2,1)',
       playing, spinState:playing ? 'running' : 'paused', nowLabel:playing ? 'now playing:' : 'needle up ·', rec, crate,
       eqBars:[0,0.15,0.3,0.1,0.25].map(x => ({delay:x+'s'})),
-      lidClosed:false, lidOpen:true, closeLid:() => this.setState({lid:false}), tabs, tabIs, extraTab, tabUrl, tabCount:allTabs.length, projects, proj:PROJECTS[s.proj],
+      lidClosed:false, lidOpen:true, closeLid:() => this.setState({lid:false}), tabs, tabIs, liveTab, extraTab, tabUrl, tabCount:allTabs.length, projects, proj:PROJECTS[s.proj],
       cells, over, score:s.score, best:s.best, gameHint,
       newGame:() => this.setState({board:this.newBoard(), score:0}),
       setBoard:this.setBoard, onKey:(e) => this.onKey(e), swipeStart:(e) => this.swipeStart(e), swipeEnd:(e) => this.swipeEnd(e),
@@ -497,9 +500,9 @@ class App extends Component {
       charmsGuest:this.charms(CHARMS_GUEST, s.mode), charmsArchive:this.charms(CHARMS_ARCHIVE, s.mode),
       wool:WOOL.map(w => Object.assign({}, this.mk(w.id, null), w, {left:w.left || 'auto', right:w.right || 'auto', tf:this.mk(w.id, null).tf + ' rotate(' + w.rot + 'deg)', bg:(w.blue && s.mode === 'night') ? '#F4F1EA' : w.bg, ink:'#2A1A1E', edge:'rgba(255,255,255,0.55)'})),
       skillGroups:SKILLS.map(([name, items]) => ({name, items:items.map(([n, level]) => ({n, level, dots:DOTS[level]}))})),
-      bookmarks:[['file','cs file','#EDD29E',-2],['player','records','#F9D3DC',1.5],['game','2048','#FFE7A8',-1],['guest','guestbook',s.mode === 'night' ? '#F4F1EA' : '#CFE6F5',2],['archive','archive','#DCD3EC',-1.5]].map(([id,label,bg,rot]) => ({label, bg, rot, on:pop[id], h:pop[id] ? '96px' : '74px', hint:pop[id] ? 'tap to close' : 'tap to open', toggle:() => this.setState({pops:Object.assign({}, pop, {[id]:!pop[id]}), locked:id === 'game' && pop.game ? false : s.locked})})),
+      bookmarks:[['file','cs file','#EDD29E',-2],['player','records','#F9D3DC',1.5],['game','2048','#FFE7A8',-1],['guest','guestbook',s.mode === 'night' ? '#F4F1EA' : '#CFE6F5',2],['archive','archive','#DCD3EC',-1.5]].map(([id,label,bg,rot]) => ({label, bg, rot, on:pop[id], h:pop[id] ? '96px' : '74px', hint:pop[id] ? 'tap to close' : 'tap to open', toggle:() => this.setState({pops:Object.assign({}, pop, {[id]:!pop[id]}), zorder:s.zorder.filter(x => x !== id).concat(id), expanded:pop[id] && s.expanded === id ? null : s.expanded, locked:id === 'game' && pop.game ? false : s.locked})})),
       closeArchive:() => this.setState({pops:Object.assign({}, pop, {archive:false})}),
-      archive:ARCHIVE,
+      archive:ARCHIVE.map(a => { const n = (a.photos || []).length, big = s.expanded === 'archive'; return Object.assign({photos:[]}, a, {cols:n > 1 ? 'repeat(2, minmax(0, 1fr))' : '1fr', imgH:n > 1 ? (big ? '240px' : '118px') : (big ? '360px' : '180px'), vidH:big ? '420px' : '220px'}); }),
       closeFile:() => this.setState({pops:Object.assign({}, pop, {file:false})}),
       closePlayer:() => this.setState({pops:Object.assign({}, pop, {player:false})}),
       closeGame:() => this.setState({pops:Object.assign({}, pop, {game:false}), locked:false}),
@@ -513,6 +516,13 @@ class App extends Component {
       ftabLabel:(FILE_TABS.find(x => x[0] === s.ftab) || ['','education'])[1].toUpperCase(),
       stop:(e) => e.stopPropagation(), swipeCancel:() => { this.sw = null; }, lockLabel:s.locked ? 'unlock' : 'lock in', lockTag:s.locked ? 'LOCKED IN' : '',
       lockPath:s.locked ? 'M8 11V7a4 4 0 0 1 8 0v4' : 'M8 11V7a4 4 0 0 1 7.5-2',
+      zs:s.zorder.reduce((o, id, i) => { o[id] = s.expanded === id ? 76 : 52 + i * 2; if (id === 'game' && s.locked) o[id] = 80; return o; }, {}),
+      front:['file','player','game','guest','archive'].reduce((o, id) => { o[id] = () => { if (this.state.zorder[this.state.zorder.length - 1] !== id) this.setState({zorder:this.state.zorder.filter(x => x !== id).concat(id)}); }; return o; }, {}),
+      ex:['file','player','game','guest','archive'].reduce((o, id) => { o[id] = s.expanded === id ? '; left: 50% !important; right: auto !important; top: 86px !important; bottom: auto !important; width: min(980px, 94vw) !important; max-width: 94vw !important; transform: translateX(-50%) !important;' : ''; return o; }, {}),
+      exOn:['file','player','game','guest','archive'].reduce((o, id) => { o[id] = s.expanded === id; return o; }, {}),
+      exIcon:['file','player','game','guest','archive'].reduce((o, id) => { o[id] = s.expanded === id ? '⤡' : '⤢'; return o; }, {}),
+      exToggle:['file','player','game','guest','archive'].reduce((o, id) => { o[id] = () => this.setState({expanded:this.state.expanded === id ? null : id, zorder:this.state.zorder.filter(x => x !== id).concat(id)}); return o; }, {}),
+      exH:{archive:s.expanded === 'archive' ? 'calc(100vh - 240px)' : 'min(460px, calc(100vh - 260px))', file:s.expanded === 'file' ? 'calc(100vh - 230px)' : 'min(520px, calc(100vh - 250px))'},
       gameZ:s.locked ? 80 : (s.sel === 'game' ? 40 : 2), gameShadow:s.locked ? '0 0 0 3px ' + t.accent + ', 0 14px 30px rgba(0,0,0,0.35)' : '0 10px 26px rgba(0,0,0,0.25)',
       copyEmail:() => this.copyEmail(), copyLabel:s.copied ? 'copied ✶' : 'copy my email',
       gbName:s.gbName, gbEmail:s.gbEmail, gbCount:s.entries.length, gbLatest:s.entries.slice(0,3).map(x => x.name).join(', '),
@@ -525,7 +535,7 @@ class App extends Component {
   }
   render(){
     const v = this.renderVals();
-    const {archive, armClick, armDeg, armDown, armMove, armTransition, armUp, banner, best, bgClass, bookmarks, bootDone, bootLines, build, cells, charmsArchive, charmsGuest, closeArchive, closeFile, closeGame, closeGuest, closePlayer, copyEmail, copyLabel, crate, cur, d, eqBars, extraTab, fileTabs, ftabIs, ftabLabel, gameHint, gameShadow, gameZ, gbEmail, gbName, gbSubmit, ghost, hasSel, hud, introDone, letter, lidClosed, lidOpen, lightColor, lockLabel, lockPath, lockTag, locked, newGame, nextBanner, notQuick, nowLabel, onGbEmail, onGbName, onKey, onRootLeave, onRootMove, onWheel, over, overlayDown, playing, pop, postcards, proj, projectGroups, projects, quick, quickLabel, ransom, rec, resetAll, rotL, rotR, score, setBoard, setPivot, setRoot, setStartBtn, showBoot, showLetter, skillGroups, skipIntro, spinState, start, stop, swipeCancel, swipeEnd, swipeStart, t, tabCount, tabIs, tabUrl, tabs, time, toggleLock, toggleQuick, visitors, vlog, wool} = v;
+    const {archive, armClick, armDeg, armDown, armMove, armTransition, armUp, banner, best, bgClass, bookmarks, bootDone, bootLines, build, cells, charmsArchive, charmsGuest, closeArchive, closeFile, closeGame, closeGuest, closePlayer, copyEmail, copyLabel, crate, cur, d, eqBars, ex, exH, exIcon, exOn, exToggle, extraTab, fileTabs, front, ftabIs, ftabLabel, gameHint, gameShadow, gbEmail, gbName, gbSubmit, ghost, hasSel, hud, introDone, letter, lidClosed, lidOpen, lightColor, liveTab, lockLabel, lockPath, lockTag, locked, newGame, nextBanner, notQuick, nowLabel, onGbEmail, onGbName, onKey, onRootLeave, onRootMove, onWheel, over, overlayDown, playing, pop, postcards, proj, projectGroups, projects, quick, quickLabel, ransom, rec, resetAll, rotL, rotR, score, setBoard, setPivot, setRoot, setStartBtn, showBoot, showLetter, skillGroups, skipIntro, spinState, start, stop, swipeCancel, swipeEnd, swipeStart, t, tabCount, tabIs, tabUrl, tabs, time, toggleLock, toggleQuick, visitors, vlog, wool, zs} = v;
     const PRE_3 = PRE_3_FN(t);
     return html`<div ref=${setRoot} onPointerMove=${onRootMove} onPointerLeave=${onRootLeave} class=${bgClass} style="position: relative; min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; color: ${t.ink}; font-family: 'Syne', 'Kalam', 'Ramaraja', sans-serif; background-color: ${t.fallback}; background-attachment: fixed; transition: background-image .6s">
 <div aria-hidden="true" style="position: absolute; inset: 0; background: ${t.veil}; pointer-events: none"></div>
@@ -535,8 +545,8 @@ ${(ghost) ? html`
 <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; user-select: none; color: ${t.ghost}">
 <span lang="hi" style="position: absolute; left: 2.5%; bottom: 4%; font-family: 'Kalam', cursive; font-size: 20px; transform: rotate(-6deg)">नमस्ते</span>
 <span lang="te" style="position: absolute; right: 3%; bottom: 5%; font-family: 'Ramaraja', serif; font-size: 20px; transform: rotate(5deg)">నమస్కారం</span>
-<span style="position: absolute; left: 2.5%; top: 16%; font-family: 'Reenie Beanie', cursive; font-size: 22px; transform: rotate(-4deg)">little sister only</span>
-<span style="position: absolute; right: 2.5%; top: 16%; font-family: 'Reenie Beanie', cursive; font-size: 22px; transform: rotate(4deg)">just starting makeup</span>
+<span style="position: absolute; left: 2.5%; top: 16%; font-family: 'Lazydog', 'Reenie Beanie', cursive; font-size: 22px; transform: rotate(-4deg)">little sister only</span>
+<span style="position: absolute; right: 2.5%; top: 16%; font-family: 'Lazydog', 'Reenie Beanie', cursive; font-size: 22px; transform: rotate(4deg)">just starting makeup</span>
 <span style="position: absolute; left: 50%; bottom: 3%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 12px; white-space: nowrap">ain't that easy</span>
 </div>
 ` : null}
@@ -560,7 +570,7 @@ ${(postcards || []).map((pc, $index) => html`
 
 <div aria-hidden="true" style="position: relative; z-index: 5; height: 40px; pointer-events: none">
 <div onAnimationIteration=${nextBanner} style="position: absolute; left: 0; top: 4px; display: flex; align-items: center; gap: 0; white-space: nowrap; animation: fly 30s linear infinite">
-<span class="nb" style="padding: 4px 12px; background: ${t.paper}; color: ${t.ink}; font-family: 'Reenie Beanie', cursive; font-size: 21px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); animation: flap 1.4s ease-in-out infinite">${banner}</span>
+<span class="nb" style="padding: 4px 12px; background: ${t.paper}; color: ${t.ink}; font-family: 'Lazydog', 'Reenie Beanie', cursive; font-size: 21px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); animation: flap 1.4s ease-in-out infinite">${banner}</span>
 <span style="font-family: 'Space Mono', monospace; font-size: 12px; color: ${t.planeInk}">~~~~</span>
 <pre style="font-family: 'Space Mono', monospace; font-size: 10px; line-height: 1; color: ${t.planeInk}">${PRE_0}</pre>
 </div>
@@ -605,8 +615,8 @@ ${(notQuick) ? html`
 
 
 ${(pop.player) ? html`
-<div class="nb" style="position: fixed; left: 24px; top: 120px; width: 410px; max-width: calc(100vw - 48px); z-index: ${d.player.zp}; transform: ${d.player.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: 0 18px 40px rgba(0,0,0,0.35); animation: fadein .25s ease">
-<div onPointerDown=${d.player.down} onPointerMove=${d.player.move} onPointerUp=${d.player.up} onPointerCancel=${d.player.cancel} style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>record_player.txt</span><span style="margin-left: auto" aria-hidden="true">:: drag</span><button type="button" aria-label="Close record player" onPointerDown=${stop} onClick=${closePlayer} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
+<div onPointerDownCapture=${front.player} class="nb" style="position: fixed; left: 24px; top: 120px; width: 410px; max-width: calc(100vw - 48px); z-index: ${zs.player}; transform: ${d.player.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: 0 18px 40px rgba(0,0,0,0.35); animation: fadein .25s ease ${ex.player}">
+<div onPointerDown=${d.player.down} onPointerMove=${d.player.move} onPointerUp=${d.player.up} onPointerCancel=${d.player.cancel} style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>record_player.txt</span><span style="margin-left: auto" aria-hidden="true">:: drag</span><button type="button" aria-label="Expand record player" aria-pressed=${exOn.player} onPointerDown=${stop} onClick=${exToggle.player} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 15px; cursor: pointer">${exIcon.player}</button><button type="button" aria-label="Close record player" onPointerDown=${stop} onClick=${closePlayer} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
 <div style="padding: 14px; display: flex; flex-direction: column; gap: 12px">
 <div style="overflow-x: auto">
 <div style="position: relative; width: 380px; height: 236px; margin: 0 auto">
@@ -661,22 +671,22 @@ ${(ransom || []).map((L, $index) => html`<span aria-hidden="true" style="positio
 ${(L.tape) ? html`<span style="position: absolute; left: 50%; top: -9px; width: 40px; height: 16px; margin-left: -20px; background: rgba(255,240,200,0.75); transform: rotate(${L.tapeRot}deg); box-shadow: 0 1px 2px rgba(0,0,0,0.15)"></span>` : null}
 </span>`)}
 </h1>
-<span class="nb" style="padding: 2px 10px; background: ${t.paper}; color: ${t.ink}; font-family: 'Reenie Beanie', cursive; font-size: 24px; transform: rotate(-1.5deg)">cs @ georgia state · ai/ml, data analytics & web</span>
+<span class="nb" style="padding: 2px 10px; background: ${t.paper}; color: ${t.ink}; font-family: 'Lazydog', 'Reenie Beanie', cursive; font-size: 24px; transform: rotate(-1.5deg)">cs @ georgia state · ai/ml, data analytics & web</span>
 </div>
 
 
 ${(pop.file) ? html`
-<div style="position: fixed; left: max(16px, calc(50% - 380px)); top: 92px; width: 760px; max-width: calc(100vw - 32px); z-index: ${d.file.zf}; transform: ${d.file.tf}; animation: fadein .25s ease">
+<div onPointerDownCapture=${front.file} style="position: fixed; left: max(16px, calc(50% - 380px)); top: 92px; width: 760px; max-width: calc(100vw - 32px); z-index: ${zs.file}; transform: ${d.file.tf}; animation: fadein .25s ease ${ex.file}">
 <div role="tablist" aria-label="File sections" style="display: flex; align-items: flex-end; gap: 4px; padding-left: 18px; overflow-x: auto">
 ${(fileTabs || []).map((ft, $index) => html`
 <button type="button" role="tab" aria-selected=${ft.on} onClick=${ft.pick} style="flex: none; min-height: ${ft.h}; padding: 0 16px; border: 0; border-radius: 10px 10px 0 0; background: ${ft.bg}; color: #3B2A14; font-family: 'Special Elite', monospace; font-size: 14px; cursor: pointer; box-shadow: ${ft.shadow}">${ft.label}</button>
 `)}
 <span onPointerDown=${d.file.down} onPointerMove=${d.file.move} onPointerUp=${d.file.up} onPointerCancel=${d.file.cancel} aria-hidden="true" style="flex: none; margin-left: auto; padding: 8px 10px; font-family: 'Space Mono', monospace; font-size: 11px; color: ${t.tagInk}; text-shadow: 0 1px 2px ${t.tagShadow}; cursor: grab; touch-action: none; user-select: none">:: drag</span>
-<button type="button" aria-label="Close the file" onClick=${closeFile} style="flex: none; width: 40px; height: 40px; border: 0; border-radius: 10px 10px 0 0; background: #EDD29E; color: #3B2A14; font-size: 16px; cursor: pointer">✕</button>
+<button type="button" aria-label="Expand the file" aria-pressed=${exOn.file} onPointerDown=${stop} onClick=${exToggle.file} style="flex: none; width: 40px; height: 40px; border: 0; border-radius: 10px 10px 0 0; background: #EDD29E; color: #3B2A14; font-size: 15px; cursor: pointer">${exIcon.file}</button><button type="button" aria-label="Close the file" onClick=${closeFile} style="flex: none; width: 40px; height: 40px; border: 0; border-radius: 10px 10px 0 0; background: #EDD29E; color: #3B2A14; font-size: 16px; cursor: pointer">✕</button>
 </div>
 <div style="position: relative; padding: 18px; border-radius: 0 12px 12px 12px; background: repeating-linear-gradient(100deg, rgba(120,80,20,0.05) 0 3px, transparent 3px 9px), linear-gradient(180deg,#EDD29E,#E2C185); box-shadow: 0 16px 36px rgba(0,0,0,0.35)">
 <svg aria-hidden="true" width="26" height="62" viewBox="0 0 26 62" style="position: absolute; left: 34px; top: -14px; z-index: 2"><path d="M8 54 V12 a5 5 0 0 1 10 0 V48 a8 8 0 0 1 -16 0 V16" fill="none" stroke="#9EA3B2" stroke-width="3" stroke-linecap="round"></path></svg>
-<div style="position: relative; min-height: 0; max-height: min(520px, calc(100vh - 250px)); overflow: auto; padding: 30px 30px 24px; background: repeating-linear-gradient(180deg, transparent 0 27px, rgba(80,110,180,0.18) 27px 28px), #FFFDF5; color: #1F1A26; box-shadow: 0 2px 6px rgba(0,0,0,0.15)">
+<div style="position: relative; min-height: 0; max-height: ${exH.file}; overflow: auto; padding: 30px 30px 24px; background: repeating-linear-gradient(180deg, transparent 0 27px, rgba(80,110,180,0.18) 27px 28px), #FFFDF5; color: #1F1A26; box-shadow: 0 2px 6px rgba(0,0,0,0.15)">
 <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; justify-content: space-between; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 2px solid #1F1A26; font-family: 'Special Elite', monospace">
 <span style="font-size: 22px">CHIDURALA, AMULYA</span>
 <span style="font-size: 13px">CS FILE No. 2028 · ${ftabLabel}</span>
@@ -808,7 +818,7 @@ ${(lidClosed) ? html`
 <span aria-hidden="true" style="position: absolute; right: 16%; top: 20%; width: 56px; height: 56px; border-radius: 50%; background: #F25C78; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: 'Shrikhand', serif; font-size: 13px; transform: rotate(10deg)">1st!</span>
 <span aria-hidden="true" style="position: absolute; left: 20%; bottom: 22%; padding: 6px 10px; background: #C3C6EC; color: #2A2233; font-family: 'Space Mono', monospace; font-size: 11px; transform: rotate(5deg)">python > sleep</span>
 <span aria-hidden="true" style="position: absolute; right: 20%; bottom: 26%; padding: 6px 10px; border-radius: 999px; background: #A9D6F5; color: #2A2233; font-family: 'Zen Dots', sans-serif; font-size: 11px; transform: rotate(-6deg)">ATL ✶</span>
-<span style="position: absolute; left: 0; right: 0; top: 46%; text-align: center; font-family: 'Reenie Beanie', cursive; font-size: 28px; color: ${t.lidInk}">tap to open</span>
+<span style="position: absolute; left: 0; right: 0; top: 46%; text-align: center; font-family: 'Lazydog', 'Reenie Beanie', cursive; font-size: 28px; color: ${t.lidInk}">tap to open</span>
 </button>
 ` : null}
 ${(lidOpen) ? html`
@@ -827,6 +837,12 @@ ${(tabs || []).map((tb, $index) => html`
 </div>
 <div role="tabpanel" style="flex: 1; overflow: auto; padding: 14px 16px; font-size: 12px; line-height: 1.5; animation: fadein .3s ease">
 
+${(liveTab.on) ? html`
+<div style="display: flex; flex-direction: column; gap: 8px; height: 100%">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 11px"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #5BD17A; box-shadow: 0 0 6px #5BD17A"></span><span>live · ${liveTab.host}</span><a href=${liveTab.url} target="_blank" rel="noopener" style="margin-left: auto; color: ${t.screen}">open in a new tab ↗</a></div>
+<iframe src=${liveTab.url} title=${liveTab.name + " live site"} loading="lazy" allow="camera; microphone; fullscreen" style="flex: 1; min-height: 180px; width: 100%; border: 0; border-radius: 6px; background: #ffffff"></iframe>
+</div>
+` : null}
 ${(extraTab.on) ? html`
 <pre style="color: ${t.screen}; font-size: 11px; line-height: 1.15">${extraTab.art}</pre>
 <p style="margin-top: 10px; color: ${t.screen}">> ${extraTab.title}</p>
@@ -919,7 +935,7 @@ ${(tabIs.hi) ? html`
 
 
 ${(pop.archive) ? html`
-<div class="nb" style="position: fixed; left: 24px; bottom: 104px; width: 440px; max-width: calc(100vw - 48px); z-index: ${d.archive.zp}; transform: ${d.archive.tf}; padding: 10px 22px 14px 12px; box-sizing: border-box; border-radius: 14px 6px 6px 14px; background: #1E5B3A; color: #F6D58E; box-shadow: inset -10px 0 0 #14462B, inset -12px 0 0 rgba(246,213,142,0.35), 0 18px 40px rgba(0,0,0,0.45); animation: fadein .25s ease">
+<div onPointerDownCapture=${front.archive} class="nb" style="position: fixed; left: 24px; bottom: 104px; width: 440px; max-width: calc(100vw - 48px); z-index: ${zs.archive}; transform: ${d.archive.tf}; padding: 10px 22px 14px 12px; box-sizing: border-box; border-radius: 14px 6px 6px 14px; background: #1E5B3A; color: #F6D58E; box-shadow: inset -10px 0 0 #14462B, inset -12px 0 0 rgba(246,213,142,0.35), 0 18px 40px rgba(0,0,0,0.45); animation: fadein .25s ease ${ex.archive}">
 <div aria-hidden="true" style="position: absolute; left: calc(100% + 4px); top: 30px; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: swing 3.6s ease-in-out infinite; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35))">
 <span style="width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #E7C66A; box-sizing: border-box"></span>
 ${(charmsArchive || []).map((cm, $index) => html`<span style="width: 2px; height: ${cm.gap}; background: repeating-linear-gradient(180deg, #E7C66A 0 3px, #B8962E 3px 4px)"></span>
@@ -934,17 +950,17 @@ ${(cm.star) ? html`<svg width=${cm.size} height=${cm.size} viewBox="0 0 24 24"><
 <span style="font-family: 'Gloock', serif; font-size: 24px; letter-spacing: 0.22em">ARCHIVE</span>
 <span aria-hidden="true" style="font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8">✶ vol. 1</span>
 <span style="margin-left: auto; font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8" aria-hidden="true">:: drag</span>
-<button type="button" aria-label="Close archive" onPointerDown=${stop} onClick=${closeArchive} style="width: 34px; height: 34px; border: 1.5px solid #F6D58E; border-radius: 50%; background: transparent; color: #F6D58E; font-size: 14px; cursor: pointer">✕</button>
+<button type="button" aria-label="Expand archive" aria-pressed=${exOn.archive} onPointerDown=${stop} onClick=${exToggle.archive} style="width: 34px; height: 34px; border: 1.5px solid #F6D58E; border-radius: 50%; background: transparent; color: #F6D58E; font-size: 14px; cursor: pointer">${exIcon.archive}</button><button type="button" aria-label="Close archive" onPointerDown=${stop} onClick=${closeArchive} style="width: 34px; height: 34px; border: 1.5px solid #F6D58E; border-radius: 50%; background: transparent; color: #F6D58E; font-size: 14px; cursor: pointer">✕</button>
 </div>
-<div style="padding: 14px; display: flex; flex-direction: column; gap: 12px; max-height: min(460px, calc(100vh - 260px)); overflow: auto; background: repeating-linear-gradient(180deg, transparent 0 25px, rgba(30,91,58,0.14) 25px 26px), #FFF9EC; color: #1F1A26; border-radius: 8px 2px 2px 8px; box-shadow: 0 2px 0 #EADFC8, 0 4px 0 #DCCFB4">
-<span style="font-family: 'Reenie Beanie', cursive; font-size: 26px; line-height: 1; color: #1E5B3A">old stuff i'm keeping around ✶</span>
+<div style="padding: 14px; display: flex; flex-direction: column; gap: 12px; max-height: ${exH.archive}; overflow: auto; background: repeating-linear-gradient(180deg, transparent 0 25px, rgba(30,91,58,0.14) 25px 26px), #FFF9EC; color: #1F1A26; border-radius: 8px 2px 2px 8px; box-shadow: 0 2px 0 #EADFC8, 0 4px 0 #DCCFB4">
+<span style="font-family: 'Lazydog', 'Reenie Beanie', cursive; font-size: 26px; line-height: 1; color: #1E5B3A">old stuff i'm keeping around ✶</span>
 ${(archive || []).map((ar, $index) => html`
 <div style="position: relative; padding: 12px 14px; background: #FFFFFF; color: #1F1A26; border-left: 6px solid #1E5B3A; box-shadow: 0 2px 6px rgba(0,0,0,0.12); display: flex; flex-direction: column; gap: 4px">
 <span style="display: flex; justify-content: space-between; gap: 8px; font-family: 'Special Elite', monospace; font-size: 12px"><span>${ar.when}</span><span style="padding: 0 6px; border: 1.5px solid rgba(30,91,58,0.8); color: #1E5B3A; transform: rotate(-3deg)">${ar.stamp}</span></span>
 <span style="font-family: 'Gloock', serif; font-size: 20px; line-height: 1.1">${ar.title}</span>
 <span style="font-size: 13px; line-height: 1.45">${ar.note}</span>
-${(ar.video) ? html`<video src=${ar.video} poster=${ar.poster} controls=${true} playsinline=${true} preload="none" style="width: 100%; margin-top: 4px; border-radius: 4px; background: #000"></video>` : null}
-${(ar.photos || []).map((ph, $index) => html`<img src=${ph.src} alt=${ph.alt} loading="lazy" style="width: 100%; margin-top: 4px; border-radius: 4px; display: block; box-shadow: 0 2px 4px rgba(0,0,0,0.2)" />`)}
+${(ar.video) ? html`<video src=${ar.video} poster=${ar.poster} controls=${true} playsinline=${true} preload="none" style="max-height: ${ar.vidH}; width: 100%; margin-top: 4px; border-radius: 4px; background: #000"></video>` : null}
+<div style="display: grid; grid-template-columns: ${ar.cols}; gap: 6px; margin-top: 4px">${(ar.photos || []).map((ph, $index) => html`<img src=${ph.src} alt=${ph.alt} loading="lazy" style="width: 100%; height: ${ar.imgH}; object-fit: cover; border-radius: 4px; display: block; box-shadow: 0 2px 4px rgba(0,0,0,0.2)" />`)}</div>
 <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: #5E5568">${ar.stack}${(ar.links || []).map((lk, $index) => html` · <a href=${lk.href} style="color: #1E5B3A">${lk.label}</a>`)}</span>
 </div>
 `)}
@@ -983,8 +999,8 @@ ${(locked) ? html`
 ` : null}
 
 ${(pop.game) ? html`
-<div onWheel=${onWheel} class="nb" style="position: fixed; right: 24px; top: 120px; width: 360px; max-width: calc(100vw - 48px); z-index: ${gameZ}; transform: ${d.game.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: ${gameShadow}; animation: fadein .25s ease">
-<div onPointerDown=${d.game.down} onPointerMove=${d.game.move} onPointerUp=${d.game.up} onPointerCancel=${d.game.cancel} style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>2048.txt</span><span style="margin-left: auto">${lockTag}</span><button type="button" aria-label="Close 2048" onPointerDown=${stop} onClick=${closeGame} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
+<div onPointerDownCapture=${front.game} onWheel=${onWheel} class="nb" style="position: fixed; right: 24px; top: 120px; width: 360px; max-width: calc(100vw - 48px); z-index: ${zs.game}; transform: ${d.game.tf}; background: ${t.paper}; color: ${t.ink}; box-shadow: ${gameShadow}; animation: fadein .25s ease ${ex.game}">
+<div onPointerDown=${d.game.down} onPointerMove=${d.game.move} onPointerUp=${d.game.up} onPointerCancel=${d.game.cancel} style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-bottom: 1px dashed ${t.rule}; font-family: 'Space Mono', monospace; font-size: 11px; cursor: grab; touch-action: none; user-select: none"><span>2048.txt</span><span style="margin-left: auto">${lockTag}</span><button type="button" aria-label="Expand 2048" aria-pressed=${exOn.game} onPointerDown=${stop} onClick=${exToggle.game} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 15px; cursor: pointer">${exIcon.game}</button><button type="button" aria-label="Close 2048" onPointerDown=${stop} onClick=${closeGame} style="width: 34px; height: 34px; border: 0; background: transparent; color: ${t.ink}; font-size: 16px; cursor: pointer">✕</button></div>
 <div style="padding: 14px; display: flex; flex-direction: column; gap: 12px">
 <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: 'Space Mono', monospace; font-size: 12px">
 <span>score <b>${score}</b></span>
@@ -1011,7 +1027,7 @@ ${(over) ? html`
 ` : null}
 
 ${(pop.guest) ? html`
-<div class="nb" style="position: fixed; right: 24px; bottom: 104px; width: 390px; max-width: calc(100vw - 48px); z-index: ${d.guest.zp}; transform: ${d.guest.tf}; padding: 10px 12px 14px 22px; box-sizing: border-box; border-radius: 6px 14px 14px 6px; background: #8E1B2E; color: #F6D58E; box-shadow: inset 10px 0 0 #6E1222, inset 12px 0 0 rgba(246,213,142,0.35), 0 18px 40px rgba(0,0,0,0.45); animation: fadein .25s ease">
+<div onPointerDownCapture=${front.guest} class="nb" style="position: fixed; right: 24px; bottom: 104px; width: 390px; max-width: calc(100vw - 48px); z-index: ${zs.guest}; transform: ${d.guest.tf}; padding: 10px 12px 14px 22px; box-sizing: border-box; border-radius: 6px 14px 14px 6px; background: #8E1B2E; color: #F6D58E; box-shadow: inset 10px 0 0 #6E1222, inset 12px 0 0 rgba(246,213,142,0.35), 0 18px 40px rgba(0,0,0,0.45); animation: fadein .25s ease ${ex.guest}">
 <div aria-hidden="true" style="position: absolute; left: -22px; top: 30px; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: swing 3.2s ease-in-out infinite; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35))">
 <span style="width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #E7C66A; box-sizing: border-box"></span>
 ${(charmsGuest || []).map((cm, $index) => html`<span style="width: 2px; height: ${cm.gap}; background: repeating-linear-gradient(180deg, #E7C66A 0 3px, #B8962E 3px 4px)"></span>
@@ -1026,11 +1042,11 @@ ${(cm.star) ? html`<svg width=${cm.size} height=${cm.size} viewBox="0 0 24 24"><
 <span style="font-family: 'Gloock', serif; font-size: 24px; letter-spacing: 0.22em">GUESTBOOK</span>
 <span aria-hidden="true" style="font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8">✶ est. 2026</span>
 <span style="margin-left: auto; font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8" aria-hidden="true">:: drag</span>
-<button type="button" aria-label="Close guestbook" onPointerDown=${stop} onClick=${closeGuest} style="width: 34px; height: 34px; border: 1.5px solid #F6D58E; border-radius: 50%; background: transparent; color: #F6D58E; font-size: 14px; cursor: pointer">✕</button>
+<button type="button" aria-label="Expand guestbook" aria-pressed=${exOn.guest} onPointerDown=${stop} onClick=${exToggle.guest} style="width: 34px; height: 34px; border: 1.5px solid #F6D58E; border-radius: 50%; background: transparent; color: #F6D58E; font-size: 14px; cursor: pointer">${exIcon.guest}</button><button type="button" aria-label="Close guestbook" onPointerDown=${stop} onClick=${closeGuest} style="width: 34px; height: 34px; border: 1.5px solid #F6D58E; border-radius: 50%; background: transparent; color: #F6D58E; font-size: 14px; cursor: pointer">✕</button>
 </div>
 <div style="background: repeating-linear-gradient(180deg, transparent 0 25px, rgba(142,27,46,0.14) 25px 26px), #FFF9EC; color: #2A1A1E; border-radius: 2px 8px 8px 2px; box-shadow: 0 2px 0 #EADFC8, 0 4px 0 #DCCFB4">
 <form onSubmit=${gbSubmit} style="padding: 14px 16px 12px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-family: 'Reenie Beanie', cursive; font-size: 26px; line-height: 1; color: #8E1B2E">drop your name so I know you stopped by</span>
+<span style="font-family: 'Lazydog', 'Reenie Beanie', cursive; font-size: 26px; line-height: 1; color: #8E1B2E">drop your name so I know you stopped by</span>
 <div style="display: flex; flex-wrap: wrap; gap: 8px">
 <label style="flex: 1 1 120px; display: flex; flex-direction: column; gap: 4px; font-family: 'Space Mono', monospace; font-size: 10px">name
 <input name="name" autocomplete="name" value=${gbName} onInput=${onGbName} placeholder="who's this?" style="min-height: 38px; padding: 0 10px; border: 0; border-bottom: 2px solid #8E1B2E; background: #FFFFFF; color: #2A1A1E; font-family: 'Syne', sans-serif; font-size: 14px" />
