@@ -18,7 +18,7 @@ button,input{font:inherit;color:inherit}
 button:focus-visible,a:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid #FFB24B;outline-offset:3px}
 .bg-morning,.bg-afternoon,.bg-evening,.bg-night{background-size:cover;background-repeat:no-repeat}
 .bg-afternoon{background-image:url(assets/meadow.jpg);background-position:center 30%}
-.bg-night{background-image:url(assets/gotham.jpg);background-position:center 45%}
+.bg-night{background-image:url(assets/gotham-original.jpg);background-position:center 35%}
 .bg-night .nb{outline:1.5px solid rgba(255,196,107,0.7);box-shadow:0 0 0 4px rgba(255,179,71,0.08),0 0 22px rgba(255,160,70,0.3),0 12px 28px rgba(0,0,0,0.65) !important}
 .bg-night .nb input{border-color:rgba(255,196,107,0.65) !important}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -99,14 +99,10 @@ const MODES = [['afternoon','day · meadow','Daytime spring meadow'],['night','n
 const LABELS = {w0:'sticker',w1:'sticker',w2:'sticker',w3:'sticker',w4:'sticker',w5:'sticker',w6:'sticker',w7:'sticker',archive:'archive',player:'record player',guest:'guestbook',laptop:'laptop',game:'2048',todo:'to-do',name:'name',file:'case file'};
 const HANDLE = {player:true,guest:true,game:true};
 const PROJECTS = [
-  {id:'pp',num:'01',name:'PreggoPillow',file:'preggopillow.md',what:'AI pillow that tracks fetal movement',tag:'1st place',desc:"An AI pillow that learns a baby's movement pattern overnight and flags the night it changes. Three accelerometers cancel out the mother's own motion, and if movement drops below her baseline two nights in a row, it calls her emergency contact and prints a report for her midwife. HackHERS 2026: 1st place overall + MLH Best Use of Presage (team of 4).",stack:'Raspberry Pi · Arduino · Next.js · Go · Gemini · Presage SmartSpectra · TimescaleDB',links:[{label:'Devpost ↗',href:'https://devpost.com/software/xyz-g9satd'},{label:'GitHub ↗',href:'https://github.com/kbhatnagar1506/preggo-pillow'}]},
-  {id:'ol',num:'02',name:'Outlens',file:'outlens.md',what:'a color-blindness helper you point at things',tag:'solo',desc:'Point your camera at any object: Outlens outlines it, estimates its color, names it and says it out loud, then recolors it so people with color blindness can tell colors apart. Includes voice commands and a pinch-to-select prototype for future smart glasses. Built solo at Hacklanta 2.',stack:'Next.js · React · TypeScript · Tailwind · Gemini · ElevenLabs · MediaPipe · WebGL',links:[{label:'live ↗',href:'https://lookslikeitworks.us/'},{label:'Devpost ↗',href:'https://devpost.com/software/outlens'},{label:'GitHub ↗',href:'https://github.com/heyyamulya/Outlens'}]},
-  {id:'ca',num:'03',name:'Cation',file:'cation.md',what:'research feed that learns what doctors want',tag:'HackGT 13',desc:"An intelligence layer for Impiricus ION: doctors get one relevant, compliance-checked research card at a time, every tap becomes engagement data, and AI picks related topics as they go. Built for the Impiricus track at HackGT 13 (team of 4).",stack:'Python · FastAPI · React · Gemini + Groq · Redis · PubMed',links:[{label:'Devpost ↗',href:'https://devpost.com/software/cation-ti32jy'},{label:'GitHub ↗',href:'https://github.com/ManjunathAnde/Cation-HackGT13'}]},
-  {id:'ph',num:'04',name:'Prompt Her',file:'prompt-her.md',what:'event site, women in AI',tag:'live',desc:'An event registration site built during CodePath, for a workshop introducing women to prompt engineering and emerging AI tools. Custom animations and a dark mode I spent a lot of time getting right.',stack:'HTML · CSS · JavaScript',links:[{label:'live site ↗',href:'https://cheerful-advising-software-798.vscodeedu.app/#resources'}]},
-  {id:'nx',num:'05',name:'Nexus',file:'nexus.md',what:'mentorship platform',tag:'hackathon',desc:'A mentorship platform connecting Hispanic users to events and mentors. Built solo at a SHPE hackathon, handling backend logic and data flow.',stack:'Python · Flask',links:[]},
-  {id:'df',num:'06',name:'Dealer of Fate',file:'dealer-of-fate.md',what:'card fortune-telling app',tag:'hackathon',desc:'A card-based fortune-telling app with input-driven traversal flow, built as a solo prototype at Hacklanta.',stack:'Python',links:[{label:'GitHub ↗',href:'https://github.com/heyyamulya/dealer-of-fate'}]},
-  {id:'nxo',num:'07',name:'Nexos',file:'nexos.fig',what:'mentorship app, designed in Figma',tag:'figma',desc:'A Figma prototype for a mentorship app, designed at VibraATL. A design-first take on the same idea as Nexus: connecting students with mentors and events.',stack:'Figma',links:[]},
-  {id:'pw',num:'08',name:"President's Wheel",file:'presidents-wheel.md',what:'a childhood game, rebuilt',tag:'complete',desc:'An interactive game with dynamic outcomes, using conditional logic and randomized decision flows. A digital take on a game I grew up playing.',stack:'HTML · JavaScript',links:[]}
+  {id:'pp',num:'01',hack:true,name:'PreggoPillow',file:'preggopillow.md',what:'AI pillow that tracks fetal movement',tag:'HackHERS 2026',desc:"An AI pillow that learns a baby's movement pattern overnight and flags the night it changes. Three accelerometers cancel out the mother's own motion, and if movement drops below her baseline two nights in a row, it calls her emergency contact and prints a report for her midwife.",stack:'Raspberry Pi · Arduino · Next.js · Go · Gemini · Presage SmartSpectra · TimescaleDB',links:[{label:'Devpost ↗',href:'https://devpost.com/software/xyz-g9satd'},{label:'GitHub ↗',href:'https://github.com/kbhatnagar1506/preggo-pillow'}]},
+  {id:'ol',num:'02',hack:true,name:'Outlens',file:'outlens.md',what:'a color-blindness helper you point at things',tag:'Hacklanta 2',desc:'Point your camera at any object: Outlens outlines it, estimates its color, names it and says it out loud, then recolors it so people with color blindness can tell colors apart. Includes voice commands and a pinch-to-select prototype for future smart glasses.',stack:'Next.js · React · TypeScript · Tailwind · Gemini · ElevenLabs · MediaPipe · WebGL',links:[{label:'live ↗',href:'https://lookslikeitworks.us/'},{label:'Devpost ↗',href:'https://devpost.com/software/outlens'},{label:'GitHub ↗',href:'https://github.com/heyyamulya/Outlens'}]},
+  {id:'ca',num:'03',hack:true,name:'Cation',file:'cation.md',what:'research feed that learns what doctors want',tag:'HackGT 13',desc:"An intelligence layer for Impiricus ION: doctors get one relevant, compliance-checked research card at a time, every tap becomes engagement data, and AI picks related topics as they go.",stack:'Python · FastAPI · React · Gemini + Groq · Redis · PubMed',links:[{label:'Devpost ↗',href:'https://devpost.com/software/cation-ti32jy'},{label:'GitHub ↗',href:'https://github.com/ManjunathAnde/Cation-HackGT13'}]},
+  {id:'ph',num:'04',hack:false,name:'Prompt Her',file:'prompt-her.md',what:'event site, women in AI',tag:'CodePath capstone',desc:'An event registration site for a workshop introducing women to prompt engineering and emerging AI tools. Custom animations and a dark mode I spent a lot of time getting right.',stack:'HTML · CSS · JavaScript',links:[{label:'live site ↗',href:'https://cheerful-advising-software-798.vscodeedu.app/#resources'}]}
 ];
 const SKILLS = [
   ['languages', [['Python','proficient'],['HTML / CSS','comfortable'],['JavaScript','comfortable'],['Java','familiar'],['SQL','familiar'],['C++','familiar'],['TypeScript','comfortable'],['R','familiar']]],
@@ -116,11 +112,15 @@ const SKILLS = [
 ];
 const DOTS = {proficient:'●●●', comfortable:'●●○', familiar:'●○○', learning:'◌'};
 const ARCHIVE = [
-  {title:'CLI Calculator', when:'2025', stack:'Python', note:'A command-line calculator with modular arithmetic functions and error handling. One of my first real programs.', stamp:'retired'},
-  {title:'amulyachidurala.me v1', when:'2026', stack:'HTML · CSS · JavaScript', note:'My first portfolio: a terminal-themed site with a zsh prompt, commit-history experience log and a skills meter.', stamp:'replaced by this one'},
-  {title:'Hindu YUVA designs', when:'2026', stack:'posters · reels · event slides', note:'Promo graphics for Garba, Durga Puja and campus events. [ADD: 2–4 images]', stamp:'design'},
-  {title:'[class project]', when:'—', stack:'[language]', note:'[One line: what it was and which course]', stamp:'add me'},
-  {title:'[older site version]', when:'—', stack:'', note:'[One line: what it looked like, and a screenshot]', stamp:'add me'}
+  {title:'Durga Puja · Hindu YUVA @ GSU', when:'fall 2026', stamp:'event', video:'assets/hinduyuva-durga-puja.mp4', poster:'assets/hinduyuva-durga-puja-poster.jpg', alt:'', note:'Our Durga Puja celebration. As Marketing & Comms Manager, I ran the promo that got everyone there: posters, social posts and reels.', stack:'Hindu YUVA @ GSU', links:[]},
+  {title:'Swaad & Swagat · our first GBM', when:'fall 2026', stamp:'event', img:'assets/hinduyuva-swaad-swagat.jpg', alt:'Hindu YUVA members presenting the Swaad and Swagat welcome slide to a room of students', note:'The first general body meeting of the year: food, chit-chat and a welcome for new members.', stack:'Hindu YUVA @ GSU', links:[]},
+  {title:'HackHERS 2026 · the win', when:'2026', stamp:'photos coming', note:'[ADD: photos from the HackHERS win]', stack:'PreggoPillow', links:[]},
+  {title:'Girls Who Code @ GSU events', when:'fall 2026', stamp:'photos coming', note:'[ADD: GWC event photos]', stack:'Girls Who Code', links:[]},
+  {title:'Nexos', when:'2026', stamp:'hackathon · SHPE', note:'A mentorship platform connecting Hispanic users to events and mentors. Built solo at a SHPE hackathon, handling backend logic and data flow.', stack:'Python · Flask · TypeScript · Figma', links:[]},
+  {title:'Dealer of Fate', when:'2026', stamp:'hackathon · Hacklanta', note:'A card-based fortune-telling app with input-driven traversal flow, built as a solo prototype.', stack:'Python', links:[{label:'GitHub ↗', href:'https://github.com/heyyamulya/dealer-of-fate'}]},
+  {title:"President's Wheel", when:'2025', stamp:'side project', note:'An interactive game with dynamic outcomes, using conditional logic and randomized decision flows. A digital take on a game I grew up playing.', stack:'HTML · JavaScript', links:[]},
+  {title:'CLI Calculator', when:'2025', stamp:'retired', note:'A command-line calculator with modular arithmetic functions and error handling. One of my first real programs.', stack:'Python', links:[]},
+  {title:'amulyachidurala.me v1', when:'2026', stamp:'replaced by this one', note:'My first portfolio: a terminal-themed site with a zsh prompt, commit-history experience log and a skills meter.', stack:'HTML · CSS · JavaScript', links:[{label:'see v1 ↗', href:'v1/'}]}
 ];
 const BUILD = {version:'BUILD_v3.1.0', date:'10.28.2026'};
 const GEMS = {
@@ -138,7 +138,7 @@ const WOOL = [
   {id:'w2', text:'how to center a div', left:'1.5%', top:'500px', rot:-3, bg:'#D7C4F2', radius:'999px'},
   {id:'w3', text:'internship apps (47)', left:'7%', top:'580px', rot:5, bg:'#B9E4C2', radius:'14px'}
 ];
-const FILE_TABS = [['education','education','#F3DDB0'],['projects','projects','#EBCB92'],['experience','experience','#F0D6A4'],['skills','skills','#E6C489'],['awards','awards & more','#EFD39C']];
+const FILE_TABS = [['education','education','#F3DDB0'],['projects','projects','#EBCB92'],['experience','experience','#F0D6A4'],['skills','skills','#E6C489'],['awards','awards','#EFD39C']];
 const EXTRA_TABS = [
   ['leetcode','leetcode daily #42','leetcode · daily challenge','  [ ] two sum (again)\n  [x] valid parentheses\n  [ ] the hard one',['streak: still alive','runtime: beats 61% (we take those)']],
   ['center','how to center a div','search: how to center a div','   +-----------+\n   |   (div)   |\n   +-----------+',['display: grid; place-items: center;','asked this 400 times. will ask again.']],
@@ -490,6 +490,10 @@ class App extends Component {
       onWheel:(e) => this.onWheel(e), overlayDown:(e) => { this.swipeStart(e); this.focusBoard(); },
       locked:s.locked, toggleLock:() => this.toggleLock(),
       pop,
+      projectGroups:[
+        {title:'BUILT AT HACKATHONS', accent:'#1F3FBF', ink:'#FFFFFF', tagBg:'#1F3FBF', tagInk:'#FFFFFF', link:'#1F3FBF', items:projects.filter(x => x.hack)},
+        {title:'OTHER PROJECTS', accent:'#B98C58', ink:'#FFFFFF', tagBg:'#FFE7A8', tagInk:'#1F1A26', link:'#8A1A2E', items:projects.filter(x => !x.hack)}
+      ],
       charmsGuest:this.charms(CHARMS_GUEST, s.mode), charmsArchive:this.charms(CHARMS_ARCHIVE, s.mode),
       wool:WOOL.map(w => Object.assign({}, this.mk(w.id, null), w, {left:w.left || 'auto', right:w.right || 'auto', tf:this.mk(w.id, null).tf + ' rotate(' + w.rot + 'deg)', bg:(w.blue && s.mode === 'night') ? '#F4F1EA' : w.bg, ink:'#2A1A1E', edge:'rgba(255,255,255,0.55)'})),
       skillGroups:SKILLS.map(([name, items]) => ({name, items:items.map(([n, level]) => ({n, level, dots:DOTS[level]}))})),
@@ -521,7 +525,7 @@ class App extends Component {
   }
   render(){
     const v = this.renderVals();
-    const {archive, armClick, armDeg, armDown, armMove, armTransition, armUp, banner, best, bgClass, bookmarks, bootDone, bootLines, build, cells, charmsArchive, charmsGuest, closeArchive, closeFile, closeGame, closeGuest, closePlayer, copyEmail, copyLabel, crate, cur, d, eqBars, extraTab, fileTabs, ftabIs, ftabLabel, gameHint, gameShadow, gameZ, gbEmail, gbName, gbSubmit, ghost, hasSel, hud, introDone, letter, lidClosed, lidOpen, lightColor, lockLabel, lockPath, lockTag, locked, newGame, nextBanner, notQuick, nowLabel, onGbEmail, onGbName, onKey, onRootLeave, onRootMove, onWheel, over, overlayDown, playing, pop, postcards, proj, projects, quick, quickLabel, ransom, rec, resetAll, rotL, rotR, score, setBoard, setPivot, setRoot, setStartBtn, showBoot, showLetter, skillGroups, skipIntro, spinState, start, stop, swipeCancel, swipeEnd, swipeStart, t, tabCount, tabIs, tabUrl, tabs, time, toggleLock, toggleQuick, visitors, vlog, wool} = v;
+    const {archive, armClick, armDeg, armDown, armMove, armTransition, armUp, banner, best, bgClass, bookmarks, bootDone, bootLines, build, cells, charmsArchive, charmsGuest, closeArchive, closeFile, closeGame, closeGuest, closePlayer, copyEmail, copyLabel, crate, cur, d, eqBars, extraTab, fileTabs, ftabIs, ftabLabel, gameHint, gameShadow, gameZ, gbEmail, gbName, gbSubmit, ghost, hasSel, hud, introDone, letter, lidClosed, lidOpen, lightColor, lockLabel, lockPath, lockTag, locked, newGame, nextBanner, notQuick, nowLabel, onGbEmail, onGbName, onKey, onRootLeave, onRootMove, onWheel, over, overlayDown, playing, pop, postcards, proj, projectGroups, projects, quick, quickLabel, ransom, rec, resetAll, rotL, rotR, score, setBoard, setPivot, setRoot, setStartBtn, showBoot, showLetter, skillGroups, skipIntro, spinState, start, stop, swipeCancel, swipeEnd, swipeStart, t, tabCount, tabIs, tabUrl, tabs, time, toggleLock, toggleQuick, visitors, vlog, wool} = v;
     const PRE_3 = PRE_3_FN(t);
     return html`<div ref=${setRoot} onPointerMove=${onRootMove} onPointerLeave=${onRootLeave} class=${bgClass} style="position: relative; min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; color: ${t.ink}; font-family: 'Syne', 'Kalam', 'Ramaraja', sans-serif; background-color: ${t.fallback}; background-attachment: fixed; transition: background-image .6s">
 <div aria-hidden="true" style="position: absolute; inset: 0; background: ${t.veil}; pointer-events: none"></div>
@@ -685,7 +689,7 @@ ${(ftabIs.education) ? html`
 <p>B.S. Computer Science · Class of 2028 · Atlanta, GA</p></div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px">
 <div style="padding: 12px; border: 1.5px dashed #1F1A26"><span style="display: block; font-family: 'Special Elite', monospace; font-size: 12px">GPA</span><span style="font-family: 'Gloock', serif; font-size: 34px">4.23</span></div>
-<div style="padding: 12px; border: 1.5px dashed #1F1A26"><span style="display: block; font-family: 'Special Elite', monospace; font-size: 12px">PRESIDENT'S LIST</span><span style="font-family: 'Gloock', serif; font-size: 34px">3×</span><span style="display: block; font-size: 12px">Fall '25 · Spring '26 · Summer '26</span></div>
+<div style="padding: 12px; border: 1.5px dashed #1F1A26"><span style="display: block; font-family: 'Special Elite', monospace; font-size: 12px">CLASS OF</span><span style="font-family: 'Gloock', serif; font-size: 34px">'28</span></div>
 <div style="padding: 12px; border: 1.5px dashed #1F1A26"><span style="display: block; font-family: 'Special Elite', monospace; font-size: 12px">YEAR</span><span style="font-family: 'Gloock', serif; font-size: 34px">Soph.</span></div>
 </div>
 <div><span style="font-family: 'Special Elite', monospace; font-size: 13px">RELEVANT COURSEWORK</span>
@@ -697,67 +701,51 @@ ${(ftabIs.education) ? html`
 <span style="padding: 4px 10px; background: #E6DAF5">Statistics & Probability</span>
 <span style="padding: 4px 10px; background: #FFD9C2">Calculus & Linear Algebra</span>
 </div></div>
-<div><span style="font-family: 'Special Elite', monospace; font-size: 13px">ALSO</span>
-<p>CodePath Web Development certificate (Jun–Aug 2026), capstone: Prompt Her.</p></div>
 <div><span style="font-family: 'Special Elite', monospace; font-size: 13px">FOCUS AREAS</span>
 <p>AI/ML · data analytics · software development · UI/UX</p></div>
 </div>
 ` : null}
 
 ${(ftabIs.projects) ? html`
-<div style="display: flex; flex-direction: column; gap: 16px">
-${(projects || []).map((p, $index) => html`
-<div style="display: flex; flex-wrap: wrap; gap: 6px 18px; padding-bottom: 14px; border-bottom: 1px dashed #8A8494">
-<span style="font-family: 'Special Elite', monospace; font-size: 13px; padding-top: 6px">No.${p.num}</span>
-<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
-<span style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px"><span style="font-family: 'Gloock', serif; font-size: 26px; line-height: 1.1">${p.name}</span><span style="padding: 1px 8px; background: #FFE7A8; font-family: 'Special Elite', monospace; font-size: 12px">${p.tag}</span></span>
+<div style="display: flex; flex-direction: column; gap: 22px">
+${(projectGroups || []).map((grp, $index) => html`
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="align-self: flex-start; padding: 3px 12px; background: ${grp.accent}; color: ${grp.ink}; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 0.06em">${grp.title}</span>
+${(grp.items || []).map((p, $index) => html`
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 0 12px 14px; border-left: 5px solid ${grp.accent}; border-bottom: 1px dashed #8A8494">
+<span style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px"><span style="font-family: 'Gloock', serif; font-size: 26px; line-height: 1.1">${p.name}</span><span style="padding: 1px 8px; background: ${grp.tagBg}; color: ${grp.tagInk}; font-family: 'Special Elite', monospace; font-size: 12px">${p.tag}</span></span>
 <span style="font-size: 15px; line-height: 1.5">${p.desc}</span>
-<span style="font-family: 'Space Mono', monospace; font-size: 12px">${p.stack}${(p.links || []).map((lk, $index) => html` · <a href=${lk.href}>${lk.label}</a>`)}</span>
+<span style="font-family: 'Space Mono', monospace; font-size: 12px">${p.stack}${(p.links || []).map((lk, $index) => html` · <a href=${lk.href} style="color: ${grp.link}">${lk.label}</a>`)}</span>
 </div>
+`)}
 </div>
 `)}
 </div>
 ` : null}
 
 ${(ftabIs.experience) ? html`
-<div style="display: flex; flex-direction: column; gap: 22px; font-size: 15px; line-height: 1.55">
-<div style="display: flex; flex-direction: column; gap: 4px">
-<span style="font-family: 'Special Elite', monospace; font-size: 13px">NOV 2025 – PRESENT</span>
-<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Student Assistant · GSU Advisement Center</h2>
-<p>• Run the front desk and phone line: checking students in for advising and answering their questions.</p>
-<p>• Schedule advising appointments and update student records in the office's computer databases.</p>
-<p>• Handled 55,000+ student inquiries with 95% positive feedback.</p>
-<p>• Keep the office running: filing, document prep and secure shredding.</p>
+<div style="display: flex; flex-direction: column; gap: 18px; font-size: 15px; line-height: 1.55">
+<span style="align-self: flex-start; padding: 3px 12px; background: #1F1A26; color: #FFFDF5; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 0.08em">WORK EXPERIENCE</span>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Special Elite', monospace; font-size: 12px; color: #5E5568">NOV 2025 – PRESENT</span><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 24px; line-height: 1.1">Student Assistant · GSU Advisement Center</h2><p>• Run the front desk and phone line: checking students in for advising and answering their questions.</p><p>• Schedule advising appointments and update student records in the office's computer databases.</p><p>• Handled 55,000+ student inquiries with 95% positive feedback.</p><p>• Keep the office running: filing, document prep and secure shredding.</p></div>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Special Elite', monospace; font-size: 12px; color: #5E5568">JUN – AUG 2025</span><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 24px; line-height: 1.1">Technical Recruiter · Teknoz Software Solutions</h2><p>• Recruited remotely for a US-based IT staffing firm, filling software development, data and cloud roles on contract (C2C / W2).</p><p>• Screened 100+ résumés and shortlisted 45+ candidates.</p><p>• Coordinated 120+ interviews and led onboarding for 45+ hires.</p></div>
+<span style="align-self: flex-start; padding: 3px 12px; background: #1F1A26; color: #FFFDF5; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 0.08em; margin-top: 6px">COMMUNITY EXPERIENCE</span>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Special Elite', monospace; font-size: 12px; color: #5E5568">FALL 2026 – PRESENT</span><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 24px; line-height: 1.1">Marketing Lead · Girls Who Code @ GSU</h2><p>• Run the chapter's social media: posts, stories and reels.</p><p>• Design flyers and graphics for meetings and workshops.</p><p>• Lead outreach to recruit new members, and help plan chapter events.</p></div>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Special Elite', monospace; font-size: 12px; color: #5E5568">JUL 2026 – PRESENT</span><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 24px; line-height: 1.1">Marketing & Communications Manager · Hindu YUVA @ GSU</h2><p>• Design the promo for our events (posters, slides and social posts), from our first GBM, Swaad & Swagat, to Durga Puja and Garba.</p><p>• Run our social media campaigns to get students in the door.</p><p>• Coordinate with volunteers and help plan campus cultural events.</p></div>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Special Elite', monospace; font-size: 12px; color: #5E5568">NOV 2025 – PRESENT</span><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 24px; line-height: 1.1">Ambassador · Student Alumni Association</h2><p>• Represent GSU's Student Alumni Association at events and outreach initiatives.</p></div>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Special Elite', monospace; font-size: 12px; color: #5E5568">2026</span><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 24px; line-height: 1.1">Member · WomenLead</h2><p>• <span style="color: #8A1A2E">[ADD: what you do with WomenLead]</span></p></div>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Special Elite', monospace; font-size: 12px; color: #5E5568">[DATES]</span><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 24px; line-height: 1.1">LEAP</h2><p>• <span style="color: #8A1A2E">[ADD: your role and what you do]</span></p></div>
+<span style="align-self: flex-start; padding: 3px 12px; background: #1F1A26; color: #FFFDF5; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 0.08em; margin-top: 6px">HACKATHONS · 6</span>
+<div style="display: flex; flex-direction: column; gap: 2px; font-family: 'Space Mono', monospace; font-size: 13px">
+<p><b>HackHERS 2026</b> · built PreggoPillow (team of 4)</p>
+<p><b>HackGT 13</b> · built Cation for the Impiricus track (team of 4)</p>
+<p><b>Hacklanta 2</b> · built Outlens (solo)</p>
+<p><b>Hacklanta</b> · built Dealer of Fate (solo)</p>
+<p><b>SHPE Hackathon</b> · built Nexos (solo)</p>
+<p><b>VibraATL</b> · designed a prototype in Figma</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 4px">
-<span style="font-family: 'Special Elite', monospace; font-size: 13px">JUN – AUG 2025</span>
-<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Technical Recruiter · Teknoz Software Solutions</h2>
-<p>• Recruited remotely for a US-based IT staffing firm, filling software development, data and cloud roles on contract (C2C / W2).</p>
-<p>• Screened 100+ résumés and shortlisted 45+ candidates.</p>
-<p>• Coordinated 120+ interviews and led onboarding for 45+ hires.</p>
-</div>
-<div style="display: flex; flex-direction: column; gap: 4px">
-<span style="font-family: 'Special Elite', monospace; font-size: 13px">2026</span>
-<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Hackathons · 6 and counting</h2>
-<p>• <b>HackHERS 2026</b>: 1st place overall + MLH Best Use of Presage, with PreggoPillow (team of 4).</p>
-<p>• <b>HackGT 13</b>: built Cation for the Impiricus track (team of 4).</p>
-<p>• <b>Hacklanta 2</b>: built Outlens solo, live at lookslikeitworks.us.</p>
-<p>• <b>Hacklanta</b>: built Dealer of Fate solo · <b>SHPE Hackathon</b>: built Nexus solo.</p>
-<p>• <b>VibraATL</b>: designed Nexos, a mentorship app prototype, in Figma.</p>
-</div>
-<div style="display: flex; flex-direction: column; gap: 4px">
-<span style="font-family: 'Special Elite', monospace; font-size: 13px">OCT 2026 – PRESENT</span>
-<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Marketing Lead · Girls Who Code @ GSU</h2>
-<p>• Run the chapter's social media: posts, stories and reels.</p>
-<p>• Design flyers and graphics for meetings and workshops.</p>
-<p>• Lead outreach to recruit new members, and help plan chapter events.</p>
-</div>
-<div style="display: flex; flex-direction: column; gap: 4px">
-<span style="font-family: 'Special Elite', monospace; font-size: 13px">VOLUNTEERING</span>
-<h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 26px; line-height: 1.1">Giving back</h2>
-<p>• <b>Trees Atlanta</b>: planted 3 trees around the city, hauling shovels and watering them in.</p>
-<p>• <b>GSU Career Closet</b> (Career Services): organized donated professional clothing and helped students find interview outfits.</p>
-</div>
+<span style="align-self: flex-start; padding: 3px 12px; background: #1F1A26; color: #FFFDF5; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 0.08em; margin-top: 6px">VOLUNTEERING</span>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Special Elite', monospace; font-size: 12px; color: #5E5568">2026</span><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 24px; line-height: 1.1">Trees Atlanta</h2><p>• Planted 3 trees around the city, hauling shovels and watering them in.</p></div>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Special Elite', monospace; font-size: 12px; color: #5E5568">2026</span><h2 style="font-family: 'Gloock', serif; font-weight: 400; font-size: 24px; line-height: 1.1">GSU Career Closet · Career Services</h2><p>• Organized donated professional clothing and helped students find interview outfits.</p></div>
 </div>
 ` : null}
 
@@ -778,19 +766,13 @@ ${(g.items || []).map((sk, $index) => html`
 ` : null}
 
 ${(ftabIs.awards) ? html`
-<div style="display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.5">
-<p><b>HackHERS 2026</b> · 1st Place Overall + MLH Best Use of Presage Technologies</p>
-<p><b>GSU Math Competition 2026</b> · 2nd place</p>
-<p><b>President's List</b> · Georgia State, 3 consecutive terms</p>
-<p><b>CodePath</b> · Web Development certificate</p>
-<p style="margin-top: 8px; font-family: 'Special Elite', monospace; font-size: 13px">LEADERSHIP & COMMUNITY</p>
-<p><b>Marketing Lead</b> · Girls Who Code @ GSU · Oct 2026–present <span style="padding: 0 6px; background: #FFE7A8; font-family: 'Special Elite', monospace; font-size: 12px">new</span></p>
-<p><b>Marketing & Communications Manager</b> · Hindu YUVA @ GSU · Jul 2026–present</p>
-<p><b>Ambassador</b> · Student Alumni Association · Nov 2025–present</p>
-<p><b>Member</b> · WomenLead</p>
-<p style="margin-top: 8px; font-family: 'Special Elite', monospace; font-size: 13px">VOLUNTEERING</p>
-<p><b>Trees Atlanta</b> · planted and watered 3 trees</p>
-<p><b>GSU Career Closet</b> · organized clothing, helped students find professional attire</p>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.5">
+<span style="align-self: flex-start; padding: 3px 12px; background: #1F1A26; color: #FFFDF5; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 0.08em">HACKATHON AWARDS</span>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 8px 0; border-bottom: 1px dashed #8A8494"><b>1st Place Overall</b><span>HackHERS 2026 · PreggoPillow</span></div><div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 8px 0; border-bottom: 1px dashed #8A8494"><b>MLH Best Use of Presage</b><span>HackHERS 2026 · PreggoPillow</span></div>
+<span style="align-self: flex-start; padding: 3px 12px; background: #1F1A26; color: #FFFDF5; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 0.08em; margin-top: 8px">ACADEMIC</span>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 8px 0; border-bottom: 1px dashed #8A8494"><b>2nd Place</b><span>GSU Math Competition 2026</span></div><div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 8px 0; border-bottom: 1px dashed #8A8494"><b>President's List × 3</b><span>Georgia State · Fall '25, Spring '26, Summer '26</span></div>
+<span style="align-self: flex-start; padding: 3px 12px; background: #1F1A26; color: #FFFDF5; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 0.08em; margin-top: 8px">CERTIFICATIONS</span>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 8px 0; border-bottom: 1px dashed #8A8494"><b>Web Development</b><span>CodePath · Jun–Aug 2026</span></div>
 </div>
 ` : null}
 
@@ -935,7 +917,7 @@ ${(tabIs.hi) ? html`
 
 
 ${(pop.archive) ? html`
-<div class="nb" style="position: fixed; left: 24px; bottom: 104px; width: 400px; max-width: calc(100vw - 48px); z-index: ${d.archive.zp}; transform: ${d.archive.tf}; padding: 10px 22px 14px 12px; box-sizing: border-box; border-radius: 14px 6px 6px 14px; background: #1E5B3A; color: #F6D58E; box-shadow: inset -10px 0 0 #14462B, inset -12px 0 0 rgba(246,213,142,0.35), 0 18px 40px rgba(0,0,0,0.45); animation: fadein .25s ease">
+<div class="nb" style="position: fixed; left: 24px; bottom: 104px; width: 440px; max-width: calc(100vw - 48px); z-index: ${d.archive.zp}; transform: ${d.archive.tf}; padding: 10px 22px 14px 12px; box-sizing: border-box; border-radius: 14px 6px 6px 14px; background: #1E5B3A; color: #F6D58E; box-shadow: inset -10px 0 0 #14462B, inset -12px 0 0 rgba(246,213,142,0.35), 0 18px 40px rgba(0,0,0,0.45); animation: fadein .25s ease">
 <div aria-hidden="true" style="position: absolute; left: calc(100% + 4px); top: 30px; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: swing 3.6s ease-in-out infinite; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35))">
 <span style="width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #E7C66A; box-sizing: border-box"></span>
 ${(charmsArchive || []).map((cm, $index) => html`<span style="width: 2px; height: ${cm.gap}; background: repeating-linear-gradient(180deg, #E7C66A 0 3px, #B8962E 3px 4px)"></span>
@@ -952,14 +934,16 @@ ${(cm.star) ? html`<svg width=${cm.size} height=${cm.size} viewBox="0 0 24 24"><
 <span style="margin-left: auto; font-family: 'Space Mono', monospace; font-size: 10px; opacity: .8" aria-hidden="true">:: drag</span>
 <button type="button" aria-label="Close archive" onPointerDown=${stop} onClick=${closeArchive} style="width: 34px; height: 34px; border: 1.5px solid #F6D58E; border-radius: 50%; background: transparent; color: #F6D58E; font-size: 14px; cursor: pointer">✕</button>
 </div>
-<div style="padding: 14px; display: flex; flex-direction: column; gap: 12px; max-height: 360px; overflow: auto; background: repeating-linear-gradient(180deg, transparent 0 25px, rgba(30,91,58,0.14) 25px 26px), #FFF9EC; color: #1F1A26; border-radius: 8px 2px 2px 8px; box-shadow: 0 2px 0 #EADFC8, 0 4px 0 #DCCFB4">
+<div style="padding: 14px; display: flex; flex-direction: column; gap: 12px; max-height: min(460px, calc(100vh - 260px)); overflow: auto; background: repeating-linear-gradient(180deg, transparent 0 25px, rgba(30,91,58,0.14) 25px 26px), #FFF9EC; color: #1F1A26; border-radius: 8px 2px 2px 8px; box-shadow: 0 2px 0 #EADFC8, 0 4px 0 #DCCFB4">
 <span style="font-family: 'Reenie Beanie', cursive; font-size: 26px; line-height: 1; color: #1E5B3A">old stuff i'm keeping around ✶</span>
 ${(archive || []).map((ar, $index) => html`
 <div style="position: relative; padding: 12px 14px; background: #FFFFFF; color: #1F1A26; border-left: 6px solid #1E5B3A; box-shadow: 0 2px 6px rgba(0,0,0,0.12); display: flex; flex-direction: column; gap: 4px">
 <span style="display: flex; justify-content: space-between; gap: 8px; font-family: 'Special Elite', monospace; font-size: 12px"><span>${ar.when}</span><span style="padding: 0 6px; border: 1.5px solid rgba(30,91,58,0.8); color: #1E5B3A; transform: rotate(-3deg)">${ar.stamp}</span></span>
 <span style="font-family: 'Gloock', serif; font-size: 20px; line-height: 1.1">${ar.title}</span>
 <span style="font-size: 13px; line-height: 1.45">${ar.note}</span>
-<span style="font-family: 'Space Mono', monospace; font-size: 11px; color: #5E5568">${ar.stack}</span>
+${(ar.video) ? html`<video src=${ar.video} poster=${ar.poster} controls=${true} playsinline=${true} preload="none" style="width: 100%; margin-top: 4px; border-radius: 4px; background: #000"></video>` : null}
+${(ar.img) ? html`<img src=${ar.img} alt=${ar.alt} loading="lazy" style="width: 100%; margin-top: 4px; border-radius: 4px; display: block" />` : null}
+<span style="font-family: 'Space Mono', monospace; font-size: 11px; color: #5E5568">${ar.stack}${(ar.links || []).map((lk, $index) => html` · <a href=${lk.href} style="color: #1E5B3A">${lk.label}</a>`)}</span>
 </div>
 `)}
 </div>
